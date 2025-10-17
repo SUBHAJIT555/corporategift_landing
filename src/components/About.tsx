@@ -87,34 +87,12 @@ const About = () => {
         </motion.div>
 
         {/* Client Logos Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{
-            duration: 0.8,
-            delay: 0.6,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          className="mb-12 md:mb-16 lg:mb-20 overflow-hidden relative"
-        >
+        <div className="mb-12 md:mb-16 lg:mb-20 overflow-hidden relative">
           <div className="relative">
-            {/* First marquee */}
-            <motion.div
-              className="flex items-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20"
-              animate={{
-                x: [0, -100 + "%"],
-              }}
-              transition={{
-                x: {
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                  repeatType: "loop",
-                },
-              }}
-            >
+            {/* Static logo display */}
+            <div className="flex items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20">
               {clientLogos.map((client, index) => (
-                <div key={`first-${index}`} className="flex-shrink-0">
+                <div key={index} className="flex-shrink-0">
                   <img
                     src={client.logo}
                     alt={client.alt}
@@ -122,35 +100,9 @@ const About = () => {
                   />
                 </div>
               ))}
-            </motion.div>
-
-            {/* Second marquee for seamless loop */}
-            <motion.div
-              className="flex items-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 absolute top-0"
-              animate={{
-                x: [100 + "%", 0],
-              }}
-              transition={{
-                x: {
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                  repeatType: "loop",
-                },
-              }}
-            >
-              {clientLogos.map((client, index) => (
-                <div key={`second-${index}`} className="flex-shrink-0">
-                  <img
-                    src={client.logo}
-                    alt={client.alt}
-                    className="h-6 sm:h-8 md:h-10 lg:h-12 xl:h-14 w-auto grayscale hover:grayscale-0 transition-all duration-500 opacity-60 hover:opacity-100"
-                  />
-                </div>
-              ))}
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Secondary About Text and CTA */}
         <motion.div
