@@ -212,18 +212,7 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Bottom Trust Text */}
-      <motion.div
-        className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center px-4 mt-10"
-        variants={fadeInUp}
-        initial="hidden"
-        animate="visible"
-        transition={{ delay: 0.8 }}
-      >
-        <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl ">
-          Over 200+ Companies Trust Baharnani for Corporate Gifts in UAE
-        </p>
-      </motion.div>
+      
     </div>
   );
 };
