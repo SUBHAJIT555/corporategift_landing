@@ -4,17 +4,23 @@ import Vision from "../components/Vision";
 import Service from "../components/Service";
 import Why from "../components/Why";
 import Product from "../components/Product";
+import Testimonial from "../components/Testimonial";
+import FAQ from "../components/FAQ";
+import Contact from "../components/Contact";
 const Home = () => {
   return (
     <div>
-        <HeroSection />
-        <About />
-        <Vision />
-        <Service />
-        <Why />
-        <Product />
+      <HeroSection />
+      <About />
+      <Product />
+      <Vision />
+      <Service />
+      <Why />
+      <FAQ />
+      <Testimonial />
+      <Contact />
     </div>
-  )
+  );
 }
 
 export default Home
