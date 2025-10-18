@@ -10,13 +10,11 @@ const MobileMenu: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigationItems = [
-    { name: "Platform", path: "/platform" },
-    { name: "Programs", path: "/programs" },
-    { name: "Simulator", path: "/simulator" },
-    { name: "Operation Centers", path: "/operation-centers" },
-    { name: "About Us", path: "/about" },
-    { name: "News & Press", path: "/news" },
-    { name: "Contact", path: "/contact" },
+    { name: "About", path: "/#about" },
+    { name: "Services", path: "/#services" },
+    { name: "Why Choose Us", path: "/#why_Choose_Us" },
+    { name: "Products", path: "/#products" },
+    { name: "Contact", path: "/#contact" },
   ];
 
   // Close mobile menu when clicking outside or on a link

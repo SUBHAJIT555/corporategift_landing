@@ -55,6 +55,7 @@ const About = () => {
     <motion.section
       ref={ref}
       className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8  relative overflow-hidden"
+      id="about"
       style={{ opacity }}
     >
       <div className="w-full mx-auto px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16">
@@ -74,6 +75,26 @@ const About = () => {
           style={{ y }}
           className="mb-12 sm:mb-14 md:mb-16"
         >
+          <motion.a
+            href="#"
+            className="inline-flex items-center text-text-primary font-medium text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-5xl group mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 1.8 }}
+            whileHover={{
+              x: 5,
+              transition: { duration: 0.3 },
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span className="relative underline underline-offset-8">
+              ABOUT US
+              <motion.span
+                className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
+                initial={{ width: 0 }}
+              />
+            </span>
+          </motion.a>
           <motion.p
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary max-w-6xl"
             initial={{ opacity: 0 }}
@@ -120,45 +141,36 @@ const About = () => {
           style={{ y: useTransform(scrollYProgress, [0, 1], [50, -50]) }}
           className="flex flex-col lg:flex-row lg:justify-end"
         >
-          <div className="max-w-3xl lg:ml-auto">
-            <motion.p
-              className="text-base sm:text-lg md:text-xl lg:text-xl leading-relaxed text-text-primary mb-6 sm:mb-8"
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.8, delay: 1.6 }}
-            >
-              At Baharnani, we specialize in creating premium corporate gifts
-              that leave a lasting impression. Our expert team combines
-              craftsmanship with innovation to deliver exceptional customized
-              products across the UAE. From elegant corporate merchandise in
-              Dubai to bespoke promotional items in Abu Dhabi and Sharjah, we
-              take pride in helping businesses strengthen their relationships
-              through thoughtfully curated gifts. Our in-house design team works
-              closely with clients to ensure each piece reflects their brand
-              identity while maintaining the highest standards of quality.
-            </motion.p>
-            <motion.a
-              href="#"
-              className="inline-flex items-center text-primary font-medium text-lg sm:text-xl md:text-2xl lg:text-3xl group"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 1.8 }}
-              whileHover={{
-
-                x: 5,
-                transition: { duration: 0.3 },
-              }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="relative">
-                (ABOUT US)
-                <motion.span
-                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
-                  initial={{ width: 0 }}
-                  
-                />
-              </span>
-            </motion.a>
+          <div className="w-full lg:ml-auto flex flex-col lg:flex-row gap-10 sm:gap-15 md:gap-20 lg:gap-30">
+            <div className="lg:w-1/2 px-5 sm:px-8 md:px-10 lg:px-12 xl:px-16">
+              <img
+                src="https://images.pexels.com/photos/167684/pexels-photo-167684.jpeg"
+                alt="About"
+                className="w-full h-[300px] lg:h-[400px] object-cover rounded-lg shadow-lg"
+              />
+            </div>
+            <div className="lg:w-1/2 flex flex-col justify-between items-start">
+              <motion.p
+                className="text-base sm:text-lg md:text-xl lg:text-xl leading-relaxed text-text-primary mb-6 sm:mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.8, delay: 1.6 }}
+              >
+                At Baharnani, we specialize in creating premium corporate gifts
+                that leave a lasting impression. Our expert team combines
+                craftsmanship with innovation to deliver exceptional customized
+                products across the UAE. From elegant corporate merchandise in
+                Dubai to bespoke promotional items in Abu Dhabi and Sharjah, we
+                take pride in helping businesses strengthen their relationships
+                through thoughtfully curated gifts. Our in-house design team
+                works closely with clients to ensure each piece reflects their
+                brand identity while maintaining the highest standards of
+                quality.
+              </motion.p>
+              <button className="px-6 sm:px-8 py-2 sm:py-3 bg-primary transition-colors duration-300 text-white rounded-lg text-sm sm:text-base md:text-lg font-poppins w-fit cursor-pointer">
+                Contact Us
+              </button>
+            </div>
           </div>
         </motion.div>
       </div>

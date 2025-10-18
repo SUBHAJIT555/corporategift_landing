@@ -186,9 +186,35 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Smooth transitions */
+/* Smooth transitions and animation optimizations */
 * {
   transition: all 0.3s ease;
+}
+
+/* Animation performance optimizations */
+.motion-element {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optimize animations for better performance */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-element {
+    will-change: transform, opacity;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-element {
+    will-change: auto;
+  }
 }
 
 /* Custom scrollbar */
@@ -201,10 +227,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(55, 58, 236, 0.3);
+  background: #3535df;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(4, 25, 212, 0.5);
+  background: #0000ff;
 }

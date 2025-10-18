@@ -18,7 +18,7 @@ const WhatCan = () => {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <div className="w-full py-10 md:py-20">
+    <div className="w-full py-10 md:py-20" id="services">
       <div className="w-full px-5 md:px-15  pb-10 md:pb-15">
         <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary tracking-tight text-text">
           We Offer You The Best Corporate Gifts{" "}

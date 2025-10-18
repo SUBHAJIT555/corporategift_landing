@@ -48,13 +48,12 @@ const Header: React.FC = () => {
   }, [lastScrollY]);
 
   const navigationItems = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/platform" },
-    { name: "Services", path: "/programs" },
-    { name: "Products", path: "/operation-centers" },
-    { name: "Products", path: "/about" },
-    { name: "Testimonials", path: "/news" },
-    { name: "Contact", path: "/contact" },
+    
+    { name: "About", path: "/#about" },
+    { name: "Services", path: "/#services" },
+    { name: "Why", path: "/#why_Choose_Us" },
+    { name: "Products", path: "/#products" },
+    { name: "Contact", path: "/#contact" },
   ];
 
   // Responsive navigation items - hide some items on smaller screens

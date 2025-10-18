@@ -16,6 +16,7 @@ const VisionMission = () => {
     <motion.section
       ref={ref}
       className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 relative overflow-hidden"
+      id="vision"
       style={{ opacity }}
     >
       <div className="w-full mx-auto px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16">
