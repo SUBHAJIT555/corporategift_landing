@@ -1,17 +1,14 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 const About = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-200px" });
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  // Parallax transforms
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+  const container = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.08 } },
+  };
 
   const clientLogos = [
     {
@@ -53,39 +50,20 @@ const About = () => {
 
   return (
     <motion.section
-      ref={ref}
       className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8  relative overflow-hidden"
       id="about"
-      style={{ opacity }}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={container}
     >
       <div className="w-full mx-auto px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16">
         {/* Primary About Text */}
-        <motion.div
-          initial={{ opacity: 0, y: 100, rotateX: 15 }}
-          animate={
-            isInView
-              ? { opacity: 1, y: 0, rotateX: 0 }
-              : { opacity: 0, y: 100, rotateX: 15 }
-          }
-          transition={{
-            duration: 1.2,
-            delay: 0.3,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          style={{ y }}
-          className="mb-12 sm:mb-14 md:mb-16"
-        >
+        <motion.div className="mb-12 sm:mb-14 md:mb-16" variants={container}>
           <motion.a
             href="#"
             className="inline-flex items-center text-text-primary font-medium text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-5xl group mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 1.8 }}
-            whileHover={{
-              x: 5,
-              transition: { duration: 0.3 },
-            }}
-            whileTap={{ scale: 0.95 }}
+            variants={fadeInUp}
           >
             <span className="relative underline underline-offset-8">
               ABOUT US
@@ -97,9 +75,7 @@ const About = () => {
           </motion.a>
           <motion.p
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary max-w-6xl"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            variants={fadeInUp}
           >
             Baharnani, a leading UAE corporate gifts supplier, serves Dubai, Abu
             Dhabi and Sharjah. We create premium customized gifts that build
@@ -127,34 +103,24 @@ const About = () => {
 
         {/* Secondary About Text and CTA */}
         <motion.div
-          initial={{ opacity: 0, x: 100, rotateY: 15 }}
-          animate={
-            isInView
-              ? { opacity: 1, x: 0, rotateY: 0 }
-              : { opacity: 0, x: 100, rotateY: 15 }
-          }
-          transition={{
-            duration: 1.2,
-            delay: 1.2,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          style={{ y: useTransform(scrollYProgress, [0, 1], [50, -50]) }}
           className="flex flex-col lg:flex-row lg:justify-end"
+          variants={container}
         >
           <div className="w-full lg:ml-auto flex flex-col lg:flex-row gap-10 sm:gap-15 md:gap-20 lg:gap-30">
-            <div className="lg:w-1/2 px-5 sm:px-8 md:px-10 lg:px-12 xl:px-16">
+            <motion.div
+              className="lg:w-1/2 px-5 sm:px-8 md:px-10 lg:px-12 xl:px-16"
+              variants={fadeInUp}
+            >
               <img
                 src="https://images.pexels.com/photos/167684/pexels-photo-167684.jpeg"
                 alt="About"
                 className="w-full h-[300px] lg:h-[400px] object-cover rounded-lg shadow-lg"
               />
-            </div>
+            </motion.div>
             <div className="lg:w-1/2 flex flex-col justify-between items-start">
               <motion.p
                 className="text-base sm:text-lg md:text-xl lg:text-xl leading-relaxed text-text-primary mb-6 sm:mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.8, delay: 1.6 }}
+                variants={fadeInUp}
               >
                 At Baharnani, we specialize in creating premium corporate gifts
                 that leave a lasting impression. Our expert team combines

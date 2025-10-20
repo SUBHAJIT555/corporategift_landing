@@ -1,218 +1,168 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { IoLogoWhatsapp } from "react-icons/io";
+import { Link } from "react-router";
 
 const HeroSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
-  // Animation variants
-  const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 60 },
-    visible: {
+  // Simple, smooth animation variants
+  const fadeIn: Variants = {
+    initial: { opacity: 0, y: 20 },
+    animate: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
+      transition: { duration: 0.6, ease: "easeOut" },
     },
   };
 
   const staggerContainer: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
+    initial: { opacity: 0 },
+    animate: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const slideInRight: Variants = {
-    hidden: { opacity: 0, x: 50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
       },
     },
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="relative min-h-screen overflow-hidden bg-gray-900"
-    >
-      {/* Animated Background with Parallax */}
-      <motion.div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          y,
-          opacity,
-        }}
-      />
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
+      {/* Clean Background */}
+      <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg')] bg-cover bg-center opacity-20" />
 
-      {/* Content Overlay */}
-      <div className="relative z-10 flex flex-col lg:flex-row min-h-screen py-20">
+      {/* Content */}
+      <div className="relative z-10 flex flex-col lg:flex-row min-h-screen items-center pt-16 sm:pt-20 md:pt-24 lg:pt-0 gap-8 lg:gap-0">
         {/* Left Section - Main Content */}
         <motion.div
-          className="w-full lg:w-1/2 flex items-center justify-center px-4 md:px-8 lg:px-12 xl:px-24 2xl:px-32"
+          className="w-full lg:w-1/2 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 py-8 sm:py-12 md:py-16 lg:py-0 order-2 lg:order-1"
           variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
+          initial="initial"
+          animate="animate"
         >
-          <div className="max-w-4xl text-white w-full">
+          <div className="max-w-3xl text-white">
             {/* Main Title */}
-            <motion.div className="mb-6 sm:mb-7 md:mb-8" variants={fadeInUp}>
-              <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-2">
-                Premium Corporate Gifts in Dubai
-              </h2>
-            </motion.div>
+            <motion.h1
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-tight mb-4 sm:mb-6"
+              variants={fadeIn}
+            >
+              Premium Corporate Gifts in Dubai
+            </motion.h1>
+
+            {/* Minimal animated divider */}
+            <motion.div
+              className="h-px w-12 sm:w-16 bg-white/30 mb-4 sm:mb-6"
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              style={{ transformOrigin: "left" }}
+            />
+
+            {/* Meta line */}
+            <motion.p
+              className="text-xs sm:text-sm uppercase tracking-wide text-gray-400 mb-3 sm:mb-4"
+              variants={fadeIn}
+            >
+              Trusted by 200+ UAE brands
+            </motion.p>
 
             {/* Subtitle */}
             <motion.p
-              className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-7 md:mb-8 text-white/90 leading-relaxed"
-              variants={fadeInUp}
+              className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-6 sm:mb-8"
+              variants={fadeIn}
             >
-              Make Every Gift Count with{" "}
-              <strong className="text-lg sm:text-xl md:text-2xl lg:text-3xl">
-                Baharnani.
-              </strong>
+              Make every gift count with{" "}
+              <span className="font-medium text-white">Baharnani</span>.
               <br className="hidden sm:block" />
               <span className="sm:hidden"> </span>
               Exclusive, high-quality, and customizable corporate gifts that
-              impress clients, delight employees, and elevate your brand image.
+              impress clients and elevate your brand.
             </motion.p>
 
-            {/* CTA Buttons */}
-            <motion.div
-              className="space-y-3 sm:space-y-4 mb-6 sm:mb-7 md:mb-8"
-              variants={fadeInUp}
-            >
-              {/* WhatsApp CTA Button */}
+            {/* WhatsApp CTA */}
+            <Link target="_blank" to="https://wa.me/971500000000">
               <motion.button
-                className="w-full sm:w-auto bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 py-3 sm:py-4 px-4 sm:px-6 rounded-lg transition-all duration-300 text-left cursor-pointer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-2 sm:gap-3 bg-white text-gray-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base w-full sm:w-auto justify-center"
+                variants={fadeIn}
               >
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <IoLogoWhatsapp className="text-xl sm:text-2xl text-green-400 flex-shrink-0" />
-                  <span className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white">
-                    Chat with us on WhatsApp for instant support & quote!
-                  </span>
-                </div>
+                <IoLogoWhatsapp className="text-lg sm:text-xl text-green-500" />
+                <span>Get instant quote on WhatsApp</span>
               </motion.button>
-            </motion.div>
+            </Link>
           </div>
         </motion.div>
 
         {/* Right Section - Quote Form */}
         <motion.div
-          className="w-full lg:w-1/2 flex items-center justify-center px-4 md:px-8 lg:px-12 xl:px-16"
-          variants={slideInRight}
-          initial="hidden"
-          animate="visible"
+          className="w-full lg:w-1/2 px-4 sm:px-6 md:px-8 lg:px-16 pb-8 sm:pb-12 md:pb-16 lg:pb-0 order-1 lg:order-2"
+          variants={fadeIn}
+          initial="initial"
+          animate="animate"
         >
-          <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-md">
-            <motion.div
-              className="bg-gray-800/40 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border border-white/20 shadow-2xl"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.h2
-                className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-5 md:mb-6 text-white"
-                variants={fadeInUp}
-                initial="hidden"
-                animate="visible"
-              >
-                GET YOUR FREE QUOTE
-              </motion.h2>
+          <div className="max-w-md mx-auto">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-white/20">
+              <h2 className="text-xl sm:text-2xl font-light text-white mb-4 sm:mb-6">
+                Get Your Free Quote
+              </h2>
 
-              <motion.form
-                className="space-y-4 sm:space-y-5 md:space-y-6"
-                variants={staggerContainer}
-                initial="hidden"
-                animate="visible"
-              >
-                <motion.div variants={fadeInUp}>
-                  <label className="block text-white text-xs sm:text-sm font-medium mb-1 sm:mb-2">
+              <form className="space-y-3 sm:space-y-4">
+                <div>
+                  <label className="block text-white text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                     Company Name*
                   </label>
                   <input
                     type="text"
-                    className="w-full bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors text-sm sm:text-base py-2 sm:py-3 px-3 sm:px-4 rounded-lg"
+                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
                     placeholder="Your company name"
                     required
                   />
-                </motion.div>
+                </div>
 
-                <motion.div variants={fadeInUp}>
-                  <label className="block text-white text-xs sm:text-sm font-medium mb-1 sm:mb-2">
+                <div>
+                  <label className="block text-white text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                     Contact Person*
                   </label>
                   <input
                     type="text"
-                    className="w-full bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors text-sm sm:text-base py-2 sm:py-3 px-3 sm:px-4 rounded-lg"
+                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
                     placeholder="Your full name"
                     required
                   />
-                </motion.div>
+                </div>
 
-                <motion.div variants={fadeInUp}>
-                  <label className="block text-white text-xs sm:text-sm font-medium mb-1 sm:mb-2">
+                <div>
+                  <label className="block text-white text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                     Phone Number*
                   </label>
                   <input
                     type="tel"
-                    className="w-full bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors text-sm sm:text-base py-2 sm:py-3 px-3 sm:px-4 rounded-lg"
+                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
                     placeholder="+971 50 000 0000"
                     required
                   />
-                </motion.div>
+                </div>
 
-                <motion.div variants={fadeInUp}>
-                  <label className="block text-white text-xs sm:text-sm font-medium mb-1 sm:mb-2">
+                <div>
+                  <label className="block text-white text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                     Email Address*
                   </label>
                   <input
                     type="email"
-                    className="w-full bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors text-sm sm:text-base py-2 sm:py-3 px-3 sm:px-4 rounded-lg"
+                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
                     placeholder="your@company.com"
                     required
                   />
-                </motion.div>
+                </div>
 
-                <motion.button
+                <button
                   type="submit"
-                  className="w-full bg-white hover:bg-gray-100 text-black font-bold py-3 sm:py-4 rounded-xl sm:rounded-full transition-colors text-sm sm:text-base"
-                  variants={fadeInUp}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="w-full bg-white text-gray-900 font-medium py-2.5 sm:py-3 rounded-lg text-sm sm:text-base"
                 >
-                  GET FREE QUOTE
-                </motion.button>
-              </motion.form>
-            </motion.div>
+                  Get Free Quote
+                </button>
+              </form>
+            </div>
           </div>
         </motion.div>
       </div>
-
-      
     </div>
   );
 };

@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
-import { FaArrowUp } from 'react-icons/fa';
+import { useState, useEffect } from "react";
+import { FaArrowUp } from "react-icons/fa";
+import { useLenisContext } from "../hooks/useLenis";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { lenis } = useLenisContext();
 
   // Show button when page is scrolled down
   const toggleVisibility = () => {
@@ -13,18 +15,23 @@ const ScrollToTop = () => {
     }
   };
 
-  // Scroll to top smoothly
+  // Scroll to top smoothly using Lenis
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    if (lenis) {
+      lenis.scrollTo(0, { duration: 1.5 });
+    } else {
+      // Fallback to native smooth scrolling
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', toggleVisibility);
+    window.addEventListener("scroll", toggleVisibility);
     return () => {
-      window.removeEventListener('scroll', toggleVisibility);
+      window.removeEventListener("scroll", toggleVisibility);
     };
   }, []);
 
@@ -40,9 +47,9 @@ const ScrollToTop = () => {
           // Desktop: larger size, more spacing
           lg:bottom-8 lg:right-8 lg:p-4
           ${
-            isVisible 
-              ? 'opacity-100 scale-100 translate-y-0' 
-              : 'opacity-0 scale-75 translate-y-2 pointer-events-none'
+            isVisible
+              ? "opacity-100 scale-100 translate-y-0"
+              : "opacity-0 scale-75 translate-y-2 pointer-events-none"
           }`}
         aria-label="Scroll to top"
       >

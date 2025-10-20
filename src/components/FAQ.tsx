@@ -71,7 +71,7 @@ const FAQ = () => {
   );
 
   return (
-    <div className="min-h-screen py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8" id="FAQ">
       <div className="w-full max-w-7xl mx-auto">
         {/* Main Title */}
         <div className="mb-8 sm:mb-12 md:mb-16">

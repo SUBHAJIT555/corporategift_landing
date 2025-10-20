@@ -3,19 +3,22 @@ import Header from "../components/Header";
 import MobileMenu from "../components/MobileMenu";
 import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
+import { LenisProvider } from "../contexts/LenisProvider";
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen">
-      <Header />
-      <MobileMenu />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-      <ScrollToTop />
-      <ScrollRestoration />
-    </div>
+    <LenisProvider>
+      <div className="min-h-screen">
+        <Header />
+        <MobileMenu />
+        <main>
+          <Outlet />
+        </main>
+        <Footer />
+        <ScrollToTop />
+        <ScrollRestoration />
+      </div>
+    </LenisProvider>
   );
 };
 
