@@ -7,17 +7,18 @@ import { LenisProvider } from "../contexts/LenisProvider";
 
 const MainLayout = () => {
   return (
-
-    <div className="min-h-screen">
-      <Header />
-      <MobileMenu />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-      <ScrollRestoration />
-    </div>
-
+    <LenisProvider>
+      <div className="min-h-screen">
+        <Header />
+        <MobileMenu />
+        <main>
+          <Outlet />
+        </main>
+        <Footer />
+        <ScrollToTop />
+        <ScrollRestoration />
+      </div>
+    </LenisProvider>
   );
 };
 
