@@ -34,18 +34,19 @@ const Product = () => {
     >
       {/* heading  */}
       <div>
-        <h3 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-light leading-tight text-text-primary mb-3 sm:mb-4 md:mb-6">
-          Our Most Popular Products
+        <h3 className="text-xl xs:text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-light leading-tight text-text-primary mb-3 sm:mb-4 md:mb-6 underline decoration-[0.5px] underline-offset-8">
+          Popular Corporate Gifts We Offer
         </h3>
         <div className="flex overflow-x-auto gap-3 mt-4 sm:mt-6 md:mt-8 scrollbar-none">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`flex-shrink-0 px-2.5 py-2 text-xs whitespace-nowrap rounded-md border ${category === selectedCategory
-                ? "bg-primary text-white border-primary"
-                : "border-text-primary/30 hover:bg-primary hover:text-white hover:border-primary"
-                } transition-all duration-300`}
+              className={`flex-shrink-0 px-2.5 py-2 text-xs whitespace-nowrap rounded-md border ${
+                category === selectedCategory
+                  ? "bg-primary text-white border-primary"
+                  : "border-text-primary/30 hover:bg-primary hover:text-white hover:border-primary"
+              } transition-all duration-300`}
             >
               {category}
             </button>

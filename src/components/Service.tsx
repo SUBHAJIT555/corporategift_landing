@@ -5,18 +5,71 @@ import { useRef, useState } from "react";
 import { Link } from "react-router";
 import CallbackModal from "./CallbackModal";
 
-const webDevelopment =
-  "https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg";
-const appDevelopment =
+const imgA = "https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg";
+const imgB =
   "https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg";
-const interactiveGameDevelopment =
-  "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg";
-const uiuxDesign =
-  "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg";
-const twoDThreeD =
+const imgC = "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg";
+const imgD = "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg";
+const imgE =
   "https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg";
-const digitalMarketing =
-  "https://images.pexels.com/photos/905163/pexels-photo-905163.jpeg";
+const imgF = "https://images.pexels.com/photos/905163/pexels-photo-905163.jpeg";
+
+const SERVICES = [
+  {
+    title: "Innovative tech gadgets",
+    description:
+      "Stay ahead with modern essentials like wireless chargers, multi-device power banks, smart trackers and desk lamps. These practical tech gifts are perfect for corporate clients, events and employee programs.",
+    image: imgA,
+  },
+  {
+    title: "Sustainable & eco-friendly gifts",
+    description:
+      "Show your commitment to sustainability with gifts made from recycled or renewable materials – solar power banks, recycled-plastic speakers, stainless-steel drinkware, organic cotton totes and plantable notebooks.",
+    image: imgB,
+  },
+  {
+    title: "Executive & luxury gifts",
+    description:
+      "For VIP clients or leadership teams, choose engraved pens, leather portfolios, premium diaries and high-end speakers. These sophisticated pieces reflect prestige and appreciation.",
+    image: imgC,
+  },
+  {
+    title: "Office & desk essentials",
+    description:
+      "Personalised notebooks, diaries, calendars, pens and desk organisers help recipients stay organised while promoting your brand. Sustainable options, such as recycled paper notebooks, are also available.",
+    image: imgD,
+  },
+  {
+    title: "Drinkware & gourmet hampers",
+    description:
+      "Reusable bottles, insulated flasks, custom coffee mugs and tumblers are practical and eco-friendly. Pair them with gourmet date boxes or snack hampers for special occasions like Ramadan or Eid.",
+    image: imgE,
+  },
+  {
+    title: "Bags & travel accessories",
+    description:
+      "From recycled-plastic laptop bags and smart backpacks to cotton totes and travel organisers, our bags offer long-term visibility and practicality.",
+    image: imgF,
+  },
+  {
+    title: "Apparel & wearable branding",
+    description:
+      "Transform recipients into brand ambassadors with customised T-shirts, polo shirts, caps and jackets. Quality materials and professional printing ensure a stylish look.",
+    image: imgA,
+  },
+  {
+    title: "Gift sets & hampers",
+    description:
+      "Curated kits combine multiple items in a beautiful package. Choose from travel kits, tech gift sets or wellness hampers to create an unforgettable unboxing experience.",
+    image: imgB,
+  },
+  {
+    title: "Promotional giveaways",
+    description:
+      "For exhibitions and trade shows, our cost-effective promotional items – tote bags, lanyards, keychains, USB drives, stress balls and notebooks – maximise brand exposure and are easy to distribute.",
+    image: imgC,
+  },
+];
 
 const WhatCan = () => {
   const ref = useRef(null);
@@ -26,384 +79,85 @@ const WhatCan = () => {
   return (
     <div className="w-full py-10 md:py-20" id="services">
       <div className="w-full px-5 md:px-15  pb-10 md:pb-15">
-        <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary tracking-tight text-text">
+        <h3 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-tight text-text-primary tracking-tight text-text underline decoration-[0.5px] underline-offset-8">
           We Offer You The Best Corporate Gifts{" "}
-          <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary">
+          <span className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-tight text-text-primary underline decoration-[0.5px] underline-offset-8">
             {" "}
             in Dubai
           </span>
         </h3>
 
-        <p className="text-lg md:text-xl lg:text-2xl font-grotesk text-text mt-5 max-w-7xl leading-relaxed">
-          Discover our premium collection of corporate gifts designed to elevate
-          your business relationships. From elegant{" "}
-          <span className="font-grotesk font-bold text-text/90 hover:text-text transition-colors">
-            luxury gift sets
-          </span>{" "}
-          to sophisticated{" "}
-          <span className="font-grotesk font-bold text-text/90 hover:text-text transition-colors">
-            branded merchandise
-          </span>{" "}
-          and exclusive{" "}
-          <span className="font-grotesk font-bold text-text/90 hover:text-text transition-colors">
-            customized awards
-          </span>
-          , we create memorable gifting experiences. Our expertise includes
-          crafting distinctive{" "}
-          <span className="font-grotesk font-bold text-text/90 hover:text-text transition-colors">
-            promotional items
-          </span>
-          , elegant{" "}
-          <span className="font-grotesk font-bold text-text/90 hover:text-text transition-colors">
-            corporate accessories
-          </span>
-          , and unique{" "}
-          <span className="font-grotesk font-bold text-text/90 hover:text-text transition-colors">
-            bespoke gift solutions
-          </span>{" "}
-          that reflect your brand's prestige. Partner with us to make lasting
-          impressions through thoughtfully curated corporate gifts that speak
-          volumes about your business values.
+        <p className="text-lg md:text-lg lg:text-xl font-grotesk text-text mt-5 max-w-7xl leading-relaxed">
+          Explore our curated categories below. A compact, alternating layout
+          keeps everything scannable while matching our visual theme.
         </p>
       </div>
-      <div className="px-5 md:px-15">
-        <div className="cards w-full flex flex-col md:flex-row gap-5 md:gap-15 mt-5 md:mt-10">
-          {/* container web development  */}
 
-          {/* Luxury Gift Sets */}
-
-          <motion.div
-            ref={ref}
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.5 }}
-            className="w-full md:w-1/2"
-          >
-            <div className="flex items-baseline gap-2">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary mb-4">
-                Luxury Gift Sets
-              </h2>
-            </div>
-            <div className="cardcontainer relative w-full h-[50vh] md:h-[75vh] overflow-hidden rounded-xl group hover:scale-95 transition-all duration-300 cursor-pointer">
-              <img
-                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:grayscale-0 grayscale"
-                src={webDevelopment}
-                alt=""
-              />
-              <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"></div>
-
-              <motion.h2
-                className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
-                initial={{ y: 100, opacity: 0 }}
-                whileHover={{ y: 0, opacity: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 15,
-                  duration: 0.5,
-                }}
+      <div ref={ref} className="flex flex-col gap-6 md:gap-10 px-5 md:px-15">
+        {SERVICES.map((item, index) => {
+          const isReversed = index % 2 === 1;
+          return (
+            <motion.section
+              key={item.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{
+                duration: 0.45,
+                delay: Math.min(index * 0.05, 0.3),
+              }}
+              className={`group w-full rounded-xl border border-highlighttext/30 overflow-hidden border-dashed transition-all duration-300`}
+            >
+              <div
+                className={`flex flex-col ${
+                  isReversed ? "md:flex-row-reverse" : "md:flex-row"
+                } items-stretch bg-highlighttext/5 md:min-h-[280px]`}
               >
-                Premium gift sets designed to impress. Our collection includes
-                elegant corporate merchandise, branded accessories, and
-                exclusive awards that reflect your brand's prestige.
-              </motion.h2>
-            </div>
-            <p className="text-lg text-text font-grotesk mt-4 md:hidden">
-              Premium gift sets designed to impress. Our collection includes
-              elegant corporate merchandise, branded accessories, and exclusive
-              awards that reflect your brand's prestige.
-            </p>
-            {/* WrapButton for mobile - shows after text */}
-            <div className="mt-4 md:hidden flex justify-start">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-primary text-white px-4 py-2 rounded-md"
-              >
-                Request Callback
-              </button>
-            </div>
-            <div className="w-full h-[1px] bg-highlighttext mt-8 md:hidden"></div>
-          </motion.div>
-
-          {/* container Branded Merchandise */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-full md:w-1/2"
-          >
-            <div className="flex items-baseline gap-2">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary mb-4">
-                Branded Merchandise
-              </h2>
-            </div>
-            <div className="cardcontainer relative w-full h-[50vh] md:h-[75vh] overflow-hidden rounded-xl group hover:scale-95 transition-all duration-300 cursor-pointer">
-              <img
-                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:grayscale-0 grayscale"
-                src={appDevelopment}
-                alt=""
-              />
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"></div>
-
-              <motion.h2
-                className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
-                initial={{ y: 100, opacity: 0 }}
-                whileHover={{ y: 0, opacity: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 15,
-                  duration: 0.5,
-                }}
-              >
-                Sophisticated branded merchandise that reflect your brand's
-                prestige. Our collection includes elegant corporate accessories,
-                and exclusive awards that reflect your brand's prestige.
-              </motion.h2>
-            </div>
-            <p className="text-lg text-text font-grotesk mt-4 md:hidden">
-              Sophisticated branded merchandise that reflect your brand's
-              prestige. Our collection includes elegant corporate accessories,
-              and exclusive awards that reflect your brand's prestige.
-            </p>
-            {/* WrapButton for mobile - shows after text */}
-            <div className="mt-4 md:hidden flex justify-start">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-primary text-white px-4 py-2 rounded-md"
-              >
-                Request Callback
-              </button>
-            </div>
-            <div className="w-full h-[1px] bg-highlighttext mt-8 md:hidden"></div>
-          </motion.div>
-        </div>
-      </div>
-
-      <div className="px-5 md:px-15">
-        <div className="cards w-full flex flex-col md:flex-row gap-5 md:gap-15 mt-5 md:mt-10">
-          {/* container Customized Awards */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="w-full md:w-1/2"
-          >
-            <div className="flex items-baseline gap-2">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary mb-4">
-                Customized Awards
-              </h2>
-            </div>
-            <div className="cardcontainer relative w-full h-[50vh] md:h-[75vh] overflow-hidden rounded-xl group hover:scale-95 transition-all duration-300 cursor-pointer">
-              <img
-                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:grayscale-0 grayscale"
-                src={interactiveGameDevelopment}
-                alt=""
-              />
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"></div>
-
-              <motion.h2
-                className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
-                initial={{ y: 100, opacity: 0 }}
-                whileHover={{ y: 0, opacity: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 15,
-                  duration: 0.5,
-                }}
-              >
-                Customized awards that reflect your brand's prestige. Our
-                collection includes exclusive awards that reflect your brand's
-                prestige.
-              </motion.h2>
-            </div>
-            <p className="text-lg text-text font-grotesk mt-4 md:hidden">
-              Customized awards that reflect your brand's prestige. Our
-              collection includes exclusive awards that reflect your brand's
-              prestige.
-            </p>
-            {/* WrapButton for mobile - shows after text */}
-            <div className="mt-4 md:hidden flex justify-start">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-primary text-white px-4 py-2 rounded-md"
-              >
-                Request Callback
-              </button>
-            </div>
-            <div className="w-full h-[1px] bg-highlighttext mt-8 md:hidden"></div>
-          </motion.div>
-
-          {/* container Promotional Items */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="w-full md:w-1/2"
-          >
-            <div className="flex items-baseline gap-2">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary mb-4">
-                Promotional Items
-              </h2>
-            </div>
-            <div className="cardcontainer relative w-full h-[50vh] md:h-[75vh] overflow-hidden rounded-xl group hover:scale-95 transition-all duration-300 cursor-pointer">
-              <img
-                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:grayscale-0 grayscale"
-                src={uiuxDesign}
-                alt="quartz project"
-              />
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"></div>
-
-              <motion.h2
-                className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
-                initial={{ y: 100, opacity: 0 }}
-                whileHover={{ y: 0, opacity: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 15,
-                  duration: 0.5,
-                }}
-              >
-                Distinctive promotional items that enhance your brand's
-                visibility. Our collection includes branded merchandise,
-                corporate accessories, and exclusive awards that reflect your
-                brand's prestige.
-              </motion.h2>
-            </div>
-            <p className="text-lg text-text font-grotesk mt-4 md:hidden">
-              Distinctive promotional items that enhance your brand's
-              visibility. Our collection includes branded merchandise, corporate
-              accessories, and exclusive awards that reflect your brand's
-              prestige.
-            </p>
-            {/* WrapButton for mobile - shows after text */}
-            <div className="mt-4 md:hidden flex justify-start">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-primary text-white px-4 py-2 rounded-md"
-              >
-                Request Callback
-              </button>
-            </div>
-            <div className="w-full h-[1px] bg-highlighttext mt-8 md:hidden"></div>
-          </motion.div>
-        </div>
-      </div>
-
-      <div className="px-5 md:px-15">
-        <div className="cards w-full flex flex-col md:flex-row gap-5 md:gap-15 mt-5 md:mt-10">
-          {/* container Corporate Accessories */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="w-full md:w-1/2"
-          >
-            <div className="flex items-baseline gap-2">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary mb-4">
-                Corporate Accessories
-              </h2>
-            </div>
-            <div className="cardcontainer relative w-full h-[50vh] md:h-[75vh] overflow-hidden rounded-xl group hover:scale-95 transition-all duration-300 cursor-pointer">
-              <img
-                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:grayscale-0 grayscale"
-                src={twoDThreeD}
-                alt=""
-              />
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"></div>
-
-              <motion.h2
-                className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
-                initial={{ y: 100, opacity: 0 }}
-                whileHover={{ y: 0, opacity: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 15,
-                  duration: 0.5,
-                }}
-              >
-                Elegant corporate accessories that reflect your brand's
-                prestige. Our collection includes branded merchandise, corporate
-                accessories, and exclusive awards that reflect your brand's
-                prestige.
-              </motion.h2>
-            </div>
-            <p className="text-lg text-text font-grotesk mt-4 md:hidden">
-              Elegant corporate accessories that reflect your brand's prestige.
-              Our collection includes branded merchandise, corporate
-              accessories, and exclusive awards that reflect your brand's
-              prestige.
-            </p>
-            {/* WrapButton for mobile - shows after text */}
-            <div className="mt-4 md:hidden flex justify-start">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-primary text-white px-4 py-2 rounded-md"
-              >
-                Request Callback
-              </button>
-            </div>
-            <div className="w-full h-[1px] bg-highlighttext mt-8 md:hidden"></div>
-          </motion.div>
-
-          {/* container Bespoke Gift Solutions */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="w-full md:w-1/2"
-          >
-            <div className="flex items-baseline gap-2">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary mb-4">
-                Bespoke Gift Solutions
-              </h2>
-            </div>
-            <div className="cardcontainer relative w-full h-[50vh] md:h-[75vh] overflow-hidden rounded-xl group hover:scale-95 transition-all duration-300 cursor-pointer">
-              <img
-                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:grayscale-0 grayscale"
-                src={digitalMarketing}
-                alt="quartz project"
-              />
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"></div>
-
-              <motion.h2
-                className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
-                initial={{ y: 100, opacity: 0 }}
-                whileHover={{ y: 0, opacity: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 15,
-                  duration: 0.5,
-                }}
-              >
-                Unique bespoke gift solutions that reflect your brand's
-                prestige. Our collection includes branded merchandise, corporate
-                accessories, and exclusive awards that reflect your brand's
-                prestige.
-              </motion.h2>
-            </div>
-            <p className="text-lg text-text font-grotesk mt-4 md:hidden">
-              Unique bespoke gift solutions that reflect your brand's prestige.
-              Our collection includes branded merchandise, corporate
-              accessories, and exclusive awards that reflect your brand's
-              prestige.
-            </p>
-            {/* WrapButton for mobile - shows after text */}
-            <div className="mt-4 md:hidden flex justify-start">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-primary text-white px-4 py-2 rounded-md"
-              >
-                Request Callback
-              </button>
-            </div>
-            <div className="w-full h-[1px] bg-highlighttext mt-8 md:hidden"></div>
-          </motion.div>
-        </div>
+                <div className="md:w-2/5 w-full h-48 md:h-64 lg:h-72 relative overflow-hidden md:flex-shrink-0">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover transition-all p-4 duration-500 grayscale group-hover:grayscale-0"
+                  />
+                  <div className="absolute inset-0" />
+                </div>
+                <div className="md:w-3/5 w-full p-5 md:p-8 flex flex-col justify-center relative md:flex-1">
+                  {/* Desktop badge (absolute) only on lg+ */}
+                  <div className="hidden lg:block absolute top-4 left-5 md:left-8">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white text-sm font-medium shadow">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  {/* Title row with badge inline on mobile & tablet */}
+                  <div className="flex items-center gap-3 mt-2 md:mt-0">
+                    <span className="lg:hidden inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white text-sm font-medium shadow shrink-0">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <h4 className="text-xl sm:text-2xl md:text-3xl font-light text-text-primary">
+                      {item.title}
+                    </h4>
+                    <span className="h-[2px] w-10 md:w-14 bg-primary/70 rounded"></span>
+                  </div>
+                  <p className="text-sm md:text-base lg:text-lg font-grotesk text-text mt-3 leading-relaxed">
+                    {item.description}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-3">
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="bg-primary text-white px-4 py-2 rounded-md text-sm md:text-base hover:opacity-90 active:opacity-80"
+                    >
+                      Request Callback
+                    </button>
+                    <Link to="/#contact">
+                      <button className="border border-primary text-primary px-4 py-2 rounded-md text-sm md:text-base hover:bg-primary/10">
+                        Contact
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.section>
+          );
+        })}
       </div>
 
       <div className="w-full flex justify-center items-center mt-10">

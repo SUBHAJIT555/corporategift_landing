@@ -12,38 +12,38 @@ const rashidAlNuaimi = "https://randomuser.me/api/portraits/men/3.jpg";
 const testimonials = [
   {
     name: "Fatima Al Mazrouei",
-    role: "CEO, Smart360",
+    role: "HR Director, Emirates Group",
     image: fatimaAlMazrouei,
     quote:
-      "Ahlan's printing quality is exceptional! They delivered our corporate materials with perfect precision and vibrant colors that truly represent our brand.",
+      "Baharnani's corporate gifts have consistently impressed our employees and clients. Their attention to detail and quality is remarkable. Special thanks to Amit for his excellent service!",
   },
   {
-    name: "Khaled Bin Saeed",
-    role: "Marketing Director, Creative Agency",
+    name: "Khaled Bin Saeed", 
+    role: "CEO, Al Futtaim Trading",
     image: khaledBinSaeed,
     quote:
-      "The printing services at Ahlan are outstanding. From business cards to large banners, everything comes out perfectly every time.",
+      "Working with Shanavas at Baharnani has been fantastic. The customized gift sets they created for our VIP clients were elegant and perfectly represented our brand values.",
   },
   {
     name: "Leila Rahman",
-    role: "Event Manager, EventPro",
+    role: "Marketing Manager, Etisalat",
     image: leilaRahman,
     quote:
-      "Ahlan's attention to detail in printing is incredible. Our event materials always look professional and eye-catching!",
+      "Baharnani delivered exceptional corporate gifts for our annual client appreciation event. The premium quality and attention to detail exceeded our expectations.",
   },
   {
     name: "Mohammed Al Falasi",
-    role: "CTO, WebApp Solutions",
+    role: "General Manager, Dubai Properties",
     image: mohammedAlFalasi,
     quote:
-      "Fast turnaround and excellent print quality. Ahlan has been our go-to printing partner for all our marketing materials.",
+      "Amit from Baharnani provided excellent guidance in selecting the perfect corporate gifts. Their eco-friendly options and premium packaging really stood out.",
   },
   {
     name: "Rashid Al Nuaimi",
-    role: "Founder, EventX",
+    role: "Director, Abu Dhabi Investment Authority",
     image: rashidAlNuaimi,
     quote:
-      "Professional printing services with creative solutions. Ahlan always delivers high-quality results that exceed expectations!",
+      "The personalized service from Shanavas and the team at Baharnani is unmatched. Their corporate gifts have helped us strengthen our business relationships significantly.",
   },
 ];
 
@@ -105,7 +105,7 @@ const Testimonial = () => {
   return (
     <section className="py-10 sm:py-16 md:py-20 bg-[#e1e1e1]">
       <div className="w-full py-10 px-8 md:px-15">
-        <h2 className="text-2xl sm:text-3xl md:text-5xl mb-4 sm:mb-5 text-gray-800 tracking-tight font-light">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-5 text-gray-800 tracking-tight font-light">
           What Our Clients Say
         </h2>
         <div className="h-px w-full bg-[#080f0f] mb-5"></div>

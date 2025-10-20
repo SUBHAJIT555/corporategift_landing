@@ -64,7 +64,7 @@ const About = () => {
         <motion.div className="mb-12 sm:mb-14 md:mb-16" variants={container}>
           <motion.a
             href="#"
-            className="inline-flex items-center text-text-primary font-medium text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-5xl group mb-6"
+            className="inline-flex items-center text-text-primary  text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl group mb-6 underline decoration-[0.5px] underline-offset-8"
             variants={fadeInUp}
           >
             <span className="relative underline underline-offset-8">
@@ -76,12 +76,10 @@ const About = () => {
             </span>
           </motion.a>
           <motion.p
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary max-w-6xl"
+            className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-tight text-text-primary max-w-6xl"
             variants={fadeInUp}
           >
-            Baharnani, a leading UAE corporate gifts supplier, serves Dubai, Abu
-            Dhabi and Sharjah. We create premium customized gifts that build
-            lasting business relationships.
+            Why Corporate Gifting Plays a Key Role in Dubai’s Business Culture.
           </motion.p>
         </motion.div>
 
@@ -92,7 +90,6 @@ const About = () => {
             <div className="flex items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20">
               {clientLogos.map((client, index) => (
                 <div key={index} className="flex-shrink-0">
-
                   <img
                     src={client.logo}
                     alt={client.alt}
@@ -125,16 +122,13 @@ const About = () => {
                 className="text-base sm:text-lg md:text-xl lg:text-xl leading-relaxed text-text-primary mb-6 sm:mb-8"
                 variants={fadeInUp}
               >
-                At Baharnani, we specialize in creating premium corporate gifts
-                that leave a lasting impression. Our expert team combines
-                craftsmanship with innovation to deliver exceptional customized
-                products across the UAE. From elegant corporate merchandise in
-                Dubai to bespoke promotional items in Abu Dhabi and Sharjah, we
-                take pride in helping businesses strengthen their relationships
-                through thoughtfully curated gifts. Our in-house design team
-                works closely with clients to ensure each piece reflects their
-                brand identity while maintaining the highest standards of
-                quality.
+                Corporate gifts aren’t just tokens; they are strategic tools. A
+                thoughtfully branded gift keeps your company at the forefront of
+                recipients’ minds, nurtures loyalty, and conveys
+                professionalism. In the UAE’s relationship-driven culture,
+                presenting the right gift shows respect and builds meaningful
+                connections. Choosing sustainable items also demonstrates that
+                your brand values the environment.
               </motion.p>
               <button className="px-6 sm:px-8 py-2 sm:py-3 bg-primary transition-colors duration-300 text-white rounded-lg text-sm sm:text-base md:text-lg font-poppins w-fit cursor-pointer">
                 Contact Us

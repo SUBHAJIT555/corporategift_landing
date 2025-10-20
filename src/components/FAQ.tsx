@@ -12,51 +12,43 @@ interface FAQItem {
 const faqData: FAQItem[] = [
   {
     id: 1,
-    question: "Who should use Corporate Gifts?",
-    answer:
-      "Corporate Gifts is perfect for businesses of all sizes looking to strengthen relationships with clients, employees, and partners. Whether you're a startup, SME, or large corporation, our premium gift solutions help you make lasting impressions and build meaningful connections.",
+    question: "What types of corporate gifts do you offer?",
+    answer: "We provide a broad range of products, including tech gadgets, eco-friendly items, luxury gifts, office supplies, drinkware, bags, apparel, gift sets and promotional giveaways. Whatever your need, we have something to suit every recipient and occasion.",
   },
   {
     id: 2,
-    question: "What is required to use Corporate Gifts?",
-    answer:
-      "You don't need anything special to use our corporate gift services. Simply browse our catalog, select your preferred items, specify quantities, and provide your branding requirements. We handle everything from customization to delivery, making the process seamless for your business.",
+    question: "Can you customise gifts with our logo?",
+    answer: "Absolutely. Our in-house team offers printing, engraving and embroidery to personalise each item with your brand colours, logo or message.",
   },
   {
     id: 3,
-    question: "Do I need to have design skills to customize gifts?",
-    answer:
-      "No design skills required! Our team of professional designers will work with you to create custom branding for your gifts. Simply provide your logo, brand guidelines, or describe your vision, and we'll bring it to life on your chosen products.",
+    question: "Do you accept bulk orders?",
+    answer: "Yes. We specialise in bulk corporate gifting for events, conferences and employee programs. Ordering in larger quantities also helps optimise costs.",
   },
   {
     id: 4,
-    question: "Do I need to have coding skills to use Corporate Gifts?",
-    answer:
-      "Absolutely not! Our platform is designed to be user-friendly and intuitive. You can browse, select, and customize gifts through our simple online interface without any technical knowledge required.",
+    question: "Do you offer eco-friendly gifts?",
+    answer: "Yes. We stock many sustainable options, such as solar-powered chargers, recycled-material tech devices, stainless-steel bottles, cotton tote bags and plantable stationery.",
   },
   {
     id: 5,
-    question: "Why should I choose Corporate Gifts over similar services?",
-    answer:
-      "We offer premium quality products, expert customization services, fast turnaround times, and exceptional customer support. Our extensive catalog includes eco-friendly options, and we work with businesses of all sizes to deliver memorable corporate gifts that truly represent your brand.",
+    question: "Where do you deliver?",
+    answer: "We deliver across the UAE, including Dubai, Abu Dhabi, Sharjah and other emirates. Our logistics network ensures timely delivery for every order.",
   },
   {
     id: 6,
-    question: "What is the minimum order quantity?",
-    answer:
-      "Our minimum order quantity varies by product, but we typically start from 25 pieces for most items. For larger orders, we offer volume discounts. Contact our team for specific minimum quantities and pricing for your chosen products.",
+    question: "How much do corporate gifts cost?",
+    answer: "Prices vary depending on the product type, quantity and level of customisation. We offer options for different budgets, from affordable promotional giveaways to premium executive gifts. Contact us for a tailored quote.",
   },
   {
     id: 7,
-    question: "How long does customization take?",
-    answer:
-      "Customization timelines depend on the complexity of your requirements and the products chosen. Simple logo applications typically take 3-5 business days, while complex custom designs may take 7-10 business days. Rush orders are available for urgent needs.",
+    question: "Do you offer discounts for bulk orders?",
+    answer: "Yes. Bulk orders typically receive volume discounts. Speak to our team to discuss pricing based on your order size and product selection.",
   },
   {
     id: 8,
-    question: "Do you offer international shipping?",
-    answer:
-      "Yes, we ship worldwide! We have partnerships with reliable shipping providers to ensure your corporate gifts reach their destination safely and on time. Shipping costs and delivery times vary by location - contact us for specific international shipping quotes.",
+    question: "Can I receive a sample or quotation before ordering?",
+    answer: "Certainly. We can provide samples or design mock-ups for your approval and supply a detailed quotation based on your chosen products and quantity.",
   },
 ];
 
@@ -71,12 +63,15 @@ const FAQ = () => {
   );
 
   return (
-    <div className="min-h-screen py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8" id="FAQ">
+    <div
+      className="min-h-screen py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8"
+      id="FAQ"
+    >
       <div className="w-full max-w-7xl mx-auto">
         {/* Main Title */}
         <div className="mb-8 sm:mb-12 md:mb-16">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-light leading-tight text-text-primary">
-            Frequently Asked Questions
+          <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-tight text-text-primary underline decoration-[0.5px] underline-offset-8">
+            Frequently Asked Questions (FAQs) on Corporate Gifts Supplier
           </h1>
         </div>
 
@@ -138,7 +133,7 @@ const FAQ = () => {
                     }}
                     className="w-full py-3 sm:py-4 flex items-center justify-between text-left focus:outline-none group"
                   >
-                    <span className="font-semibold text-black text-sm sm:text-base md:text-lg pr-4 group-hover:text-primary transition-colors duration-200">
+                    <span className={`font-semibold ${expandedItems.includes(item.id) ? 'text-primary' : 'text-black'} text-sm sm:text-base md:text-lg pr-4 group-hover:text-primary transition-colors duration-200`}>
                       {item.question}
                     </span>
                     <MdKeyboardArrowDown

@@ -30,7 +30,7 @@ const Why = () => {
               className="flex flex-col lg:col-span-2"
               variants={fadeInUp}
             >
-              <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-light leading-tight text-text-primary mb-3 sm:mb-4 md:mb-6">
+              <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-tight text-text-primary mb-3 sm:mb-4 md:mb-6 underline decoration-[0.5px] underline-offset-8">
                 Why Choose Us for Corporate Gifts?
               </h2>
             </motion.div>

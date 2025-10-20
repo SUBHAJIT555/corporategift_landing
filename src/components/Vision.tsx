@@ -36,7 +36,7 @@ const VisionMission = () => {
             <div className="space-y-4 sm:space-y-6">
               <motion.div variants={fadeInUp}>
                 <motion.h2
-                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-text-primary uppercase tracking-wide leading-tight"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-light text-text-primary uppercase tracking-wide leading-tight"
                   variants={fadeInUp}
                 >
                   VISION OF THE BRAND

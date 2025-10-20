@@ -122,7 +122,7 @@ export default function ContactForm() {
       id="contact"
       noValidate
     >
-      <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-light leading-tight text-text-primary mb-3 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10 border-b border-text-primary/30 pb-2 sm:pb-3 md:pb-4 border-dashed">
+      <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-light leading-tight text-text-primary mb-3 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10 border-b border-text-primary/30 pb-2 sm:pb-3 md:pb-4 border-dashed">
         Tell us about your corporate gift needs:
       </p>
 
@@ -162,7 +162,7 @@ export default function ContactForm() {
         {submitStatus === null && (
           <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
             {/* Name */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
+            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
               <span className="flex-shrink-0">My name is</span>
               <input
                 type="text"
@@ -175,7 +175,7 @@ export default function ContactForm() {
             </div>
 
             {/* Contact */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
+            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
               <span className="flex-shrink-0">You can contact me at</span>
               <input
                 type="tel"
@@ -194,7 +194,7 @@ export default function ContactForm() {
             </div>
 
             {/* Email */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
+            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
               <span className="flex-shrink-0">Or email me at</span>
               <input
                 type="email"
@@ -213,7 +213,7 @@ export default function ContactForm() {
             </div>
 
             {/* Requirements */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
+            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
               <span className="flex-shrink-0">My requirements are</span>
               <input
                 type="text"
@@ -228,7 +228,7 @@ export default function ContactForm() {
             </div>
 
             {/* Budget */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
+            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
               <span className="flex-shrink-0">My budget range is</span>
               <select
                 {...register("budget", { required: "Budget is required" })}
@@ -249,7 +249,7 @@ export default function ContactForm() {
             </div>
 
             {/* Additional Message */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
+            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
               <span className="flex-shrink-0">Additional message</span>
               <input
                 type="text"
