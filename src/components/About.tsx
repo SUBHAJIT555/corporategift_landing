@@ -130,7 +130,7 @@ const About = () => {
                 connections. Choosing sustainable items also demonstrates that
                 your brand values the environment.
               </motion.p>
-              <button className="px-6 sm:px-8 py-2 sm:py-3 bg-primary transition-colors duration-300 text-white rounded-lg text-sm sm:text-base md:text-lg font-poppins w-fit cursor-pointer">
+              <button className="px-6 sm:px-8 py-2 sm:py-3 bg-primary transition-colors duration-300 text-white rounded-lg text-sm sm:text-base md:text-lg font-poppins w-fit cursor-pointer font-bold">
                 Contact Us
               </button>
             </div>

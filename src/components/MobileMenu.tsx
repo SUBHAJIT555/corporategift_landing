@@ -3,6 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
 import { useMobileMenuStore } from "../store/mobileMenuStore";
 import { IoClose } from "react-icons/io5";
+import {
+  FaEnvelope,
+  FaInstagram,
+  FaLinkedinIn,
+  FaFacebookF,
+  FaPhone,
+} from "react-icons/fa";
 import CallbackModal from "./CallbackModal";
 
 const MobileMenu: React.FC = () => {
@@ -119,7 +126,7 @@ const MobileMenu: React.FC = () => {
                   transition={{ duration: 0.4, delay: 0.6 }}
                 >
                   <motion.button
-                    className="w-full  text-primary px-6 py-3 font-bwgradual text-md tracking-wider transition-all duration-200 hover:text-white"
+                    className="w-full  text-text-secondary px-6 py-3 font-bwgradual text-md tracking-wider transition-all duration-200 hover:text-white"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     animate={{
@@ -141,6 +148,63 @@ const MobileMenu: React.FC = () => {
                   >
                     Request Callback
                   </motion.button>
+                </motion.div>
+
+                {/* Call, Email and Social Links */}
+                <motion.div
+                  className="mt-8 pt-6 border-t border-white/10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.7 }}
+                >
+                  <motion.a
+                    href="tel:+919876543210"
+                    className="mb-4 flex items-center gap-3 text-white hover:text-primary transition-colors duration-200"
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <FaPhone className="w-5 h-5" />
+                    <span className="font-helvetica text-lg">
+                      +91 98765 43210
+                    </span>
+                  </motion.a>
+
+                  <motion.a
+                    href="mailto:amit@baharnani.com"
+                    className="flex items-center gap-3 text-white hover:text-primary transition-colors duration-200"
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <FaEnvelope className="w-5 h-5" />
+                    <span className="font-helvetica text-lg">
+                      amit@baharnani.com
+                    </span>
+                  </motion.a>
+
+                  <div className="mt-5 flex items-center gap-4">
+                    <motion.a
+                      href="#"
+                      className="w-11 h-11 flex items-center justify-center rounded-full text-white hover:text-primary transition-colors duration-200 border border-white/10"
+                      whileTap={{ scale: 0.95 }}
+                      aria-label="Instagram"
+                    >
+                      <FaInstagram className="w-5 h-5" />
+                    </motion.a>
+                    <motion.a
+                      href="#"
+                      className="w-11 h-11 flex items-center justify-center rounded-full text-white hover:text-primary transition-colors duration-200 border border-white/10"
+                      whileTap={{ scale: 0.95 }}
+                      aria-label="LinkedIn"
+                    >
+                      <FaLinkedinIn className="w-5 h-5" />
+                    </motion.a>
+                    <motion.a
+                      href="#"
+                      className="w-11 h-11 flex items-center justify-center rounded-full text-white hover:text-primary transition-colors duration-200 border border-white/10"
+                      whileTap={{ scale: 0.95 }}
+                      aria-label="Facebook"
+                    >
+                      <FaFacebookF className="w-5 h-5" />
+                    </motion.a>
+                  </div>
                 </motion.div>
               </div>
             </motion.div>

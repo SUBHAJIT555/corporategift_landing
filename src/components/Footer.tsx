@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import Logo from "./Logo";
 import {
   FaEnvelope,
   FaFacebookF,
@@ -10,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { BiSolidNavigation } from "react-icons/bi";
 import { Link } from "react-router";
+import darklogo from "../assets/logo/logo_dark.svg";
 
 const Footer = () => {
   const socialLinks = [
@@ -28,9 +28,12 @@ const Footer = () => {
             {/* Company Info */}
             <div className="sm:col-span-2 lg:col-span-2 mb-8 sm:mb-0">
               <div className="flex items-center space-x-3 mb-4 sm:mb-6">
-                <div className="w-28 h-7 sm:w-52 sm:h-16">
-                  <Logo />
-                </div>
+                
+                <Link to="/">
+                  <div className="w-28 h-7 sm:w-52 sm:h-16">
+                    <img src={darklogo} alt="Logo" className="w-full h-full" />
+                  </div>
+                </Link>
               </div>
               <p className="text-text-primary font-helvetica mb-4 sm:mb-6 leading-relaxed text-xl sm:text-2xl lg:max-w-[80%]">
                 One place brings you the best corporate gift ideas, by just
@@ -94,7 +97,7 @@ const Footer = () => {
 
                   { name: "Privacy Policy", path: "/privacy-policy" },
 
-                  { name: "Support", path: "mailto:hello@cyberlabs.in" },
+                  { name: "Support", path: "mailto:amit@baharnani.com" },
                 ].map((item) => (
                   <motion.li key={item.name}>
                     <Link
@@ -138,10 +141,10 @@ const Footer = () => {
                     </span>
                   </div>
                   <a
-                    href="mailto:hello@cyberlabs.in"
+                    href="mailto:amit@baharnani.com"
                     className="text-text-primary hover:text-primary transition-all duration-300 font-helvetica text-lg sm:text-xl block py-1 touch-manipulation hover:translate-x-2"
                   >
-                    hello@cyberlabs.in
+                    amit@baharnani.com
                   </a>
                 </motion.li>
 
