@@ -221,14 +221,11 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
                     className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-text-primary/20 border border-gray-600 rounded-lg text-text-primary focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer text-sm sm:text-base"
                     required
                   >
-                    <option value="Online Courses (Website)">
-                      Online Courses (Website)
-                    </option>
-                    <option value="Offline Courses">Offline Courses</option>
-                    <option value="Corporate Training">
-                      Corporate Training
-                    </option>
-                    <option value="Consultation">Consultation</option>
+                    <option value="Corporate Gifts">Corporate Gifts</option>
+                    <option value="Customized Merchandise">Customized Merchandise</option>
+                    <option value="Bulk Orders">Bulk Orders</option>
+                    <option value="Gift Consultation">Gift Consultation</option>
+                    <option value="Special Events">Special Events</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>
@@ -236,7 +233,7 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
-                  className="w-full bg-primary text-text-primary font-bold font-poppins py-2 sm:py-3 px-4 sm:px-6 rounded-lg hover:bg-primary/80 transition-colors text-lg sm:text-xl cursor-pointer"
+                  className="w-full bg-primary text-text-secondary font-bold font-poppins py-2 sm:py-3 px-4 sm:px-6 rounded-lg hover:bg-primary/80 transition-colors text-lg sm:text-xl cursor-pointer"
                   whileTap={{ scale: 0.98 }}
                 >
                   Submit

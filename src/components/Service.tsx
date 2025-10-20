@@ -1,21 +1,27 @@
 import { motion } from "framer-motion";
 
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router";
+import CallbackModal from "./CallbackModal";
 
-
-
-const webDevelopment = "https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg";
-const appDevelopment = "https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg";
-const interactiveGameDevelopment = "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg";
-const uiuxDesign = "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg";
-const twoDThreeD = "https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg";
-const digitalMarketing = "https://images.pexels.com/photos/905163/pexels-photo-905163.jpeg";
+const webDevelopment =
+  "https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg";
+const appDevelopment =
+  "https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg";
+const interactiveGameDevelopment =
+  "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg";
+const uiuxDesign =
+  "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg";
+const twoDThreeD =
+  "https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg";
+const digitalMarketing =
+  "https://images.pexels.com/photos/905163/pexels-photo-905163.jpeg";
 
 const WhatCan = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="w-full py-10 md:py-20" id="services">
@@ -85,23 +91,22 @@ const WhatCan = () => {
                 alt=""
               />
               <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"></div>
-              <Link to="/services/website-development-dubai">
-                <motion.h2
-                  className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
-                  initial={{ y: 100, opacity: 0 }}
-                  whileHover={{ y: 0, opacity: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 15,
-                    duration: 0.5,
-                  }}
-                >
-                  Premium gift sets designed to impress. Our collection includes
-                  elegant corporate merchandise, branded accessories, and
-                  exclusive awards that reflect your brand's prestige.
-                </motion.h2>
-              </Link>
+
+              <motion.h2
+                className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
+                initial={{ y: 100, opacity: 0 }}
+                whileHover={{ y: 0, opacity: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                  duration: 0.5,
+                }}
+              >
+                Premium gift sets designed to impress. Our collection includes
+                elegant corporate merchandise, branded accessories, and
+                exclusive awards that reflect your brand's prestige.
+              </motion.h2>
             </div>
             <p className="text-lg text-text font-grotesk mt-4 md:hidden">
               Premium gift sets designed to impress. Our collection includes
@@ -110,8 +115,11 @@ const WhatCan = () => {
             </p>
             {/* WrapButton for mobile - shows after text */}
             <div className="mt-4 md:hidden flex justify-start">
-              <button className="bg-primary text-white px-4 py-2 rounded-md">
-                Learn More
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-primary text-white px-4 py-2 rounded-md"
+              >
+                Request Callback
               </button>
             </div>
             <div className="w-full h-[1px] bg-highlighttext mt-8 md:hidden"></div>
@@ -125,7 +133,6 @@ const WhatCan = () => {
             className="w-full md:w-1/2"
           >
             <div className="flex items-baseline gap-2">
-              
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary mb-4">
                 Branded Merchandise
               </h2>
@@ -137,24 +144,22 @@ const WhatCan = () => {
                 alt=""
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"></div>
-              <Link to="/services/app-development">
-                <motion.h2
-                  className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
-                  initial={{ y: 100, opacity: 0 }}
-                  whileHover={{ y: 0, opacity: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 15,
-                    duration: 0.5,
-                  }}
-                >
-                  Sophisticated branded merchandise that reflect your brand's
-                  prestige. Our collection includes elegant corporate
-                  accessories, and exclusive awards that reflect your brand's
-                  prestige.
-                </motion.h2>
-              </Link>
+
+              <motion.h2
+                className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
+                initial={{ y: 100, opacity: 0 }}
+                whileHover={{ y: 0, opacity: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                  duration: 0.5,
+                }}
+              >
+                Sophisticated branded merchandise that reflect your brand's
+                prestige. Our collection includes elegant corporate accessories,
+                and exclusive awards that reflect your brand's prestige.
+              </motion.h2>
             </div>
             <p className="text-lg text-text font-grotesk mt-4 md:hidden">
               Sophisticated branded merchandise that reflect your brand's
@@ -163,8 +168,11 @@ const WhatCan = () => {
             </p>
             {/* WrapButton for mobile - shows after text */}
             <div className="mt-4 md:hidden flex justify-start">
-              <button className="bg-primary text-white px-4 py-2 rounded-md">
-                Learn More
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-primary text-white px-4 py-2 rounded-md"
+              >
+                Request Callback
               </button>
             </div>
             <div className="w-full h-[1px] bg-highlighttext mt-8 md:hidden"></div>
@@ -182,7 +190,6 @@ const WhatCan = () => {
             className="w-full md:w-1/2"
           >
             <div className="flex items-baseline gap-2">
-              
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary mb-4">
                 Customized Awards
               </h2>
@@ -194,29 +201,35 @@ const WhatCan = () => {
                 alt=""
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"></div>
-              <Link to="/services/interactive-gaming-solutions-dubai">
-                <motion.h2
-                  className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
-                  initial={{ y: 100, opacity: 0 }}
-                  whileHover={{ y: 0, opacity: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 15,
-                    duration: 0.5,
-                  }}
-                >
-                  Customized awards that reflect your brand's prestige. Our collection includes exclusive awards that reflect your brand's prestige.
-                </motion.h2>
-              </Link>
+
+              <motion.h2
+                className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
+                initial={{ y: 100, opacity: 0 }}
+                whileHover={{ y: 0, opacity: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                  duration: 0.5,
+                }}
+              >
+                Customized awards that reflect your brand's prestige. Our
+                collection includes exclusive awards that reflect your brand's
+                prestige.
+              </motion.h2>
             </div>
             <p className="text-lg text-text font-grotesk mt-4 md:hidden">
-              Customized awards that reflect your brand's prestige. Our collection includes exclusive awards that reflect your brand's prestige.
+              Customized awards that reflect your brand's prestige. Our
+              collection includes exclusive awards that reflect your brand's
+              prestige.
             </p>
             {/* WrapButton for mobile - shows after text */}
             <div className="mt-4 md:hidden flex justify-start">
-              <button className="bg-primary text-white px-4 py-2 rounded-md">
-                Learn More
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-primary text-white px-4 py-2 rounded-md"
+              >
+                Request Callback
               </button>
             </div>
             <div className="w-full h-[1px] bg-highlighttext mt-8 md:hidden"></div>
@@ -230,7 +243,6 @@ const WhatCan = () => {
             className="w-full md:w-1/2"
           >
             <div className="flex items-baseline gap-2">
-
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary mb-4">
                 Promotional Items
               </h2>
@@ -242,29 +254,37 @@ const WhatCan = () => {
                 alt="quartz project"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"></div>
-              <Link to="/services/ui-ux-designing">
-                <motion.h2
-                  className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
-                  initial={{ y: 100, opacity: 0 }}
-                  whileHover={{ y: 0, opacity: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 15,
-                    duration: 0.5,
-                  }}
-                >
-                  Distinctive promotional items that enhance your brand's visibility. Our collection includes branded merchandise, corporate accessories, and exclusive awards that reflect your brand's prestige.
-                </motion.h2>
-              </Link>
+
+              <motion.h2
+                className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
+                initial={{ y: 100, opacity: 0 }}
+                whileHover={{ y: 0, opacity: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                  duration: 0.5,
+                }}
+              >
+                Distinctive promotional items that enhance your brand's
+                visibility. Our collection includes branded merchandise,
+                corporate accessories, and exclusive awards that reflect your
+                brand's prestige.
+              </motion.h2>
             </div>
             <p className="text-lg text-text font-grotesk mt-4 md:hidden">
-              Distinctive promotional items that enhance your brand's visibility. Our collection includes branded merchandise, corporate accessories, and exclusive awards that reflect your brand's prestige.
+              Distinctive promotional items that enhance your brand's
+              visibility. Our collection includes branded merchandise, corporate
+              accessories, and exclusive awards that reflect your brand's
+              prestige.
             </p>
             {/* WrapButton for mobile - shows after text */}
             <div className="mt-4 md:hidden flex justify-start">
-              <button className="bg-primary text-white px-4 py-2 rounded-md">
-                Learn More
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-primary text-white px-4 py-2 rounded-md"
+              >
+                Request Callback
               </button>
             </div>
             <div className="w-full h-[1px] bg-highlighttext mt-8 md:hidden"></div>
@@ -282,7 +302,6 @@ const WhatCan = () => {
             className="w-full md:w-1/2"
           >
             <div className="flex items-baseline gap-2">
-              
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary mb-4">
                 Corporate Accessories
               </h2>
@@ -294,29 +313,37 @@ const WhatCan = () => {
                 alt=""
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"></div>
-              <Link to="/services/2d-graphic-designing">
-                <motion.h2
-                  className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
-                  initial={{ y: 100, opacity: 0 }}
-                  whileHover={{ y: 0, opacity: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 15,
-                    duration: 0.5,
-                  }}
-                >
-                  Elegant corporate accessories that reflect your brand's prestige. Our collection includes branded merchandise, corporate accessories, and exclusive awards that reflect your brand's prestige.
-                </motion.h2>
-              </Link>
+
+              <motion.h2
+                className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
+                initial={{ y: 100, opacity: 0 }}
+                whileHover={{ y: 0, opacity: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                  duration: 0.5,
+                }}
+              >
+                Elegant corporate accessories that reflect your brand's
+                prestige. Our collection includes branded merchandise, corporate
+                accessories, and exclusive awards that reflect your brand's
+                prestige.
+              </motion.h2>
             </div>
             <p className="text-lg text-text font-grotesk mt-4 md:hidden">
-              Elegant corporate accessories that reflect your brand's prestige. Our collection includes branded merchandise, corporate accessories, and exclusive awards that reflect your brand's prestige.
+              Elegant corporate accessories that reflect your brand's prestige.
+              Our collection includes branded merchandise, corporate
+              accessories, and exclusive awards that reflect your brand's
+              prestige.
             </p>
             {/* WrapButton for mobile - shows after text */}
             <div className="mt-4 md:hidden flex justify-start">
-              <button className="bg-primary text-white px-4 py-2 rounded-md">
-                Learn More
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-primary text-white px-4 py-2 rounded-md"
+              >
+                Request Callback
               </button>
             </div>
             <div className="w-full h-[1px] bg-highlighttext mt-8 md:hidden"></div>
@@ -330,7 +357,6 @@ const WhatCan = () => {
             className="w-full md:w-1/2"
           >
             <div className="flex items-baseline gap-2">
-              
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-text-primary mb-4">
                 Bespoke Gift Solutions
               </h2>
@@ -342,29 +368,37 @@ const WhatCan = () => {
                 alt="quartz project"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block"></div>
-              <Link to="/services/digital-marketing">
-                <motion.h2
-                  className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
-                  initial={{ y: 100, opacity: 0 }}
-                  whileHover={{ y: 0, opacity: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 15,
-                    duration: 0.5,
-                  }}
-                >
-                  Unique bespoke gift solutions that reflect your brand's prestige. Our collection includes branded merchandise, corporate accessories, and exclusive awards that reflect your brand's prestige.
-                </motion.h2>
-              </Link>
+
+              <motion.h2
+                className="px-5 absolute inset-0 items-center justify-center text-4xl md:text-5xl font-grotesk text-white leading-tight text-center hidden md:flex"
+                initial={{ y: 100, opacity: 0 }}
+                whileHover={{ y: 0, opacity: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                  duration: 0.5,
+                }}
+              >
+                Unique bespoke gift solutions that reflect your brand's
+                prestige. Our collection includes branded merchandise, corporate
+                accessories, and exclusive awards that reflect your brand's
+                prestige.
+              </motion.h2>
             </div>
             <p className="text-lg text-text font-grotesk mt-4 md:hidden">
-              Unique bespoke gift solutions that reflect your brand's prestige. Our collection includes branded merchandise, corporate accessories, and exclusive awards that reflect your brand's prestige.
+              Unique bespoke gift solutions that reflect your brand's prestige.
+              Our collection includes branded merchandise, corporate
+              accessories, and exclusive awards that reflect your brand's
+              prestige.
             </p>
             {/* WrapButton for mobile - shows after text */}
             <div className="mt-4 md:hidden flex justify-start">
-              <button className="bg-primary text-white px-4 py-2 rounded-md">
-                Learn More
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-primary text-white px-4 py-2 rounded-md"
+              >
+                Request Callback
               </button>
             </div>
             <div className="w-full h-[1px] bg-highlighttext mt-8 md:hidden"></div>
@@ -373,12 +407,18 @@ const WhatCan = () => {
       </div>
 
       <div className="w-full flex justify-center items-center mt-10">
-        <Link to="/contact-us">
+        <Link to="/#contact">
           <button className="bg-primary text-white px-6 py-3 rounded-md text-lg sm:text-xl md:text-2xl">
             Contact Us Now For More Details
           </button>
         </Link>
       </div>
+
+      {/* Callback Modal */}
+      <CallbackModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };

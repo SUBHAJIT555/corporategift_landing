@@ -1,0 +1,8 @@
+# Enable mod_rewrite
+RewriteEngine On
+
+# If the requested resource doesn't exist as a file or directory,
+# rewrite the request to /index.html so your client-side router can handle it.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /index.html [L,QSA]

@@ -50,9 +50,10 @@ const Header: React.FC = () => {
   const navigationItems = [
 
     { name: "About", path: "/#about" },
+    { name: "Products", path: "/#products" },
     { name: "Services", path: "/#services" },
     { name: "Why", path: "/#why_Choose_Us" },
-    { name: "Products", path: "/#products" },
+    {name: "FAQ", path: "/#FAQ"},
     { name: "Contact", path: "/#contact" },
   ];
 

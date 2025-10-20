@@ -7,8 +7,6 @@ import {
   FaInstagram,
   FaLinkedinIn,
   FaPhone,
-  FaTwitter,
-  FaYoutube,
 } from "react-icons/fa";
 import { BiSolidNavigation } from "react-icons/bi";
 import { Link } from "react-router";
@@ -18,8 +16,7 @@ const Footer = () => {
     { name: "Instagram", icon: <FaInstagram />, href: "#" },
     { name: "LinkedIn", icon: <FaLinkedinIn />, href: "#" },
     { name: "Facebook", icon: <FaFacebookF />, href: "#" },
-    { name: "Twitter", icon: <FaTwitter />, href: "#" },
-    { name: "Youtube", icon: <FaYoutube />, href: "#" },
+    
   ];
 
   return (
@@ -66,12 +63,12 @@ const Footer = () => {
               <ul className="space-y-2 sm:space-y-3">
                 {[
                   { name: "Home", path: "/" },
-                  { name: "Platform", path: "/platform" },
-                  { name: "Programs", path: "/programs" },
-                  { name: "Operation Centers", path: "/operation" },
-                  { name: "About Us", path: "/about" },
-                  { name: "News & Press", path: "/news" },
-                  { name: "Contact", path: "/contact" },
+                  { name: "About", path: "/#about" },
+                  { name: "Products", path: "/#products" },
+                  { name: "Services", path: "/#services" },
+                  { name: "Why Choose Us", path: "/#why_Choose_Us" },
+                  { name: "FAQ", path: "/#FAQ" },
+                  { name: "Contact", path: "/#contact" },
                 ].map((item) => (
                   <motion.li key={item.name}>
                     <Link
@@ -94,9 +91,9 @@ const Footer = () => {
               <ul className="space-y-2 sm:space-y-3">
                 {[
                   { name: "Terms & Conditions", path: "/terms-and-conditions" },
-                  { name: "Cookie Policy", path: "/cookie-policy" },
+
                   { name: "Privacy Policy", path: "/privacy-policy" },
-                  { name: "Refund Policy", path: "/refund-policy" },
+
                   { name: "Support", path: "mailto:hello@cyberlabs.in" },
                 ].map((item) => (
                   <motion.li key={item.name}>
@@ -156,14 +153,14 @@ const Footer = () => {
                     </span>
                   </div>
                   <a
-                    href="https://goo.gl/maps/your-location-link"
+                    href="https://www.google.com/maps/place/Baharnani+Advertising+LLC/@25.1626598,55.2318626,17z/data=!3m1!4b1!4m6!3m5!1s0x3e5f69c4ae8eb43b:0x34670daac58a6f22!8m2!3d25.162655!4d55.2344375!16s%2Fg%2F11f66tl53w?entry=ttu&g_ep=EgoyMDI1MTAxNC4wIKXMDSoASAFQAw%3D%3D"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-text-primary hover:text-primary transition-all duration-300 font-helvetica text-lg sm:text-xl block py-1 touch-manipulation hover:translate-x-2"
                   >
-                    123 Cyber Street, Tech Park,
+                    Baharnani Advertising LLC,
                     <br />
-                    Bangalore - 560001
+                    Sheikh Zayed Road – Dubai
                   </a>
                 </motion.li>
               </ul>
@@ -182,11 +179,11 @@ const Footer = () => {
               >
                 &copy; {new Date().getFullYear()} {"{"}{" "}
                 <Link
-                  to="https://www.cyberlabs-india.com"
+                  to="https://baharnani.com/"
                   target="_blank"
                   className="text-text-primary font-bwgradual hover:text-primary transition-colors duration-300"
                 >
-                  {` cyberslabs india `}
+                  {` Baharnani Advertising LLC `}
                 </Link>{" "}
                 {"}"} All rights reserved. Made with{" "}
                 <motion.span
