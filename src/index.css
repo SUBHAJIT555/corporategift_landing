@@ -234,3 +234,11 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #0000ff;
 }
+
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

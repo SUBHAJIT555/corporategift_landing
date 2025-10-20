@@ -1,5 +1,6 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const About = () => {
   const ref = useRef(null);
@@ -114,7 +115,8 @@ const About = () => {
             <div className="flex items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20">
               {clientLogos.map((client, index) => (
                 <div key={index} className="flex-shrink-0">
-                  <img
+                  <LazyLoadImage
+                    <img
                     src={client.logo}
                     alt={client.alt}
                     className="h-6 sm:h-8 md:h-10 lg:h-12 xl:h-14 w-auto grayscale hover:grayscale-0 transition-all duration-500 opacity-60 hover:opacity-100"

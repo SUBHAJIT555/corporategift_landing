@@ -5,17 +5,17 @@ import Footer from "../components/Footer";
 
 const MainLayout = () => {
   return (
- 
-      <div className="min-h-screen">
-        <Header />
-        <MobileMenu />
-        <main>
-          <Outlet />
-        </main>
-        <Footer />
-        <ScrollRestoration />
-      </div>
-    
+
+    <div className="min-h-screen">
+      <Header />
+      <MobileMenu />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+      <ScrollRestoration />
+    </div>
+
   );
 };
 

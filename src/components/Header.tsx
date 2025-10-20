@@ -48,7 +48,7 @@ const Header: React.FC = () => {
   }, [lastScrollY]);
 
   const navigationItems = [
-    
+
     { name: "About", path: "/#about" },
     { name: "Services", path: "/#services" },
     { name: "Why", path: "/#why_Choose_Us" },
@@ -78,9 +78,8 @@ const Header: React.FC = () => {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-black/20 backdrop-blur-sm" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-black/20 backdrop-blur-sm" : "bg-transparent"
+        }`}
       initial={{ y: -100 }}
       animate={{
         y: isVisible ? 0 : -100,
@@ -103,10 +102,10 @@ const Header: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            {/* CYBERLABS Text */}
             <Link to="/">
               <motion.div
-                className="w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40 2xl:w-44 h-full relative"
+                className=""
+                // className="w-24 sm:w-28 md:w-32 lg:w-36 xl:w-40 2xl:w-44 h-full relative"
                 style={{ fontFamily: "var(--font-bwgradual)" }}
               >
                 <Logo />
@@ -140,9 +139,8 @@ const Header: React.FC = () => {
                   }}
                 >
                   <span
-                    className={`block ${
-                      isActive(item.path) ? "text-primary" : ""
-                    }`}
+                    className={`block ${isActive(item.path) ? "text-primary" : ""
+                      }`}
                   >
                     {item.name}
                   </span>

@@ -68,7 +68,7 @@ const HeroSection = () => {
       />
 
       {/* Content Overlay */}
-      <div className="relative z-10 flex flex-col lg:flex-row min-h-screen py-20">
+      <div className="relative z-10 flex flex-col lg:flex-row min-h-screen pt-18 pb-20">
         {/* Left Section - Main Content */}
         <motion.div
           className="w-full lg:w-1/2 flex items-center justify-center px-4 md:px-8 lg:px-12 xl:px-24 2xl:px-32"
@@ -214,7 +214,7 @@ const HeroSection = () => {
 
       {/* Bottom Trust Text */}
       <motion.div
-        className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center px-4 mt-10"
+        className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center px-4 mt-10 w-full"
         variants={fadeInUp}
         initial="hidden"
         animate="visible"

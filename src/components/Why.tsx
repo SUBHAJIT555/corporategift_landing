@@ -92,7 +92,7 @@ const Why = () => {
   return (
     <div>
       <div className="w-full px-3 sm:px-5 md:px-15 pb-6 sm:pb-10 md:pb-15" id="why_Choose_Us">
-        <div className="w-full py-6 sm:py-10 md:py-20 px-3 sm:px-5 md:px-15">
+        <div className="w-full py-6 sm:py-10 md:py-20 px-3 sm:px-5 md:px-15 overflow-hidden">
           {/* heading section start */}
           <motion.div
             className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 motion-element"
@@ -113,7 +113,7 @@ const Why = () => {
 
             {/* Right side */}
             <motion.div
-              className="flex lg:col-span-1"
+              className="flex lg:col-span-1 "
               variants={rightToLeftVariants}
             >
               <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-poppins text-text-primary leading-relaxed">
@@ -202,7 +202,7 @@ const Why = () => {
                   className="w-full h-full object-cover opacity-60"
                 />
               </div>
-              <div className="relative z-10 flex flex-col justify-between h-full">
+              <div className="relative z-10 flex flex-col justify-between h-full overflow-hidden">
                 <motion.h3
                   className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-text-secondary mb-2 sm:mb-3 md:mb-4"
                   initial={{ opacity: 0, y: -20 }}
@@ -340,7 +340,7 @@ const Why = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
                   viewport={{ once: false, margin: "-20px" }}
-                  
+
                   whileTap={{ scale: 0.95 }}
                 >
                   Contact Us

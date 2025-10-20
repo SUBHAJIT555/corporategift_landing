@@ -15,9 +15,8 @@ const Product = () => {
     return Array.from({ length: 5 }, (_, index) => (
       <span
         key={index}
-        className={`text-sm ${
-          index < rating ? "text-primary" : "text-gray-300"
-        }`}
+        className={`text-sm ${index < rating ? "text-primary" : "text-gray-300"
+          }`}
       >
         ★
       </span>
@@ -38,23 +37,36 @@ const Product = () => {
         <h3 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-light leading-tight text-text-primary mb-3 sm:mb-4 md:mb-6">
           Our Most Popular Products
         </h3>
-
-        <div className="hidden lg:flex justify-start gap-3 mt-4 sm:mt-6 md:mt-8">
-          {/* Category buttons */}
+        <div className="flex overflow-x-auto gap-3 mt-4 sm:mt-6 md:mt-8 scrollbar-none">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-3 py-2 text-sm whitespace-nowrap rounded-md border ${
-                category === selectedCategory
-                  ? "bg-primary text-white border-primary"
-                  : "border-text-primary/30 hover:bg-primary hover:text-white hover:border-primary"
-              } transition-all duration-300`}
+              className={`flex-shrink-0 px-2.5 py-2 text-xs whitespace-nowrap rounded-md border ${category === selectedCategory
+                ? "bg-primary text-white border-primary"
+                : "border-text-primary/30 hover:bg-primary hover:text-white hover:border-primary"
+                } transition-all duration-300`}
             >
               {category}
             </button>
           ))}
         </div>
+
+        {/* <div className="hidden lg:flex justify-start gap-3 mt-4 sm:mt-6 md:mt-8">
+          
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-3 py-2 text-sm whitespace-nowrap rounded-md border ${category === selectedCategory
+                ? "bg-primary text-white border-primary"
+                : "border-text-primary/30 hover:bg-primary hover:text-white hover:border-primary"
+                } transition-all duration-300`}
+            >
+              {category}
+            </button>
+          ))}
+        </div> */}
 
         {/* Mobile Category Filter */}
         <div className="lg:hidden mt-4 sm:mt-6 md:mt-8">
