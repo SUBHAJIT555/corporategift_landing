@@ -33,8 +33,10 @@ export const LenisProvider = ({ children }: LenisProviderProps) => {
   }, []);
 
   return (
-    <LenisContext.Provider value={{ lenis: lenisRef.current }}>
-      {children}
-    </LenisContext.Provider>
+    <React.Fragment>
+      <LenisContext.Provider value={{ lenis: lenisRef.current }}>
+        {children}
+      </LenisContext.Provider>
+    </React.Fragment>
   );
 };

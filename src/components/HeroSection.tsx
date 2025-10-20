@@ -35,7 +35,7 @@ const HeroSection = () => {
       <div className="relative z-10 flex flex-col lg:flex-row min-h-screen items-center pt-16 sm:pt-20 md:pt-24 lg:pt-0 gap-8 lg:gap-0">
         {/* Left Section - Main Content */}
         <motion.div
-          className="w-full lg:w-1/2 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 py-8 sm:py-12 md:py-16 lg:py-0 order-2 lg:order-1"
+          className="w-full lg:w-1/2 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 py-8 sm:py-12 md:py-16 lg:py-0 order-1 lg:order-1"
           variants={staggerContainer}
           initial="initial"
           animate="animate"
@@ -94,7 +94,7 @@ const HeroSection = () => {
 
         {/* Right Section - Quote Form */}
         <motion.div
-          className="w-full lg:w-1/2 px-4 sm:px-6 md:px-8 lg:px-16 pb-8 sm:pb-12 md:pb-16 lg:pb-0 order-1 lg:order-2"
+          className="w-full lg:w-1/2 px-4 sm:px-6 md:px-8 lg:px-16 pb-8 sm:pb-12 md:pb-16 lg:pb-0 order-2 lg:order-2"
           variants={fadeIn}
           initial="initial"
           animate="animate"
