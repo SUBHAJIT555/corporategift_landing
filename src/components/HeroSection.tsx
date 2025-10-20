@@ -46,12 +46,12 @@ const HeroSection = () => {
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-tight mb-4 sm:mb-6"
               variants={fadeIn}
             >
-              Premium Corporate Gifts in Dubai
+              Get Premium Corporate Gifts in Dubai & Abu Dhabi, UAE
             </motion.h1>
 
             {/* Minimal animated divider */}
             <motion.div
-              className="h-px w-12 sm:w-16 bg-white/30 mb-4 sm:mb-6"
+              className="h-px w-12 sm:w-16 bg-text-secondary mb-4 sm:mb-6"
               initial={{ scaleX: 0, opacity: 0 }}
               animate={{ scaleX: 1, opacity: 1 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
@@ -60,7 +60,7 @@ const HeroSection = () => {
 
             {/* Meta line */}
             <motion.p
-              className="text-xs sm:text-sm uppercase tracking-wide text-gray-400 mb-3 sm:mb-4"
+              className="text-xs sm:text-sm uppercase tracking-wide text-gray-200 mb-3 sm:mb-4"
               variants={fadeIn}
             >
               Trusted by 200+ UAE brands
@@ -71,12 +71,12 @@ const HeroSection = () => {
               className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-6 sm:mb-8"
               variants={fadeIn}
             >
-              Make every gift count with{" "}
-              <span className="font-medium text-white">Baharnani</span>.
-              <br className="hidden sm:block" />
-              <span className="sm:hidden"> </span>
-              Exclusive, high-quality, and customizable corporate gifts that
-              impress clients and elevate your brand.
+              At <strong className="text-white">Baharnani </strong>Corporate
+              Gifts Dubai, we specialize in premium corporate gifts and
+              promotional items that help your business make a statement across
+              Dubai, Abu Dhabi, and the wider UAE. Our customized gifts,
+              eco-friendly giveaways, and luxury sets are crafted to impress
+              clients, reward employees, and strengthen your brand presence.
             </motion.p>
 
             {/* WhatsApp CTA */}
@@ -156,7 +156,7 @@ const HeroSection = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-white text-gray-900 font-medium py-2.5 sm:py-3 rounded-lg text-sm sm:text-base"
+                  className="w-full bg-white text-gray-900 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-bold cursor-pointer hover:bg-primary hover:text-text-secondary transition-all ease-in-out duration-300"
                 >
                   Get Free Quote
                 </button>

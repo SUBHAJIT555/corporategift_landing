@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
-
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router";
 import CallbackModal from "./CallbackModal";
 
@@ -72,8 +70,7 @@ const SERVICES = [
 ];
 
 const WhatCan = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  // Scroll-triggered animations handled per-section via whileInView
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -93,14 +90,15 @@ const WhatCan = () => {
         </p>
       </div>
 
-      <div ref={ref} className="flex flex-col gap-6 md:gap-10 px-5 md:px-15">
+      <div className="flex flex-col gap-6 md:gap-10 px-5 md:px-15">
         {SERVICES.map((item, index) => {
           const isReversed = index % 2 === 1;
           return (
             <motion.section
               key={item.title}
               initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{
                 duration: 0.45,
                 delay: Math.min(index * 0.05, 0.3),
@@ -112,15 +110,27 @@ const WhatCan = () => {
                   isReversed ? "md:flex-row-reverse" : "md:flex-row"
                 } items-stretch bg-highlighttext/5 md:min-h-[280px]`}
               >
-                <div className="md:w-2/5 w-full h-48 md:h-64 lg:h-72 relative overflow-hidden md:flex-shrink-0">
+                <motion.div
+                  className="md:w-2/5 w-full h-48 md:h-64 lg:h-72 relative overflow-hidden md:flex-shrink-0"
+                  initial={{ x: -60, opacity: 0 }}
+                  whileInView={{ x: 0, opacity: 1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                >
                   <img
                     src={item.image}
                     alt={item.title}
                     className="w-full h-full object-cover transition-all p-4 duration-500 grayscale group-hover:grayscale-0"
                   />
                   <div className="absolute inset-0" />
-                </div>
-                <div className="md:w-3/5 w-full p-5 md:p-8 flex flex-col justify-center relative md:flex-1">
+                </motion.div>
+                <motion.div
+                  className="md:w-3/5 w-full p-5 md:p-8 flex flex-col justify-center relative md:flex-1"
+                  initial={{ x: 60, opacity: 0 }}
+                  whileInView={{ x: 0, opacity: 1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.05 }}
+                >
                   {/* Desktop badge (absolute) only on lg+ */}
                   <div className="hidden lg:block absolute top-4 left-5 md:left-8">
                     <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white text-sm font-medium shadow">
@@ -132,7 +142,7 @@ const WhatCan = () => {
                     <span className="lg:hidden inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white text-sm font-medium shadow shrink-0">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <h4 className="text-xl sm:text-2xl md:text-3xl font-light text-text-primary">
+                    <h4 className="text-xl sm:text-2xl md:text-3xl font-light text-text-primary capitalize">
                       {item.title}
                     </h4>
                     <span className="h-[2px] w-10 md:w-14 bg-primary/70 rounded"></span>
@@ -143,17 +153,17 @@ const WhatCan = () => {
                   <div className="mt-5 flex flex-wrap gap-3">
                     <button
                       onClick={() => setIsModalOpen(true)}
-                      className="bg-primary text-white px-4 py-2 rounded-md text-sm md:text-base hover:opacity-90 active:opacity-80"
+                      className="bg-primary text-white px-4 py-2 rounded-md text-sm md:text-base hover:opacity-90 active:opacity-80 cursor-pointer hover:bg-primary/90"
                     >
                       Request Callback
                     </button>
                     <Link to="/#contact">
-                      <button className="border border-primary text-primary px-4 py-2 rounded-md text-sm md:text-base hover:bg-primary/10">
+                      <button className="border border-primary text-primary px-4 py-2 rounded-md text-sm md:text-base hover:bg-primary/10 cursor-pointer">
                         Contact
                       </button>
                     </Link>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </motion.section>
           );

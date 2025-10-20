@@ -30,18 +30,20 @@ const Why = () => {
               className="flex flex-col lg:col-span-2"
               variants={fadeInUp}
             >
-              <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-tight text-text-primary mb-3 sm:mb-4 md:mb-6 underline decoration-[0.5px] underline-offset-8">
-                Why Choose Us for Corporate Gifts?
+              <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-tight text-text-primary mb-3 sm:mb-4 md:mb-6 underline decoration-[0.5px] underline-offset-8 capitalize">
+                Parter with us for corporate gifting needs
               </h2>
             </motion.div>
 
             {/* Right side */}
             <motion.div className="flex lg:col-span-1" variants={fadeInUp}>
-              <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-poppins text-text-primary leading-relaxed">
-                Experience excellence in corporate gifting with our premium
-                customized products, exceptional service, and innovative
-                solutions that help strengthen your business relationships and
-                enhance your brand presence.
+              <p className="text-sm xs:text-base sm:text-lg md:text-lg lg:text-xl font-poppins text-text-primary leading-relaxed">
+                Our team supports custom gift offerings for all organizations
+                across sectors—corporate offices, SMEs, hospitality, education,
+                real estate, and healthcare. Whether you require hundreds of
+                promotional giveaways or bespoke executive gifts, we help you
+                select, customize, and deliver products that match your brand
+                values and budge
               </p>
             </motion.div>
           </motion.div>
@@ -65,11 +67,10 @@ const Why = () => {
                   variants={fadeInUp}
                 >
                   <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-[#6B7A61] mb-2 sm:mb-3 md:mb-4">
-                    Premium Quality
+                    Extensive Catalogue
                   </h3>
                   <p className="text-sm xs:text-base sm:text-lg text-[#6B7A61]">
-                    We craft premium corporate gifts using the finest materials
-                    and expert artisans.
+                    Hundreds of products from tech gadgets to sustainable items.
                   </p>
                 </motion.div>
 
@@ -78,11 +79,10 @@ const Why = () => {
                   variants={fadeInUp}
                 >
                   <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-[#858168] mb-2 sm:mb-3 md:mb-4">
-                    Innovation
+                    Expert Customisation
                   </h3>
                   <p className="text-sm xs:text-base sm:text-lg text-[#858168]">
-                    We combine traditional craftsmanship with modern design to
-                    create unique and innovative corporate gifts.
+                    In-house design and printing for flawless logo placement.
                   </p>
                 </motion.div>
 
@@ -91,11 +91,11 @@ const Why = () => {
                   variants={fadeInUp}
                 >
                   <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-[#756f49] mb-2 sm:mb-3 md:mb-4">
-                    Reliability
+                    Quality Assurance
                   </h3>
                   <p className="text-sm xs:text-base sm:text-lg text-[#756f49]">
-                    Count on us for timely delivery and consistent quality
-                    across all your corporate gifting needs.
+                    Premium materials and reliable suppliers ensure durability
+                    and functionality.
                   </p>
                 </motion.div>
               </div>
@@ -119,15 +119,14 @@ const Why = () => {
                   className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-text-secondary mb-2 sm:mb-3 md:mb-4"
                   variants={fadeInUp}
                 >
-                  Customization
+                  Nationwide Delivery
                 </motion.h3>
                 <motion.p
                   className="text-sm xs:text-base sm:text-lg md:text-xl font-poppins font-semibold text-text-secondary bg-black/30 p-3 sm:p-4 rounded-2xl backdrop-blur-sm"
                   variants={fadeInUp}
                 >
-                  We offer extensive customization options to perfectly align
-                  your corporate gifts with your brand identity and specific
-                  requirements.
+                  Fast and reliable shipping across Dubai, Abu Dhabi and other
+                  emirates.
                 </motion.p>
               </div>
             </motion.div>
@@ -149,17 +148,17 @@ const Why = () => {
                   </div>
                   <div className="relative z-10 flex flex-col justify-between h-full">
                     <motion.h3
-                      className="text-sm xs:text-base sm:text-lg md:text-xl font-light text-text-secondary mb-2 sm:mb-3 md:mb-4 bg-black/30 px-2 rounded-md backdrop-blur-sm w-fit"
+                      className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-text-secondary mb-2 sm:mb-3 md:mb-4"
                       variants={fadeInUp}
                     >
-                      Eco-System
+                      Sustainability Focus
                     </motion.h3>
                     <motion.p
-                      className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-poppins font-semibold text-text-primary"
+                      className="text-sm xs:text-base sm:text-lg md:text-xl font-poppins font-semibold text-text-secondary bg-black/30 p-3 sm:p-4 rounded-2xl backdrop-blur-sm"
                       variants={fadeInUp}
                     >
-                      Expert Support
-                      <br /> & Instant Action
+                      Many eco-friendly choices to support your green
+                      initiatives.
                     </motion.p>
                   </div>
                 </div>
@@ -174,16 +173,17 @@ const Why = () => {
                   </div>
                   <div className="relative z-10 flex flex-col justify-between h-full">
                     <motion.h3
-                      className="text-sm xs:text-base sm:text-lg md:text-xl font-light text-text-secondary mb-2 sm:mb-3 md:mb-4 bg-black/30 px-2 rounded-md backdrop-blur-sm w-fit"
+                      className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-text-secondary mb-2 sm:mb-3 md:mb-4"
                       variants={fadeInUp}
                     >
-                      Global Reach
+                      Dedicated Support
                     </motion.h3>
                     <motion.p
-                      className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-poppins font-semibold text-text-primary"
+                      className="text-sm xs:text-base sm:text-lg md:text-xl font-poppins font-semibold text-text-secondary bg-black/30 p-3 sm:p-4 rounded-2xl backdrop-blur-sm"
                       variants={fadeInUp}
                     >
-                      Global Reach
+                      Our experienced team provides personalized assistance at
+                      every step — from product selection to final delivery.
                     </motion.p>
                   </div>
                 </div>
@@ -211,23 +211,22 @@ const Why = () => {
                   className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl font-light text-[#6B7A61]"
                   variants={fadeInUp}
                 >
-                  Make Everyday <br /> Sustainable, Beautiful, <br /> and Simple
+                  Ready to <br /> Elevate <br /> Your Brand?
                 </motion.h3>
                 <motion.p
                   className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-poppins text-[#6B7A61]"
                   variants={fadeInUp}
                 >
-                  From concept to delivery, we ensure a seamless experience. Our
-                  team works closely with you to understand your requirements,
-                  develop custom solutions, and deliver exceptional corporate
-                  gifts that make a lasting impression.
+                  Get in touch to discuss your corporate gifting needs. Our
+                  experts will recommend gifts that fit your goals, resonate
+                  with your audience and reinforce your brand identity.
                 </motion.p>
                 <motion.button
-                  className="px-6 sm:px-8 py-2 sm:py-3 bg-[#6B7A61] hover:bg-[#5a6652] transition-colors duration-300 text-white rounded-lg text-sm sm:text-base md:text-lg font-poppins w-fit cursor-pointer"
+                  className="px-6 sm:px-8 py-2 sm:py-3 bg-[#6B7A61] hover:bg-[#5a6652] transition-colors duration-300 text-white rounded-lg text-sm sm:text-base md:text-lg font-poppins w-fit cursor-pointer font-bold"
                   variants={fadeInUp}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Contact Us
+                  Contact Us Now
                 </motion.button>
               </div>
             </motion.div>

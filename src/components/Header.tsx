@@ -48,12 +48,11 @@ const Header: React.FC = () => {
   }, [lastScrollY]);
 
   const navigationItems = [
-
     { name: "About", path: "/#about" },
     { name: "Products", path: "/#products" },
     { name: "Services", path: "/#services" },
     { name: "Why", path: "/#why_Choose_Us" },
-    {name: "FAQ", path: "/#FAQ"},
+    { name: "FAQ", path: "/#FAQ" },
     { name: "Contact", path: "/#contact" },
   ];
 
@@ -79,8 +78,9 @@ const Header: React.FC = () => {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-black/20 backdrop-blur-sm" : "bg-transparent"
-        }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-black/20 backdrop-blur-sm" : "bg-transparent"
+      }`}
       initial={{ y: -100 }}
       animate={{
         y: isVisible ? 0 : -100,
@@ -140,8 +140,9 @@ const Header: React.FC = () => {
                   }}
                 >
                   <span
-                    className={`block ${isActive(item.path) ? "text-primary" : ""
-                      }`}
+                    className={`block ${
+                      isActive(item.path) ? "text-primary" : ""
+                    }`}
                   >
                     {item.name}
                   </span>
@@ -217,7 +218,7 @@ const Header: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <motion.button
-            className="md:hidden text-text-primary p-1.5 sm:p-2 mobile-menu-button relative z-[70]"
+            className="md:hidden text-white p-1.5 sm:p-2 mobile-menu-button relative z-[70]"
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

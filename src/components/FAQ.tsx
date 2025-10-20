@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { RiChatSmile2Fill } from "react-icons/ri";
+import {  RiWhatsappFill } from "react-icons/ri";
 
 interface FAQItem {
   id: number;
@@ -83,14 +83,21 @@ const FAQ = () => {
                 Can't find what you are looking for?
               </p>
               <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 lg:space-x-6">
-                <p className="text-text-primary font-semibold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
-                  We would like to chat with you.
-                </p>
-                <div className="flex-shrink-0">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center">
-                    <RiChatSmile2Fill className="text-primary text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl" />
+                <a 
+                  href="https://wa.me/+971501231234"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                >
+                  <p className="text-text-primary font-semibold text-base sm:text-lg md:text-xl lg:text-xl xl:text-2xl">
+                    We would like to chat with you.
+                  </p>
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center  text-primary">
+                      <RiWhatsappFill className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl" />
+                    </div>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
           </div>
