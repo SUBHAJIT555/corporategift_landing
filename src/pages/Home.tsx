@@ -7,6 +7,7 @@ import Product from "../components/Product";
 import Testimonial from "../components/Testimonial";
 import FAQ from "../components/FAQ";
 import Contact from "../components/Contact";
+// import ProductWithSWR from "../components/ProductWithSWR";
 const Home = () => {
   return (
     <div>

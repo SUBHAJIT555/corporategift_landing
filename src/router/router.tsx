@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
 
+
 const MainLayout = lazy(() => import("../layouts/Mainlayout"));
 const Home = lazy(() => import("../pages/Home"));
 const Quote = lazy(() => import("../pages/Quote"));
@@ -11,11 +12,12 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        path: "/",
+        path: "",
         element: <Home />,
       },
+
       {
-        path: "/quote",
+        path: "quote",
         element: <Quote />,
       },
     ],

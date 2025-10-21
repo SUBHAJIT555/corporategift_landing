@@ -1,52 +1,61 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
-import { products as localProducts, categories, type Product as ProductType } from "../data";
-import { fetchRandomProducts, type ApiProduct } from "../services/productService";
+// import { products as localProducts, categories as localCategories, type Product as ProductType } from "../data";
+// import { fetchProductsByCategorySWR, fetchCategoriesSWR, fetchRandomProductsSWR, type ApiProduct, type ApiCategory } from "../services/productService";
 import Loader from "./Loader";
+import { useCategories, useProductsByCategory, useRandomProducts } from "../hooks/useProducts";
+import type { ApiProduct } from "../services/productService";
 
 const Product = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [apiProducts, setApiProducts] = useState<ApiProduct[] | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const controller = new AbortController();
-    setIsLoading(true);
-    setError(null);
-    fetchRandomProducts(controller.signal)
-      .then(setApiProducts)
-      .catch((e: unknown) => {
-        const err = e as { name?: string; message?: string };
-        // Ignore aborts caused by StrictMode double-invoke/unmounts
-        if (err?.name === "AbortError") return;
-        setError(err?.message ?? "Failed to load products");
-      })
-      .finally(() => setIsLoading(false));
-    return () => controller.abort();
-  }, []);
 
-  const mergedProducts: ProductType[] = useMemo(() => {
-    // Map API products to local ProductType shape
-    const mappedFromApi: ProductType[] = (apiProducts ?? []).map((p, idx) => ({
-      id: Number(p.id ?? idx + 10000),
-      name: p.name,
-      image: p.image,
-      category: p.category ?? "All",
-      rating: typeof p.rating === "number" ? p.rating : 5,
-      reviewCount: typeof p.reviewCount === "number" ? p.reviewCount : 0,
-      description: p.description,
-    }));
-    // Prefer API products when available; fall back to local
-    return mappedFromApi.length > 0 ? mappedFromApi : localProducts;
-  }, [apiProducts]);
+  // 🔹 Fetch all categories once (cached for 5 min)
+  const { categories, isLoading: isLoadingCategories, error: categoryError } = useCategories();
+  console.log("Categories", categories);
 
-  const filteredProducts = useMemo(() => {
-    return selectedCategory === "All"
-      ? mergedProducts
-      : mergedProducts.filter((product) => product.category === selectedCategory);
-  }, [selectedCategory, mergedProducts]);
+  // 🔹 Fetch products (either random or by category, SWR caches each key)
+  const {
+    products: randomProducts,
+    isLoading: isLoadingRandom,
+    error: randomError,
+  } = useRandomProducts();
+
+
+  const {
+    products: categoryProducts,
+    isLoading: isLoadingCategory,
+    error: categoryProductsError,
+    // isFromCache,
+  } = useProductsByCategory(selectedCategoryId);
+
+  // 🔹 Determine active product list
+  const apiProducts: ApiProduct[] =
+    selectedCategory === "All" ? randomProducts : categoryProducts;
+
+  const isLoading = selectedCategory === "All" ? isLoadingRandom : isLoadingCategory;
+  const error = selectedCategory === "All" ? randomError : categoryProductsError;
+
+  // 🔹 Combine categories
+  const availableCategories = useMemo(() => {
+    if (categories && categories.length > 0) {
+      return ["All", ...categories.map((cat) => cat.name)];
+    }
+    return [];
+  }, [categories]);
+
+  // 🔹 Handle category selection
+  const handleCategorySelect = (categoryName: string) => {
+    setSelectedCategory(categoryName);
+    if (categoryName === "All") {
+      setSelectedCategoryId(null);
+    } else {
+      const category = categories?.find((cat) => cat.name === categoryName);
+      setSelectedCategoryId(category?.id ?? null);
+    }
+  };
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
@@ -60,7 +69,7 @@ const Product = () => {
     ));
   };
 
-  const handleAddToQuote = (product: ProductType) => {
+  const handleAddToQuote = (product: ApiProduct) => {
     navigate("/quote", { state: { product } });
   };
 
@@ -75,18 +84,27 @@ const Product = () => {
           Popular Corporate Gifts We Offer
         </h3>
         <div className="flex overflow-x-auto gap-3 mt-4 sm:mt-6 md:mt-8 scrollbar-none">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`flex-shrink-0 px-2.5 py-2 text-xs whitespace-nowrap rounded-md border ${category === selectedCategory
-                ? "bg-primary text-white border-primary"
-                : "border-text-primary/30 hover:bg-primary hover:text-white hover:border-primary"
-                } transition-all duration-300`}
-            >
-              {category}
-            </button>
-          ))}
+          {isLoadingCategories ? (
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+              Loading categories...
+            </div>
+          ) : categoryError ? (
+            <div className="text-sm text-red-600">{categoryError}</div>
+          ) : (
+            availableCategories.map((category: string) => (
+              <button
+                key={category}
+                onClick={() => handleCategorySelect(category)}
+                className={`flex-shrink-0 px-2.5 py-2 text-xs whitespace-nowrap rounded-md border ${category === selectedCategory
+                  ? "bg-primary text-white border-primary"
+                  : "border-text-primary/30 hover:bg-primary hover:text-white hover:border-primary"
+                  } transition-all duration-300`}
+              >
+                {category}
+              </button>
+            ))
+          )}
         </div>
 
         {/* <div className="hidden lg:flex justify-start gap-3 mt-4 sm:mt-6 md:mt-8">
@@ -109,10 +127,10 @@ const Product = () => {
         <div className="lg:hidden mt-4 sm:mt-6 md:mt-8">
           <select
             value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
+            onChange={(e) => handleCategorySelect(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-md bg-white text-sm"
           >
-            {categories.map((category) => (
+            {availableCategories.map((category: string) => (
               <option key={category} value={category}>
                 {category}
               </option>
@@ -129,7 +147,7 @@ const Product = () => {
           <div className="mt-6 text-center text-sm text-red-600">{error}</div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6 mt-6 sm:mt-8">
-            {filteredProducts.map((product) => (
+            {apiProducts.map((product) => (
               <div
                 key={product.id}
                 className="bg-white rounded-lg shadow-sm  overflow-hidden  transition-shadow duration-300"
@@ -154,9 +172,9 @@ const Product = () => {
 
                   {/* Rating */}
                   <div className="flex items-center gap-1 mb-1 sm:mb-2">
-                    <div className="flex">{renderStars(product.rating)}</div>
+                    <div className="flex">{renderStars(product.rating ?? 5)}</div>
                     <span className="text-xs text-gray-500">
-                      ({product.reviewCount})
+                      ({product.reviewCount ?? 0})
                     </span>
                   </div>
 
