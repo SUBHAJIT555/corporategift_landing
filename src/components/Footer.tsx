@@ -10,13 +10,14 @@ import {
 import { BiSolidNavigation } from "react-icons/bi";
 import { Link } from "react-router";
 import darklogo from "../assets/logo/logo_dark.svg";
+import termsAndConditions from "../assets/legal/Terms_&_Condition.pdf";
+import privacyPolicy from "../assets/legal/Privacy_Policy.pdf";
 
 const Footer = () => {
   const socialLinks = [
     { name: "Instagram", icon: <FaInstagram />, href: "#" },
     { name: "LinkedIn", icon: <FaLinkedinIn />, href: "#" },
     { name: "Facebook", icon: <FaFacebookF />, href: "#" },
-    
   ];
 
   return (
@@ -28,7 +29,6 @@ const Footer = () => {
             {/* Company Info */}
             <div className="sm:col-span-2 lg:col-span-2 mb-8 sm:mb-0">
               <div className="flex items-center space-x-3 mb-4 sm:mb-6">
-                
                 <Link to="/">
                   <div className="w-28 h-7 sm:w-52 sm:h-16">
                     <img src={darklogo} alt="Logo" className="w-full h-full" />
@@ -93,19 +93,31 @@ const Footer = () => {
               <div className="w-full h-px bg-gradient-to-r from-text-primary/30 via-transparent to-transparent mb-3 sm:mb-4"></div>
               <ul className="space-y-2 sm:space-y-3">
                 {[
-                  { name: "Terms & Conditions", path: "/terms-and-conditions" },
-
-                  { name: "Privacy Policy", path: "/privacy-policy" },
-
+                  {
+                    name: "Terms & Conditions",
+                    path: termsAndConditions,
+                    target: "_blank",
+                  },
+                  {
+                    name: "Privacy Policy",
+                    path: privacyPolicy,
+                    target: "_blank",
+                  },
                   { name: "Support", path: "mailto:amit@baharnani.com" },
                 ].map((item) => (
                   <motion.li key={item.name}>
-                    <Link
-                      to={item.path}
+                    <a
+                      href={item.path}
+                      target={item.target}
+                      rel={
+                        item.target === "_blank"
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
                       className="text-text-primary hover:text-primary hover:translate-x-2 transition-all duration-300 font-helvetica text-lg sm:text-xl block py-1 touch-manipulation"
                     >
                       {item.name}
-                    </Link>
+                    </a>
                   </motion.li>
                 ))}
               </ul>
