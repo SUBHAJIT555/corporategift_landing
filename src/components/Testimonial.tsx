@@ -18,7 +18,7 @@ const testimonials = [
       "Baharnani's corporate gifts have consistently impressed our employees and clients. Their attention to detail and quality is remarkable. Special thanks to Amit for his excellent service!",
   },
   {
-    name: "Khaled Bin Saeed", 
+    name: "Khaled Bin Saeed",
     role: "CEO, Al Futtaim Trading",
     image: khaledBinSaeed,
     quote:
