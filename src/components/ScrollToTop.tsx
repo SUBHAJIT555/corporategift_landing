@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FaArrowUp } from "react-icons/fa";
 import { useLenisContext } from "../hooks/useLenis";
+import WhatsAppButton from "./WhatsAppButton";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -37,6 +38,7 @@ const ScrollToTop = () => {
 
   return (
     <>
+      <WhatsAppButton />
       <button
         onClick={scrollToTop}
         className={`fixed z-50 bg-primary hover:bg-primary text-white rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer
