@@ -1,39 +1,93 @@
 import { motion, type Variants } from "framer-motion";
-import { IoLogoWhatsapp } from "react-icons/io";
+import { IoLogoWhatsapp } from "react-icons/io5";
 import { Link } from "react-router";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+
+// ✅ Validation Schema
+const quoteSchema = z.object({
+  company_name: z.string().min(2, "Company name is required"),
+  contact_person: z.string().min(2, "Contact person is required"),
+  phone_number: z
+    .string()
+    .regex(/^\+971\s?\d{9}$/, "Please enter a valid UAE number"),
+  email: z.string().email("Please enter a valid email address"),
+});
+
+type QuoteFormData = z.infer<typeof quoteSchema>;
 
 const HeroSection = () => {
-  // Simple, smooth animation variants
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<QuoteFormData>({
+    resolver: zodResolver(quoteSchema),
+  });
+
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [message, setMessage] = useState<string>("");
+
+  // 🔹 Animations
   const fadeIn: Variants = {
     initial: { opacity: 0, y: 20 },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
   const staggerContainer: Variants = {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
     },
+  };
+
+  // ✅ Submit handler
+  const onSubmit = async (data: QuoteFormData) => {
+    setStatus("idle");
+    setMessage("");
+
+    try {
+      const res = await fetch(
+        "https://corporategiftsdubaii.ae/wp-json/fluentform/v1/quote",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            form_id: 5,
+            data: {
+              contact_person: data.contact_person,
+              company_name: data.company_name,
+              phone_number: data.phone_number,
+              email: data.email,
+            },
+          }),
+        }
+      );
+
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.message || "Submission failed");
+
+      setStatus("success");
+      setMessage("✅ Quote submitted successfully!");
+      reset();
+    } catch (err) {
+      setStatus("error");
+      setMessage(`❌ ${err instanceof Error ? err.message : "Unknown error"}`);
+    }
   };
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
-      {/* Clean Background */}
+      {/* Background */}
       <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg')] bg-cover bg-center opacity-20" />
 
-      {/* Content Overlay */}
-      {/* <div className="relative z-10 flex flex-col lg:flex-row min-h-screen pt-18 pb-20"> */}
-      {/* Content */}
+      {/* Main Container */}
       <div className="relative z-10 flex flex-col lg:flex-row min-h-screen items-center pt-16 sm:pt-20 md:pt-24 lg:pt-0 gap-8 lg:gap-0">
-        {/* Left Section - Main Content */}
+        {/* Left Section */}
         <motion.div
           className="w-full lg:w-1/2 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 py-8 sm:py-12 md:py-16 lg:py-0 order-1 lg:order-1"
           variants={staggerContainer}
@@ -41,7 +95,6 @@ const HeroSection = () => {
           animate="animate"
         >
           <div className="max-w-3xl text-white">
-            {/* Main Title */}
             <motion.h1
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-tight mb-4 sm:mb-6"
               variants={fadeIn}
@@ -49,7 +102,6 @@ const HeroSection = () => {
               Get Premium Corporate Gifts in Dubai & Abu Dhabi, UAE
             </motion.h1>
 
-            {/* Minimal animated divider */}
             <motion.div
               className="h-px w-12 sm:w-16 bg-text-secondary mb-4 sm:mb-6"
               initial={{ scaleX: 0, opacity: 0 }}
@@ -58,7 +110,6 @@ const HeroSection = () => {
               style={{ transformOrigin: "left" }}
             />
 
-            {/* Meta line */}
             <motion.p
               className="text-xs sm:text-sm uppercase tracking-wide text-gray-200 mb-3 sm:mb-4"
               variants={fadeIn}
@@ -66,7 +117,6 @@ const HeroSection = () => {
               Trusted by 200+ UAE brands
             </motion.p>
 
-            {/* Subtitle */}
             <motion.p
               className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-6 sm:mb-8"
               variants={fadeIn}
@@ -74,12 +124,9 @@ const HeroSection = () => {
               At <strong className="text-white">Baharnani </strong>Corporate
               Gifts Dubai, we specialize in premium corporate gifts and
               promotional items that help your business make a statement across
-              Dubai, Abu Dhabi, and the wider UAE. Our customized gifts,
-              eco-friendly giveaways, and luxury sets are crafted to impress
-              clients, reward employees, and strengthen your brand presence.
+              Dubai, Abu Dhabi, and the wider UAE.
             </motion.p>
 
-            {/* WhatsApp CTA */}
             <Link target="_blank" to="https://wa.me/971500000000">
               <motion.button
                 className="inline-flex items-center gap-2 sm:gap-3 bg-white text-gray-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base w-full sm:w-auto justify-center"
@@ -105,17 +152,19 @@ const HeroSection = () => {
                 Get Your Free Quote
               </h2>
 
-              <form className="space-y-3 sm:space-y-4">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 sm:space-y-4">
                 <div>
                   <label className="block text-white text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                     Company Name*
                   </label>
                   <input
-                    type="text"
-                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
+                    {...register("company_name")}
+                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
                     placeholder="Your company name"
-                    required
                   />
+                  {errors.company_name && (
+                    <p className="text-red-400 text-xs mt-1">{errors.company_name.message}</p>
+                  )}
                 </div>
 
                 <div>
@@ -123,11 +172,13 @@ const HeroSection = () => {
                     Contact Person*
                   </label>
                   <input
-                    type="text"
-                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
+                    {...register("contact_person")}
+                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
                     placeholder="Your full name"
-                    required
                   />
+                  {errors.contact_person && (
+                    <p className="text-red-400 text-xs mt-1">{errors.contact_person.message}</p>
+                  )}
                 </div>
 
                 <div>
@@ -135,11 +186,46 @@ const HeroSection = () => {
                     Phone Number*
                   </label>
                   <input
+                    {...register("phone_number", {
+                      onChange: (e) => {
+                        let val = e.target.value;
+
+                        // Allow backspace down to empty string
+                        if (val === "") {
+                          e.target.value = "";
+                          return;
+                        }
+
+                        // Only digits and one leading +
+                        val = val.replace(/[^\d+]/g, "");
+
+                        // Auto-add +971 if missing and user starts typing a digit
+                        if (!val.startsWith("+971")) {
+                          if (val.startsWith("+97")) {
+                            val = "+971";
+                          } else if (val.startsWith("+9") || val.startsWith("9")) {
+                            val = "+971";
+                          } else if (val.startsWith("0")) {
+                            val = "+971" + val.slice(1);
+                          } else if (!val.startsWith("+")) {
+                            val = "+971" + val;
+                          }
+                        }
+
+                        // Trim to +971 + 9 digits max
+                        if (val.length > 13) val = val.slice(0, 13);
+
+                        e.target.value = val;
+                      },
+                    })}
                     type="tel"
-                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
-                    placeholder="+971 50 000 0000"
-                    required
+                    inputMode="numeric"
+                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
+                    placeholder="+971XXXXXXXXX"
                   />
+                  {errors.phone_number && (
+                    <p className="text-red-400 text-xs mt-1">{errors.phone_number.message}</p>
+                  )}
                 </div>
 
                 <div>
@@ -147,19 +233,35 @@ const HeroSection = () => {
                     Email Address*
                   </label>
                   <input
+                    {...register("email")}
                     type="email"
-                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
+                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
                     placeholder="your@company.com"
-                    required
                   />
+                  {errors.email && (
+                    <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
+                  )}
                 </div>
 
-                <button
+                {message && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`text-center text-sm font-medium ${status === "success" ? "text-green-400" : "text-red-400"
+                      }`}
+                  >
+                    {message}
+                  </motion.div>
+                )}
+
+                <motion.button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full bg-white text-gray-900 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-bold cursor-pointer hover:bg-primary hover:text-text-secondary transition-all ease-in-out duration-300"
+                  whileTap={{ scale: 0.97 }}
                 >
-                  Get Free Quote
-                </button>
+                  {isSubmitting ? "Sending..." : "Get Free Quote"}
+                </motion.button>
               </form>
             </div>
           </div>

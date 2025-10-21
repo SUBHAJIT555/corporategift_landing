@@ -1,7 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoClose, IoCalendar } from "react-icons/io5";
 import { createPortal } from "react-dom";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+// 🔹 Validation schema
+const callbackSchema = z.object({
+  name: z.string().min(2, "Name is required"),
+  phone: z
+    .string()
+    .regex(/^\+971\s?\d{9}$/, "Please enter a valid UAE number"),
+  callbackTime: z.string().nonempty("Please select a callback time"),
+  enquiryFor: z.string().nonempty("Please select an enquiry type"),
+});
+
+type CallbackFormData = z.infer<typeof callbackSchema>;
 
 interface CallbackModalProps {
   isOpen: boolean;
@@ -9,40 +24,70 @@ interface CallbackModalProps {
 }
 
 const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    callbackTime: "04/10/2025 01:30 PM",
-    enquiryFor: "Online Courses (Website)",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<CallbackFormData>({
+    resolver: zodResolver(callbackSchema),
+    defaultValues: {
+      name: "",
+      phone: "",
+      callbackTime: "",
+      enquiryFor: "",
+    },
   });
-  const [isMobile, setIsMobile] = useState(false);
+
+  const [_, setIsMobile] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640);
-    };
-
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const onSubmit = async (data: CallbackFormData) => {
+    setStatus("idle");
+    setMessage("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
-    onClose();
+    try {
+      const res = await fetch(
+        "https://corporategiftsdubaii.ae/wp-json/fluentform/v1/callback",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            form_id: 4,
+            data: {
+              name: data.name,
+              phone: data.phone,
+              call_back_time: data.callbackTime,
+              enquiry_for: data.enquiryFor,
+            },
+          }),
+        }
+      );
+
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.message || "Submission failed");
+
+      setStatus("success");
+      setMessage("✅ Callback request sent successfully!");
+      reset();
+
+      setTimeout(() => {
+        onClose();
+        setStatus("idle");
+        setMessage("");
+      }, 2000);
+    } catch (err) {
+      setStatus("error");
+      setMessage(`❌ ${err instanceof Error ? err.message : "Unknown error"}`);
+    }
   };
 
   return createPortal(
@@ -57,14 +102,6 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 9998,
-            }}
           />
 
           {/* Modal */}
@@ -74,41 +111,18 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              zIndex: 9999,
-              padding: isMobile ? "1rem" : "2rem",
-            }}
           >
             <motion.div
               className="bg-background rounded-lg w-full max-w-md relative"
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              transition={{
-                duration: 0.4,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
+              transition={{ duration: 0.4 }}
               onClick={(e) => e.stopPropagation()}
-              style={{
-                maxHeight: "90vh",
-                overflowY: "auto",
-                margin: isMobile ? "1rem" : "2rem",
-                maxWidth: isMobile ? "calc(100vw - 2rem)" : "28rem",
-                width: isMobile ? "auto" : "28rem",
-              }}
             >
-              {/* Header */}
               <div className="p-4 sm:p-6 pb-4">
                 <div className="flex items-center justify-between mb-2">
-                  <h2 className="text-text-primary text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold font-poppins">
+                  <h2 className="text-text-primary text-lg sm:text-xl font-bold">
                     Request a callback
                   </h2>
                   <motion.button
@@ -125,102 +139,105 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
                 </p>
               </div>
 
-              {/* Form */}
               <form
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(onSubmit)}
                 className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-4"
               >
-                {/* Name Field */}
+                {/* Name */}
                 <div>
                   <label className="block text-text-primary text-sm font-medium mb-2">
                     Name
                   </label>
                   <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Name"
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-text-primary/20 border border-gray-600 rounded-lg text-text-primary placeholder-gray-400 focus:outline-none focus:border-primary transition-colors text-sm sm:text-base"
-                    required
+                    {...register("name")}
+                    className="w-full px-3 py-2 bg-text-primary/20 border border-gray-600 rounded-lg text-text-primary focus:outline-none focus:border-primary"
                   />
+                  {errors.name && (
+                    <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
+                  )}
                 </div>
 
-                {/* Phone Field */}
+                {/* Phone */}
+
                 <div>
                   <label className="block text-text-primary text-sm font-medium mb-2">
                     Phone
                   </label>
-                  <div className="flex">
-                    <select className="px-2 sm:px-3 py-2 sm:py-3 bg-text-primary/20 border border-gray-600 rounded-l-lg text-text-primary focus:outline-none focus:border-primary transition-colors text-sm sm:text-base">
-                      <option value="+971"> +971</option>
-                    </select>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="Phone"
-                      className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-text-primary/20 border border-gray-600 border-l-0 rounded-r-lg text-text-primary placeholder-gray-400 focus:outline-none focus:border-primary transition-colors text-sm sm:text-base"
-                      maxLength={9}
-                      pattern="[0-9]{1,9}"
-                      required
-                    />
-                  </div>
+                  <input
+                    {...register("phone", {
+                      onChange: (e) => {
+                        let val = e.target.value;
+
+                        // Allow backspace down to empty string
+                        if (val === "") {
+                          e.target.value = "";
+                          return;
+                        }
+
+                        // Only digits and one leading +
+                        val = val.replace(/[^\d+]/g, "");
+
+                        // Auto-add +971 if missing and user starts typing a digit
+                        if (!val.startsWith("+971")) {
+                          if (val.startsWith("+97")) {
+                            val = "+971";
+                          } else if (val.startsWith("+9") || val.startsWith("9")) {
+                            val = "+971";
+                          } else if (val.startsWith("0")) {
+                            val = "+971" + val.slice(1);
+                          } else if (!val.startsWith("+")) {
+                            val = "+971" + val;
+                          }
+                        }
+
+                        // Trim to +971 + 9 digits max
+                        if (val.length > 13) val = val.slice(0, 13);
+
+                        e.target.value = val;
+                      },
+                    })}
+                    type="tel"
+                    inputMode="numeric"
+                    className="w-full px-3 py-2 bg-text-primary/20 border border-gray-600 rounded-lg text-text-primary focus:outline-none focus:border-primary"
+                    placeholder="+971XXXXXXXXX"
+                  />
+                  {errors.phone && (
+                    <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
+                  )}
                 </div>
 
-                {/* Callback Time Field */}
+
+
+
+                {/* Callback Time */}
                 <div>
                   <label className="flex items-center gap-2 text-text-primary text-sm font-medium mb-2">
                     <span>When should we call you?</span>
                     <IoCalendar className="w-4 h-4" />
                   </label>
-                  <div className="relative">
-                    <input
-                      type="datetime-local"
-                      name="callbackTime"
-                      value={formData.callbackTime}
-                      onChange={handleInputChange}
-                      min={new Date().toISOString().slice(0, 16)}
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-text-primary/20 border border-gray-600 rounded-lg text-text-primary focus:outline-none focus:border-primary transition-colors [color-scheme:text-primary] text-sm sm:text-base"
-                      style={{
-                        fontSize: isMobile ? "14px" : "16px",
-                        minHeight: isMobile ? "44px" : "auto",
-                        lineHeight: "1.2",
-                        textOverflow: isMobile ? "ellipsis" : "initial",
-                        whiteSpace: isMobile ? "nowrap" : "normal",
-                        overflow: isMobile ? "hidden" : "visible",
-                        WebkitAppearance: "none",
-                        MozAppearance: "textfield",
-                      }}
-                      onFocus={(e) => {
-                        // Prevent zoom on iOS
-                        if (isMobile) {
-                          e.target.style.fontSize = "16px";
-                        }
-                      }}
-                      onBlur={(e) => {
-                        if (isMobile) {
-                          e.target.style.fontSize = "14px";
-                        }
-                      }}
-                      required
-                    />
-                  </div>
+                  <input
+                    type="datetime-local"
+                    {...register("callbackTime")}
+                    className="w-full px-3 py-2 bg-text-primary/20 border border-gray-600 rounded-lg text-text-primary focus:outline-none focus:border-primary"
+                    min={new Date().toISOString().slice(0, 16)}
+                  />
+                  {errors.callbackTime && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.callbackTime.message}
+                    </p>
+                  )}
                 </div>
 
-                {/* Enquiry For Field */}
+                {/* Enquiry For */}
                 <div>
-                  <label className="flex items-center gap-2 text-text-primary text-sm font-medium mb-2">
-                    <span>Enquiry For</span>
+                  <label className="block text-text-primary text-sm font-medium mb-2">
+                    Enquiry For
                   </label>
                   <select
-                    name="enquiryFor"
-                    value={formData.enquiryFor}
-                    onChange={handleInputChange}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-text-primary/20 border border-gray-600 rounded-lg text-text-primary focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer text-sm sm:text-base"
-                    required
+                    {...register("enquiryFor")}
+                    className="w-full px-3 py-2 bg-text-primary/20 border border-gray-600 rounded-lg text-text-primary focus:outline-none focus:border-primary"
                   >
+                    <option value="">Select</option>
                     <option value="Corporate Gifts">Corporate Gifts</option>
                     <option value="Customized Merchandise">Customized Merchandise</option>
                     <option value="Bulk Orders">Bulk Orders</option>
@@ -228,15 +245,32 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
                     <option value="Special Events">Special Events</option>
                     <option value="Other">Other</option>
                   </select>
+                  {errors.enquiryFor && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.enquiryFor.message}
+                    </p>
+                  )}
                 </div>
 
-                {/* Submit Button */}
+                {/* Status Message */}
+                {message && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`text-center text-sm font-medium ${status === "success" ? "text-green-500" : "text-red-500"
+                      }`}
+                  >
+                    {message}
+                  </motion.div>
+                )}
+
                 <motion.button
                   type="submit"
-                  className="w-full bg-primary text-text-secondary font-bold font-poppins py-2 sm:py-3 px-4 sm:px-6 rounded-lg hover:bg-primary/80 transition-colors text-lg sm:text-xl cursor-pointer"
+                  disabled={isSubmitting}
+                  className="w-full bg-primary text-text-secondary font-bold py-3 rounded-lg hover:bg-primary/80 transition-colors"
                   whileTap={{ scale: 0.98 }}
                 >
-                  Submit
+                  {isSubmitting ? "Sending..." : "Submit"}
                 </motion.button>
               </form>
             </motion.div>

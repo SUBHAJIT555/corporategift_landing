@@ -1,29 +1,28 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import "react-datepicker/dist/react-datepicker.css";
-
 const budgetOptions = [
-  "<AED 1,000",
-  "AED 1,000-AED 5,000",
-  "AED 5,000-AED 10,000",
-  "AED 10,000-AED 20,000",
-  "AED 20,000-AED 50,000",
-  ">AED 50,000",
+  { label: "<AED 1,000", value: "<AED 1,000" },
+  { label: "AED 1,000-AED 5,000", value: "AED 1000-5000" },
+  { label: "AED 5,000-AED 10,000", value: "AED 5000-10000" },
+  { label: "AED 10,000-AED 20,000", value: "AED 10000-20000" },
+  { label: "AED 20,000-AED 50,000", value: "AED 20,000-AED 50,000" },
+  { label: ">AED 50,000", value: ">AED 50000" },
 ];
 
-type Budget = (typeof budgetOptions)[number];
+
+
+
 
 type FormData = {
   name: string;
   contact: string;
   email: string;
   requirements: string;
-  budget: Budget;
+  budget: string;
   additionalMessage: string;
   privacy: boolean;
   formType: string;
-  website: string;
 };
 
 export default function ContactForm() {
@@ -42,17 +41,15 @@ export default function ContactForm() {
       budget: "",
       additionalMessage: "",
       privacy: false,
-      website: "",
       formType: "CONTACT",
     },
   });
+  console.log("errors", errors);
 
-  const [submitStatus, setSubmitStatus] = useState<null | "success" | "error">(
-    null
-  );
+  const [submitStatus, setSubmitStatus] = useState<null | "success" | "error">(null);
   const [message, setMessage] = useState<string>("");
 
-  // Ensure +971 prefix and 9 digits formatting for UAE numbers
+  // Keep +971 formatting logic
   const handleContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
     let digitsOnly = raw.replace(/\D/g, "");
@@ -66,51 +63,50 @@ export default function ContactForm() {
   };
 
   const validateUaeNumber = (value: string) => {
-    // Accept +971 with optional space then exactly 9 digits
     const valid = /^\+971\s?\d{9}$/.test(value.trim());
     return valid || "Please enter a valid number";
   };
 
+  // 🔹 Updated submit to FluentForm API
   const onSubmit = async (data: FormData) => {
-    console.log(data);
     setSubmitStatus(null);
-
-    if (data.website) {
-      // Honeypot filled, treat as success silently
-      reset();
-      return;
-    }
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/contact/create`,
+        "https://corporategiftsdubaii.ae/wp-json/fluentform/v1/contact",
         {
           method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            form_id: 6, // 🔸 Update with your actual FluentForm ID
+            data: {
+              name: data.name,
+              phone: data.contact,
+              email: data.email,
+              requirements: data.requirements,
+              budget: data.budget,
+              message: data.additionalMessage || "",
+            },
+          }),
         }
       );
 
       const responseData = await response.json();
 
-      if (responseData.success === false) {
-        throw new Error(responseData.message);
-      }
+      if (!response.ok) throw new Error(responseData.message);
 
-      setMessage(responseData.message);
-
+      setMessage("✅ Thank you! We’ll get in touch with you shortly.");
       setSubmitStatus("success");
       reset();
-      // Hide message after 1 second and show form again
       setTimeout(() => setSubmitStatus(null), 3000);
     } catch (error) {
       console.error(error);
       setSubmitStatus("error");
-      if (error instanceof Error) {
-        setMessage(error.message);
-      }
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again."
+      );
       setTimeout(() => setSubmitStatus(null), 3000);
     }
   };
@@ -126,12 +122,11 @@ export default function ContactForm() {
         Tell us about your corporate gift needs:
       </p>
 
-      {/* Fixed height container to prevent layout shift */}
       <div
         style={{ minHeight: "450px" }}
         className="relative sm:min-h-[550px] md:min-h-[600px] lg:min-h-[650px]"
       >
-        {/* Success message */}
+        {/* ✅ Success */}
         {submitStatus === "success" && (
           <div className="text-center py-8 sm:py-12 md:py-16 absolute inset-0 flex flex-col items-center justify-center px-4">
             <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 sm:mb-6">
@@ -143,7 +138,7 @@ export default function ContactForm() {
           </div>
         )}
 
-        {/* Error message */}
+        {/* ❌ Error */}
         {submitStatus === "error" && (
           <div className="text-center py-8 sm:py-12 md:py-16 absolute inset-0 flex flex-col items-center justify-center px-4">
             <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 sm:mb-6">
@@ -158,7 +153,7 @@ export default function ContactForm() {
           </div>
         )}
 
-        {/* Form inputs (shown only when no submit status) */}
+        {/* 🔹 Form fields */}
         {submitStatus === null && (
           <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
             {/* Name */}
@@ -168,9 +163,8 @@ export default function ContactForm() {
                 type="text"
                 {...register("name", { required: "Name is required" })}
                 placeholder="Enter your name*"
-                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-64 md:w-72 lg:w-80 focus:outline-none placeholder-gray-400 ${
-                  errors.name ? "border-red-500" : "border-[#080f0f]"
-                }`}
+                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-64 md:w-72 lg:w-80 focus:outline-none placeholder-gray-400 ${errors.name ? "border-red-500" : "border-[#080f0f]"
+                  }`}
               />
             </div>
 
@@ -187,9 +181,8 @@ export default function ContactForm() {
                   onChange: handleContactChange,
                 })}
                 placeholder="Phone number*"
-                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-56 md:w-64 lg:w-72 focus:outline-none placeholder-gray-400 ${
-                  errors.contact ? "border-red-500" : "border-[#080f0f]"
-                }`}
+                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-56 md:w-64 lg:w-72 focus:outline-none placeholder-gray-400 ${errors.contact ? "border-red-500" : "border-[#080f0f]"
+                  }`}
               />
             </div>
 
@@ -206,9 +199,8 @@ export default function ContactForm() {
                   },
                 })}
                 placeholder="name@example.com*"
-                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-80 md:w-96 lg:w-[28rem] focus:outline-none placeholder-gray-400 ${
-                  errors.email ? "border-red-500" : "border-[#080f0f]"
-                }`}
+                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-80 md:w-96 lg:w-[28rem] focus:outline-none placeholder-gray-400 ${errors.email ? "border-red-500" : "border-[#080f0f]"
+                  }`}
               />
             </div>
 
@@ -221,9 +213,8 @@ export default function ContactForm() {
                   required: "Requirements are required",
                 })}
                 placeholder="Describe your corporate gift needs*"
-                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-3/4 md:w-1/2 lg:w-2/3 focus:outline-none placeholder-gray-400 ${
-                  errors.requirements ? "border-red-500" : "border-[#080f0f]"
-                }`}
+                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-3/4 md:w-1/2 lg:w-2/3 focus:outline-none placeholder-gray-400 ${errors.requirements ? "border-red-500" : "border-[#080f0f]"
+                  }`}
               />
             </div>
 
@@ -232,17 +223,17 @@ export default function ContactForm() {
               <span className="flex-shrink-0">My budget range is</span>
               <select
                 {...register("budget", { required: "Budget is required" })}
-                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-56 md:w-64 lg:w-72 focus:outline-none ${
-                  errors.budget ? "border-red-500" : "border-[#080f0f]"
-                }`}
+                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-56 md:w-64 lg:w-72 focus:outline-none ${errors.budget ? "border-red-500" : "border-[#080f0f]"
+                  }`}
                 defaultValue=""
+                onChange={(e) => console.log(e.target.value)}
               >
                 <option value="" disabled>
                   Select budget*
                 </option>
                 {budgetOptions.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
+                  <option key={opt.value as string} value={opt.value as string}>
+                    {opt.label}
                   </option>
                 ))}
               </select>
@@ -259,27 +250,19 @@ export default function ContactForm() {
               />
             </div>
 
-            {/* Honeypot */}
-            <div className="hidden">
-              <input type="text" {...register("website")} />
-            </div>
-
             {/* Privacy */}
             <div className="flex items-start sm:items-center mt-6 sm:mt-8 md:mt-10 lg:mt-12">
               <input
                 type="checkbox"
                 {...register("privacy", { required: true })}
-                className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 border-2 transition flex-shrink-0 mt-1 sm:mt-0 ${
-                  errors.privacy
-                    ? "border-red-500 accent-red-500"
-                    : "border-[#499f68] accent-[#499f68]"
-                }`}
+                className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 border-2 transition flex-shrink-0 mt-1 sm:mt-0 ${errors.privacy
+                  ? "border-red-500 accent-red-500"
+                  : "border-[#499f68] accent-[#499f68]"
+                  }`}
               />
-
               <span
-                className={`text-sm sm:text-base md:text-lg lg:text-xl ml-2 sm:ml-3 leading-relaxed ${
-                  errors.privacy ? "text-red-600" : "text-[#080f0f]"
-                }`}
+                className={`text-sm sm:text-base md:text-lg lg:text-xl ml-2 sm:ml-3 leading-relaxed ${errors.privacy ? "text-red-600" : "text-[#080f0f]"
+                  }`}
               >
                 I agree with the{" "}
                 <a
