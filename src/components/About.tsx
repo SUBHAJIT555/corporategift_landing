@@ -1,6 +1,13 @@
-
 // import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { motion } from "framer-motion";
+import FabLogo from "../assets/images/ClingLogo/Client-logo-1.webp";
+import HimalayaLogo from "../assets/images/ClingLogo/Client-logo-2.webp";
+import CareemLogo from "../assets/images/ClingLogo/Client-logo-3.webp";
+import TalabatLogo from "../assets/images/ClingLogo/Client-logo-4.webp";
+import ImperalBrandLogo from "../assets/images/ClingLogo/Client-logo-5.webp";
+import KeetaLogo from "../assets/images/ClingLogo/Client-logo-6.webp";
+
+import AboutHeroImage from "../assets/images/HeroImages/About-us.webp";
 
 const About = () => {
   const fadeInUp = {
@@ -14,43 +21,40 @@ const About = () => {
 
   const clientLogos = [
     {
-      name: "Nike",
-      logo: "https://logos-world.net/wp-content/uploads/2020/04/Nike-Logo.png",
-      alt: "Nike Logo",
+      name: "Fab",
+      logo: FabLogo,
+      alt: "Fab Logo",
     },
     {
-      name: "Apple",
-      logo: "https://logos-world.net/wp-content/uploads/2020/04/Apple-Logo.png",
-      alt: "Apple Logo",
+      name: "Himalaya",
+      logo: HimalayaLogo,
+      alt: "Himalaya Logo",
+    },
+
+    {
+      name: "Talabat",
+      logo: TalabatLogo,
+      alt: "Talabat Logo",
     },
     {
-      name: "Google",
-      logo: "https://logos-world.net/wp-content/uploads/2020/04/Google-Logo.png",
-      alt: "Google Logo",
+      name: "Imperal Brand",
+      logo: ImperalBrandLogo,
+      alt: "Imperal Brand Logo",
     },
     {
-      name: "Microsoft",
-      logo: "https://logos-world.net/wp-content/uploads/2020/04/Microsoft-Logo.png",
-      alt: "Microsoft Logo",
+      name: "Careem",
+      logo: CareemLogo,
+      alt: "Careem Logo",
     },
     {
-      name: "Amazon",
-      logo: "https://logos-world.net/wp-content/uploads/2020/04/Amazon-Logo.png",
-      alt: "Amazon Logo",
-    },
-    {
-      name: "Meta",
-      logo: "https://logos-world.net/wp-content/uploads/2020/04/Meta-Logo.png",
-      alt: "Meta Logo",
-    },
-    {
-      name: "Tesla",
-      logo: "https://logos-world.net/wp-content/uploads/2020/04/Tesla-Logo.png",
-      alt: "Tesla Logo",
+      name: "Keeta",
+      logo: KeetaLogo,
+      alt: "Keeta Logo",
     },
   ];
 
   return (
+    <>
     <motion.section
       className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8  relative overflow-hidden"
       id="about"
@@ -83,23 +87,7 @@ const About = () => {
           </motion.p>
         </motion.div>
 
-        {/* Client Logos Bar */}
-        <div className="mb-12 md:mb-16 lg:mb-20 overflow-hidden relative">
-          <div className="relative">
-            {/* Static logo display */}
-            <div className="flex items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20">
-              {clientLogos.map((client, index) => (
-                <div key={index} className="flex-shrink-0">
-                  <img
-                    src={client.logo}
-                    alt={client.alt}
-                    className="h-6 sm:h-8 md:h-10 lg:h-12 xl:h-14 w-auto grayscale hover:grayscale-0 transition-all duration-500 opacity-60 hover:opacity-100"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        
 
         {/* Secondary About Text and CTA */}
         <motion.div
@@ -112,7 +100,7 @@ const About = () => {
               variants={fadeInUp}
             >
               <img
-                src="https://images.pexels.com/photos/167684/pexels-photo-167684.jpeg"
+                src={AboutHeroImage}
                 alt="About"
                 className="w-full h-[300px] lg:h-[400px] object-cover rounded-lg shadow-lg"
               />
@@ -138,6 +126,31 @@ const About = () => {
         </motion.div>
       </div>
     </motion.section>
+    {/* Client Logos Bar */}
+        <div className="mb-8 sm:mb-12 md:mb-16 lg:mb-20 overflow-hidden relative">
+          <div className="relative">
+            {/* Section Heading */}
+            <h2 className="text-center text-text-primary text-xl sm:text-2xl md:text-3xl lg:text-4xl  mb-8 sm:mb-12">
+              Dubai's Finest Who Work With Us
+            </h2>
+            {/* Responsive logo display */}
+            <div className="flex items-center justify-center gap-3 xs:gap-4 sm:gap-6 md:gap-8 lg:gap-12 xl:gap-16 2xl:gap-20 flex-wrap px-2 sm:px-4">
+              {clientLogos.map((client, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 flex items-center justify-center"
+                >
+                  <img
+                    src={client.logo}
+                    alt={client.alt}
+                    className="h-4 xs:h-5 sm:h-6 md:h-8 lg:h-10 xl:h-12 2xl:h-14 w-auto max-w-[80px] xs:max-w-[100px] sm:max-w-[120px] md:max-w-[140px] lg:max-w-[160px] xl:max-w-[180px] 2xl:max-w-[200px] transition-all duration-500 opacity-100 hover:opacity-60 object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+    </>
   );
 };
 

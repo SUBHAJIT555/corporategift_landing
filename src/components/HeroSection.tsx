@@ -6,6 +6,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 
+import HeroImage from "../assets/images/HeroImages/Hero-sec.webp";
+
 // ✅ Validation Schema
 const quoteSchema = z.object({
   company_name: z.string().min(2, "Company name is required"),
@@ -34,7 +36,11 @@ const HeroSection = () => {
   // 🔹 Animations
   const fadeIn: Variants = {
     initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const staggerContainer: Variants = {
@@ -83,7 +89,10 @@ const HeroSection = () => {
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
       {/* Background */}
-      <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg')] bg-cover bg-center opacity-20" />
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-20"
+        style={{ backgroundImage: `url(${HeroImage})` }}
+      />
 
       {/* Main Container */}
       <div className="relative z-10 flex flex-col lg:flex-row min-h-screen items-center pt-16 sm:pt-20 md:pt-24 lg:pt-0 gap-8 lg:gap-0">
@@ -152,7 +161,10 @@ const HeroSection = () => {
                 Get Your Free Quote
               </h2>
 
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 sm:space-y-4">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="space-y-3 sm:space-y-4"
+              >
                 <div>
                   <label className="block text-white text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                     Company Name*
@@ -163,7 +175,9 @@ const HeroSection = () => {
                     placeholder="Your company name"
                   />
                   {errors.company_name && (
-                    <p className="text-red-400 text-xs mt-1">{errors.company_name.message}</p>
+                    <p className="text-red-400 text-xs mt-1">
+                      {errors.company_name.message}
+                    </p>
                   )}
                 </div>
 
@@ -177,7 +191,9 @@ const HeroSection = () => {
                     placeholder="Your full name"
                   />
                   {errors.contact_person && (
-                    <p className="text-red-400 text-xs mt-1">{errors.contact_person.message}</p>
+                    <p className="text-red-400 text-xs mt-1">
+                      {errors.contact_person.message}
+                    </p>
                   )}
                 </div>
 
@@ -203,7 +219,10 @@ const HeroSection = () => {
                         if (!val.startsWith("+971")) {
                           if (val.startsWith("+97")) {
                             val = "+971";
-                          } else if (val.startsWith("+9") || val.startsWith("9")) {
+                          } else if (
+                            val.startsWith("+9") ||
+                            val.startsWith("9")
+                          ) {
                             val = "+971";
                           } else if (val.startsWith("0")) {
                             val = "+971" + val.slice(1);
@@ -224,7 +243,9 @@ const HeroSection = () => {
                     placeholder="+971XXXXXXXXX"
                   />
                   {errors.phone_number && (
-                    <p className="text-red-400 text-xs mt-1">{errors.phone_number.message}</p>
+                    <p className="text-red-400 text-xs mt-1">
+                      {errors.phone_number.message}
+                    </p>
                   )}
                 </div>
 
@@ -239,7 +260,9 @@ const HeroSection = () => {
                     placeholder="your@company.com"
                   />
                   {errors.email && (
-                    <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
+                    <p className="text-red-400 text-xs mt-1">
+                      {errors.email.message}
+                    </p>
                   )}
                 </div>
 
@@ -247,8 +270,9 @@ const HeroSection = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`text-center text-sm font-medium ${status === "success" ? "text-green-400" : "text-red-400"
-                      }`}
+                    className={`text-center text-sm font-medium ${
+                      status === "success" ? "text-green-400" : "text-red-400"
+                    }`}
                   >
                     {message}
                   </motion.div>

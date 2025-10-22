@@ -3,69 +3,70 @@ import { useState } from "react";
 import { Link } from "react-router";
 import CallbackModal from "./CallbackModal";
 
-const imgA = "https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg";
-const imgB =
-  "https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg";
-const imgC = "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg";
-const imgD = "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg";
-const imgE =
-  "https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg";
-const imgF = "https://images.pexels.com/photos/905163/pexels-photo-905163.jpeg";
+import InnovationTechImage from "../assets/images/ServiceImages/Innovative-tech-gadgets.webp";
+import SustainableEcoFriendlyImage from "../assets/images/ServiceImages/Sustainable-&-eco-friendly-gifts.webp";
+import ExecutiveLuxuryGiftsImage from "../assets/images/ServiceImages/Executive-&-luxury-gifts.webp";
+import OfficeDeskEssentialsImage from "../assets/images/ServiceImages/Office-&-desk-essentials.webp";
+import DrinkwareGourmetHampersImage from "../assets/images/ServiceImages/Drinkware-&-gourmet-hampers.webp";
+import BagsTravelAccessoriesImage from "../assets/images/ServiceImages/Bags-&-travel-accessories.webp";
+import ApparelWearableBrandingImage from "../assets/images/ServiceImages/Apparel-&-wearable-branding.webp";
+import GiftSetsHampersImage from "../assets/images/ServiceImages/Gift sets-&-hampers.webp";
+import PromotionalGiveawaysImage from "../assets/images/ServiceImages/Promotional-giveaways.webp";
 
 const SERVICES = [
   {
     title: "Innovative tech gadgets",
     description:
       "Stay ahead with modern essentials like wireless chargers, multi-device power banks, smart trackers and desk lamps. These practical tech gifts are perfect for corporate clients, events and employee programs.",
-    image: imgA,
+    image: InnovationTechImage,
   },
   {
     title: "Sustainable & eco-friendly gifts",
     description:
       "Show your commitment to sustainability with gifts made from recycled or renewable materials – solar power banks, recycled-plastic speakers, stainless-steel drinkware, organic cotton totes and plantable notebooks.",
-    image: imgB,
+    image: SustainableEcoFriendlyImage,
   },
   {
     title: "Executive & luxury gifts",
     description:
       "For VIP clients or leadership teams, choose engraved pens, leather portfolios, premium diaries and high-end speakers. These sophisticated pieces reflect prestige and appreciation.",
-    image: imgC,
+    image: ExecutiveLuxuryGiftsImage,
   },
   {
     title: "Office & desk essentials",
     description:
       "Personalised notebooks, diaries, calendars, pens and desk organisers help recipients stay organised while promoting your brand. Sustainable options, such as recycled paper notebooks, are also available.",
-    image: imgD,
+    image: OfficeDeskEssentialsImage,
   },
   {
     title: "Drinkware & gourmet hampers",
     description:
       "Reusable bottles, insulated flasks, custom coffee mugs and tumblers are practical and eco-friendly. Pair them with gourmet date boxes or snack hampers for special occasions like Ramadan or Eid.",
-    image: imgE,
+    image: DrinkwareGourmetHampersImage,
   },
   {
     title: "Bags & travel accessories",
     description:
       "From recycled-plastic laptop bags and smart backpacks to cotton totes and travel organisers, our bags offer long-term visibility and practicality.",
-    image: imgF,
+    image: BagsTravelAccessoriesImage,
   },
   {
     title: "Apparel & wearable branding",
     description:
       "Transform recipients into brand ambassadors with customised T-shirts, polo shirts, caps and jackets. Quality materials and professional printing ensure a stylish look.",
-    image: imgA,
+    image: ApparelWearableBrandingImage,
   },
   {
     title: "Gift sets & hampers",
     description:
       "Curated kits combine multiple items in a beautiful package. Choose from travel kits, tech gift sets or wellness hampers to create an unforgettable unboxing experience.",
-    image: imgB,
+    image: GiftSetsHampersImage,
   },
   {
     title: "Promotional giveaways",
     description:
       "For exhibitions and trade shows, our cost-effective promotional items – tote bags, lanyards, keychains, USB drives, stress balls and notebooks – maximise brand exposure and are easy to distribute.",
-    image: imgC,
+    image: PromotionalGiveawaysImage,
   },
 ];
 
@@ -120,7 +121,7 @@ const WhatCan = () => {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover transition-all p-4 duration-500 grayscale group-hover:grayscale-0"
+                    className="w-full h-full object-cover transition-all p-4  duration-500 grayscale-0 md:grayscale md:group-hover:grayscale-0"
                   />
                   <div className="absolute inset-0" />
                 </motion.div>

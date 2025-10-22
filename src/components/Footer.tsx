@@ -15,9 +15,21 @@ import privacyPolicy from "../assets/legal/Privacy_Policy.pdf";
 
 const Footer = () => {
   const socialLinks = [
-    { name: "Instagram", icon: <FaInstagram />, href: "#" },
-    { name: "LinkedIn", icon: <FaLinkedinIn />, href: "#" },
-    { name: "Facebook", icon: <FaFacebookF />, href: "#" },
+    {
+      name: "Instagram",
+      icon: <FaInstagram />,
+      href: "https://www.instagram.com/baharnaniadv/",
+    },
+    {
+      name: "LinkedIn",
+      icon: <FaLinkedinIn />,
+      href: "https://www.linkedin.com/company/baharnaniadvertisingdubai/?originalSubdomain=ae",
+    },
+    {
+      name: "Facebook",
+      icon: <FaFacebookF />,
+      href: "https://www.facebook.com/BAHARNANIADV",
+    },
   ];
 
   return (
@@ -208,9 +220,13 @@ const Footer = () => {
                   <FaHeart className="inline mx-1 text-text-primary" />
                 </motion.span>{" "}
                 by{" "}
-                <span className="text-text-primary font-bwgradual hover:text-primary transition-colors duration-300">
+                <Link
+                  to="https://www.codecobble.com"
+                  target="_blank"
+                  className="text-text-primary font-bwgradual hover:text-primary transition-colors duration-300"
+                >
                   codecobble
-                </span>
+                </Link>
               </motion.p>
             </div>
           </div>

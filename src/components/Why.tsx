@@ -1,4 +1,8 @@
 import { motion } from "framer-motion";
+import NationWideDeliveryImage from "../assets/images/PartnerWithUs/Nationwide-Delivery.webp";
+import SustainableFocusImage from "../assets/images/PartnerWithUs/Sustainability-Focus.webp";
+import DedicatedSupportImage from "../assets/images/PartnerWithUs/Dedicated-Support.webp";
+import ReadyToElevateImage from "../assets/images/PartnerWithUs/Ready-to-Elevate-Your-Brand_.webp";
 
 const Why = () => {
   const container = {
@@ -109,9 +113,9 @@ const Why = () => {
             >
               <div className="absolute inset-0">
                 <img
-                  src="https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg"
+                  src={NationWideDeliveryImage}
                   alt="Customization background"
-                  className="w-full h-full object-cover opacity-60"
+                  className="w-full h-full object-cover brightness-50"
                 />
               </div>
               <div className="relative z-10 flex flex-col justify-between h-full overflow-hidden">
@@ -141,9 +145,10 @@ const Why = () => {
                 <div className="rounded-2xl p-3 sm:p-4 transition-all duration-300 h-auto sm:h-[20vh] md:h-[22.5vh] lg:h-[25vh] relative overflow-hidden">
                   <div className="absolute inset-0">
                     <img
-                      src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg"
+                      
+                      src={SustainableFocusImage}
                       alt="Expert Support background"
-                      className="w-full h-full object-cover opacity-60"
+                      className="w-full h-full object-cover brightness-50"
                     />
                   </div>
                   <div className="relative z-10 flex flex-col justify-between h-full">
@@ -166,9 +171,9 @@ const Why = () => {
                 <div className="rounded-2xl p-3 sm:p-4 transition-all duration-300 h-auto sm:h-[20vh] md:h-[22.5vh] lg:h-[25vh] relative overflow-hidden">
                   <div className="absolute inset-0">
                     <img
-                      src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg"
-                      alt="Global Reach background"
-                      className="w-full h-full object-cover opacity-60"
+                      src={DedicatedSupportImage}
+                      alt="Global Reach background" 
+                      className="w-full h-full object-cover brightness-50"
                     />
                   </div>
                   <div className="relative z-10 flex flex-col justify-between h-full">
@@ -199,9 +204,9 @@ const Why = () => {
               {/* Image div */}
               <div className="w-full sm:w-1/3 h-full p-3 sm:p-4">
                 <img
-                  src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg"
+                  src={ReadyToElevateImage}
                   alt="Corporate Gifting"
-                  className="w-full h-full object-cover rounded-2xl"
+                  className="w-full h-full object-cover  rounded-2xl"
                 />
               </div>
 

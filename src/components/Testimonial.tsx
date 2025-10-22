@@ -7,45 +7,47 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
-const fatimaAlMazrouei = "https://randomuser.me/api/portraits/women/1.jpg";
-const khaledBinSaeed = "https://randomuser.me/api/portraits/men/1.jpg";
-const leilaRahman = "https://randomuser.me/api/portraits/women/2.jpg";
-const mohammedAlFalasi = "https://randomuser.me/api/portraits/men/2.jpg";
-const rashidAlNuaimi = "https://randomuser.me/api/portraits/men/3.jpg";
+import FatimaAlMazroueiImage from "../assets/images/Testimonials/Fatima-Al-Mazrouei.webp";
+import KhaledBinSaeedImage from "../assets/images/Testimonials/Khaled-Bin-Saeed.webp";
+import LeilaRahmanImage from "../assets/images/Testimonials/Leila-Rahman.webp";
+import MohammedAlFalasiImage from "../assets/images/Testimonials/Mohammed-Al-Falasi.webp";
+import RashidAlNuaimiImage from "../assets/images/Testimonials/Rashid-Al-Nuaimi.webp";
+
+
 
 const testimonials = [
   {
     name: "Fatima Al Mazrouei",
     role: "HR Director, Emirates Group",
-    image: fatimaAlMazrouei,
+    image: FatimaAlMazroueiImage,
     quote:
       "Baharnani's corporate gifts have consistently impressed our employees and clients. Their attention to detail and quality is remarkable. Special thanks to Amit for his excellent service!",
   },
   {
     name: "Khaled Bin Saeed",
     role: "CEO, Al Futtaim Trading",
-    image: khaledBinSaeed,
+    image: KhaledBinSaeedImage,
     quote:
       "Working with Shanavas at Baharnani has been fantastic. The customized gift sets they created for our VIP clients were elegant and perfectly represented our brand values.",
   },
   {
     name: "Leila Rahman",
     role: "Marketing Manager, Etisalat",
-    image: leilaRahman,
+    image: LeilaRahmanImage,
     quote:
       "Baharnani delivered exceptional corporate gifts for our annual client appreciation event. The premium quality and attention to detail exceeded our expectations.",
   },
   {
     name: "Mohammed Al Falasi",
     role: "General Manager, Dubai Properties",
-    image: mohammedAlFalasi,
+    image: MohammedAlFalasiImage,
     quote:
       "Amit from Baharnani provided excellent guidance in selecting the perfect corporate gifts. Their eco-friendly options and premium packaging really stood out.",
   },
   {
     name: "Rashid Al Nuaimi",
     role: "Director, Abu Dhabi Investment Authority",
-    image: rashidAlNuaimi,
+    image: RashidAlNuaimiImage,
     quote:
       "The personalized service from Shanavas and the team at Baharnani is unmatched. Their corporate gifts have helped us strengthen our business relationships significantly.",
   },

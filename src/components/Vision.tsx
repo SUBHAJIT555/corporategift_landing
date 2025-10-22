@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import VisionImage from "../assets/images/HeroImages/Vision-of-the-brand.webp"
 
 const VisionMission = () => {
   const fadeInUp = {
@@ -71,7 +72,7 @@ const VisionMission = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden">
             <motion.img
-              src="https://images.pexels.com/photos/33277846/pexels-photo-33277846.jpeg"
+              src={VisionImage}
               alt="Corporate gifting and business relationships concept"
               className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] object-cover"
               variants={fadeInUp}

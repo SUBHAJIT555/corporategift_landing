@@ -79,7 +79,9 @@ const Header: React.FC = () => {
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-black/20 backdrop-blur-sm" : "bg-transparent"
+        isScrolled
+          ? "bg-black/40 backdrop-blur-sm border-b border-white border-dashed"
+          : "bg-transparent"
       }`}
       initial={{ y: -100 }}
       animate={{
@@ -100,7 +102,6 @@ const Header: React.FC = () => {
           {/* Logo Section */}
           <motion.div
             className="flex items-center space-x-2 sm:space-x-3"
-            whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
             <Link to="/">

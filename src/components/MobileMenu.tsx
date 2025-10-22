@@ -18,9 +18,10 @@ const MobileMenu: React.FC = () => {
 
   const navigationItems = [
     { name: "About", path: "/#about" },
+    { name: "Products", path: "/#products" },
     { name: "Services", path: "/#services" },
     { name: "Why Choose Us", path: "/#why_Choose_Us" },
-    { name: "Products", path: "/#products" },
+    { name: "FAQ", path: "/#FAQ" },
     { name: "Contact", path: "/#contact" },
   ];
 
@@ -181,23 +182,29 @@ const MobileMenu: React.FC = () => {
 
                   <div className="mt-5 flex items-center gap-4">
                     <motion.a
-                      href="#"
+                      href="https://www.instagram.com/baharnaniadv/"
                       className="w-11 h-11 flex items-center justify-center rounded-full text-white hover:text-primary transition-colors duration-200 border border-white/10"
                       whileTap={{ scale: 0.95 }}
                       aria-label="Instagram"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <FaInstagram className="w-5 h-5" />
                     </motion.a>
                     <motion.a
-                      href="#"
+                      href="https://www.linkedin.com/company/baharnaniadvertisingdubai/?originalSubdomain=ae"
                       className="w-11 h-11 flex items-center justify-center rounded-full text-white hover:text-primary transition-colors duration-200 border border-white/10"
                       whileTap={{ scale: 0.95 }}
                       aria-label="LinkedIn"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <FaLinkedinIn className="w-5 h-5" />
                     </motion.a>
                     <motion.a
-                      href="#"
+                      href="https://www.facebook.com/BAHARNANIADV"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-11 h-11 flex items-center justify-center rounded-full text-white hover:text-primary transition-colors duration-200 border border-white/10"
                       whileTap={{ scale: 0.95 }}
                       aria-label="Facebook"
