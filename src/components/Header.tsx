@@ -148,7 +148,7 @@ const Header: React.FC = () => {
                     {item.name}
                   </span>
                   <motion.span
-                    className="block absolute top-5 md:top-6 text-primary font-bwgradual"
+                    className="block absolute top-5 md:top-6 text-yellow-500  font-bwgradual"
                     variants={{
                       initial: { y: 0 },
                       hover: { y: 0 },
@@ -205,7 +205,7 @@ const Header: React.FC = () => {
                   Request Callback
                 </span>
                 <motion.span
-                  className="block absolute top-5 md:top-6 text-primary"
+                  className="block absolute top-5 md:top-6 text-yellow-500"
                   variants={{
                     initial: { y: 0 },
                     hover: { y: 0 },
