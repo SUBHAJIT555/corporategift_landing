@@ -286,7 +286,7 @@ const Quote = () => {
 
                     <button
                       type="button"
-                      onClick={() => navigate("/")}
+                      onClick={() => navigate("/#products")}
                       className="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 flex items-center justify-center gap-2"
                     >
                       <MdArrowBack />
