@@ -150,10 +150,10 @@ const Footer = () => {
                     </span>
                   </div>
                   <a
-                    href="tel:+919876543210"
+                    href="tel:+971526240517"
                     className="text-text-primary hover:text-primary transition-all duration-300 font-helvetica text-lg sm:text-xl block py-1 touch-manipulation hover:translate-x-2"
                   >
-                    +91 98765 43210
+                    +971 52 624 0517
                   </a>
                 </motion.li>
 

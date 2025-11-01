@@ -16,7 +16,7 @@ const WhatsAppButton = () => {
   // Open WhatsApp chat
   const openWhatsApp = () => {
     // Replace with your actual WhatsApp number (include country code without +)
-    const phoneNumber = "1234567890"; // Example: "1234567890" for US number
+    const phoneNumber = "+971526240517"; // Example: "1234567890" for US number
     const message = "Hello! I'm interested in your corporate gifts services.";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
       message
@@ -41,10 +41,9 @@ const WhatsAppButton = () => {
         sm:bottom-24 sm:right-6 sm:p-3
         // Desktop: larger size, more spacing
         lg:bottom-28 lg:right-8 lg:p-4
-        ${
-          isVisible
-            ? "opacity-100 scale-100 translate-y-0"
-            : "opacity-0 scale-75 translate-y-2 pointer-events-none"
+        ${isVisible
+          ? "opacity-100 scale-100 translate-y-0"
+          : "opacity-0 scale-75 translate-y-2 pointer-events-none"
         }`}
       aria-label="Contact us on WhatsApp"
     >
