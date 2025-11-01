@@ -74,6 +74,7 @@ const Quote = () => {
           body: JSON.stringify(payload),
         }
       );
+      navigate("/thank-you");
 
       if (!res.ok) throw new Error("Failed to send quote");
       reset();

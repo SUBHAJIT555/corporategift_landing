@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router";
 
 // 🔹 Validation schema
 const callbackSchema = z.object({
@@ -24,6 +25,7 @@ interface CallbackModalProps {
 }
 
 const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -75,6 +77,7 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
       const result = await res.json();
       if (!res.ok) throw new Error(result.message || "Submission failed");
 
+      navigate("/thank-you");
       setStatus("success");
       setMessage("✅ Callback request sent successfully!");
       reset();

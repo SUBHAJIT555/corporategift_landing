@@ -1,6 +1,6 @@
 import { motion, type Variants } from "framer-motion";
 import { IoLogoWhatsapp } from "react-icons/io5";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,6 +21,7 @@ const quoteSchema = z.object({
 type QuoteFormData = z.infer<typeof quoteSchema>;
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -74,9 +75,11 @@ const HeroSection = () => {
         }
       );
 
+
       const result = await res.json();
       if (!res.ok) throw new Error(result.message || "Submission failed");
 
+      navigate("/thank-you");
       setStatus("success");
       setMessage("✅ Quote submitted successfully!");
       reset();
@@ -95,17 +98,18 @@ const HeroSection = () => {
       />
 
       {/* Main Container */}
-      <div className="relative z-10 flex flex-col lg:flex-row min-h-screen items-center pt-16 sm:pt-20 md:pt-24 lg:pt-0 gap-8 lg:gap-0">
+      <div className="container mx-auto relative z-10 flex flex-col lg:flex-row min-h-screen items-center pt-16 sm:pt-20 md:pt-24 lg:pt-0 gap-8 lg:gap-0 px-4 sm:px-6 md:px-8 lg:px-12 ">
         {/* Left Section */}
+        {/*  */}
         <motion.div
-          className="w-full lg:w-1/2 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 py-8 sm:py-12 md:py-16 lg:py-0 order-1 lg:order-1"
+          className="w-full lg:w-2/3 py-8 sm:py-12 md:py-16 lg:py-0 order-1 lg:order-1"
           variants={staggerContainer}
           initial="initial"
           animate="animate"
         >
-          <div className="max-w-3xl text-white">
+          <div className="max-w-3xl text-white " >
             <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-tight mb-4 sm:mb-6"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight mb-4 sm:mb-6"
               variants={fadeIn}
             >
               Get Premium Corporate Gifts in Dubai & Abu Dhabi, UAE
@@ -149,8 +153,9 @@ const HeroSection = () => {
         </motion.div>
 
         {/* Right Section - Quote Form */}
+
         <motion.div
-          className="w-full lg:w-1/2 px-4 sm:px-6 md:px-8 lg:px-16 pb-8 sm:pb-12 md:pb-16 lg:pb-0 order-2 lg:order-2"
+          className="w-full lg:w-1/2  pb-8 sm:pb-12 md:pb-16 lg:pb-0 order-2 lg:order-2"
           variants={fadeIn}
           initial="initial"
           animate="animate"
@@ -270,9 +275,8 @@ const HeroSection = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`text-center text-sm font-medium ${
-                      status === "success" ? "text-green-400" : "text-red-400"
-                    }`}
+                    className={`text-center text-sm font-medium ${status === "success" ? "text-green-400" : "text-red-400"
+                      }`}
                   >
                     {message}
                   </motion.div>

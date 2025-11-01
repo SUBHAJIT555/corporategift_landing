@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 const budgetOptions = [
   { label: "<AED 1,000", value: "<AED 1,000" },
@@ -9,10 +10,6 @@ const budgetOptions = [
   { label: "AED 20,000-AED 50,000", value: "AED 20,000-AED 50,000" },
   { label: ">AED 50,000", value: ">AED 50000" },
 ];
-
-
-
-
 
 type FormData = {
   name: string;
@@ -26,6 +23,7 @@ type FormData = {
 };
 
 export default function ContactForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -44,7 +42,7 @@ export default function ContactForm() {
       formType: "CONTACT",
     },
   });
-  console.log("errors", errors);
+
 
   const [submitStatus, setSubmitStatus] = useState<null | "success" | "error">(null);
   const [message, setMessage] = useState<string>("");
@@ -78,7 +76,7 @@ export default function ContactForm() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            form_id: 6, // 🔸 Update with your actual FluentForm ID
+            form_id: 6,
             data: {
               name: data.name,
               phone: data.contact,
@@ -97,6 +95,7 @@ export default function ContactForm() {
 
       setMessage("✅ Thank you! We’ll get in touch with you shortly.");
       setSubmitStatus("success");
+      navigate("/thank-you");
       reset();
       setTimeout(() => setSubmitStatus(null), 3000);
     } catch (error) {

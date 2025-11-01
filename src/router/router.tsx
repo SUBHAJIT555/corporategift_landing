@@ -5,6 +5,7 @@ import { createBrowserRouter } from "react-router";
 const MainLayout = lazy(() => import("../layouts/Mainlayout"));
 const Home = lazy(() => import("../pages/Home"));
 const Quote = lazy(() => import("../pages/Quote"));
+const ThankYou = lazy(() => import("../components/ThankYou"));
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "quote",
         element: <Quote />,
+      },
+      {
+        path: "thank-you",
+        element: <ThankYou />,
       },
     ],
   },
