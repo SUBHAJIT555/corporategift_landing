@@ -90,7 +90,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
+    <div className="relative min-h-dvh bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-20"
@@ -98,7 +98,7 @@ const HeroSection = () => {
       />
 
       {/* Main Container */}
-      <div className="container mx-auto relative z-10 flex flex-col lg:flex-row min-h-screen items-center pt-16 sm:pt-20 md:pt-24 lg:pt-0 gap-8 lg:gap-0 px-4 sm:px-6 md:px-8 lg:px-12 ">
+      <div className="container mx-auto relative z-10 flex flex-col lg:flex-row items-center py-16 sm:py-20 md:py-24 lg:py-32 gap-8 lg:gap-0 px-4 sm:px-6 md:px-8 lg:px-12">
         {/* Left Section */}
         {/*  */}
         <motion.div
