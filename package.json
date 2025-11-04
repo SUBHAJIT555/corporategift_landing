@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc -b && vite build",
+    "postbuild": "npx react-snap",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -21,8 +22,15 @@
       "tel:*",
       "https://*",
       "http://*"
+    ],
+    "include": [
+      "/thank-you",
+      "/quote"
     ]
   },
+  "browserslist": [
+    "> 0.01%"
+  ],
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@tailwindcss/vite": "^4.1.14",
@@ -37,6 +45,7 @@
     "react-icon": "^1.0.0",
     "react-icons": "^5.5.0",
     "react-lazy-load-image-component": "^1.6.3",
+    "react-snap": "^1.23.0",
     "react-parallax": "^3.5.2",
     "react-router": "^7.9.4",
     "swiper": "^12.0.2",
