@@ -140,15 +140,21 @@ const HeroSection = () => {
               Dubai, Abu Dhabi, and the wider UAE.
             </motion.p>
 
-            <Link target="_blank" to={`https://wa.me/+971526240517?text=${encodeURIComponent("Hello! I'm interested in your corporate gifts services.")}`}>
-              <motion.button
-                className="inline-flex items-center gap-2 sm:gap-3 bg-white text-gray-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base w-full sm:w-auto justify-center"
-                variants={fadeIn}
-              >
-                <IoLogoWhatsapp className="text-lg sm:text-xl text-green-500" />
-                <span>Get instant quote on WhatsApp</span>
-              </motion.button>
-            </Link>
+            {/* <Link target="_blank" to={`https://wa.me/+971526240517?text=${encodeURIComponent("Hello! I'm interested in your corporate gifts services.")}`}> */}
+            <motion.button
+              onClick={() => {
+                const phoneNumber = "+971526240517";
+                const message = "Hello! I'm interested in your corporate gifts services.";
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, "_blank");
+              }}
+              className="inline-flex items-center gap-2 sm:gap-3 bg-white text-gray-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base w-full sm:w-auto justify-center cursor-pointer"
+              variants={fadeIn}
+            >
+              <IoLogoWhatsapp className="text-lg sm:text-xl text-green-500" />
+              <span>Get instant quote on WhatsApp</span>
+            </motion.button>
+            {/* </Link> */}
           </div>
         </motion.div>
 
