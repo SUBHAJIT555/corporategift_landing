@@ -51,7 +51,7 @@ const Header: React.FC = () => {
     { name: "About", path: "/#about" },
     { name: "Products", path: "/#products" },
     { name: "Services", path: "/#services" },
-    { name: "Why", path: "/#why_Choose_Us" },
+    { name: "Why Choose Us", path: "/#why_Choose_Us" },
     { name: "FAQ", path: "/#FAQ" },
     { name: "Contact", path: "/#contact" },
   ];
@@ -78,11 +78,10 @@ const Header: React.FC = () => {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? "bg-black/40 backdrop-blur-sm border-b border-white border-dashed"
           : "bg-transparent"
-      }`}
+        }`}
       initial={{ y: -100 }}
       animate={{
         y: isVisible ? 0 : -100,
@@ -141,9 +140,8 @@ const Header: React.FC = () => {
                   }}
                 >
                   <span
-                    className={`block ${
-                      isActive(item.path) ? "text-primary" : ""
-                    }`}
+                    className={`block ${isActive(item.path) ? "text-primary" : ""
+                      }`}
                   >
                     {item.name}
                   </span>

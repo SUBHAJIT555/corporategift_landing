@@ -62,7 +62,7 @@ const Why = () => {
           >
             {/* ------------------------------ 1st item start ------------------------------ */}
             <motion.div
-              className="h-auto sm:h-[40vh] md:h-[45vh] lg:h-[50vh] rounded-2xl md:col-span-2 lg:col-span-1 motion-element"
+              className="h-auto  rounded-2xl md:col-span-2 lg:col-span-1 motion-element"
               variants={fadeInUp}
             >
               <div className="flex flex-col h-full justify-between gap-2 sm:gap-3 md:gap-4">
@@ -70,10 +70,10 @@ const Why = () => {
                   className="rounded-2xl p-3 sm:p-4 bg-[#D6E1D0] transition-all duration-300 h-auto sm:h-[calc(40vh/3)] md:h-[calc(45vh/3)] lg:h-[calc(50vh/3)]"
                   variants={fadeInUp}
                 >
-                  <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-[#6B7A61] mb-2 sm:mb-3 md:mb-4">
+                  <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-xl xl:text-3xl font-semibold text-[#6B7A61] mb-2 sm:mb-3 md:mb-4 ">
                     Extensive Catalogue
                   </h3>
-                  <p className="text-sm xs:text-base sm:text-lg text-[#6B7A61]">
+                  <p className="text-sm xs:text-base sm:text-lg lg:text-base xl:text-lg text-[#6B7A61]">
                     Hundreds of products from tech gadgets to sustainable items.
                   </p>
                 </motion.div>
@@ -82,10 +82,10 @@ const Why = () => {
                   className="rounded-2xl p-3 sm:p-4 bg-[#F2F0E1] transition-all duration-300 h-auto sm:h-[calc(40vh/3)] md:h-[calc(45vh/3)] lg:h-[calc(50vh/3)]"
                   variants={fadeInUp}
                 >
-                  <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-[#858168] mb-2 sm:mb-3 md:mb-4">
+                  <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-xl xl:text-3xl font-semibold text-[#858168] mb-2 sm:mb-3 md:mb-4 ">
                     Expert Customisation
                   </h3>
-                  <p className="text-sm xs:text-base sm:text-lg text-[#858168]">
+                  <p className="text-sm xs:text-base sm:text-lg lg:text-base xl:text-lg text-[#858168]">
                     In-house design and printing for flawless logo placement.
                   </p>
                 </motion.div>
@@ -94,10 +94,10 @@ const Why = () => {
                   className="rounded-2xl p-3 sm:p-4 bg-[#F1E7DB] transition-all duration-300 h-auto sm:h-[calc(40vh/3)] md:h-[calc(45vh/3)] lg:h-[calc(50vh/3)]"
                   variants={fadeInUp}
                 >
-                  <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-[#756f49] mb-2 sm:mb-3 md:mb-4">
+                  <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-xl xl:text-3xl font-semibold text-[#756f49] mb-2 sm:mb-3 md:mb-4">
                     Quality Assurance
                   </h3>
-                  <p className="text-sm xs:text-base sm:text-lg text-[#756f49]">
+                  <p className="text-sm xs:text-base sm:text-lg lg:text-base xl:text-lg text-[#756f49]">
                     Premium materials and reliable suppliers ensure durability
                     and functionality.
                   </p>
@@ -108,7 +108,7 @@ const Why = () => {
             {/* ------------------------------ 2nd item start ------------------------------ */}
 
             <motion.div
-              className="h-auto sm:h-[40vh] md:h-[45vh] lg:h-[50vh] rounded-2xl p-3 sm:p-4 md:p-6 transition-all duration-300 md:col-span-2 lg:col-span-1 relative overflow-hidden motion-element"
+              className="h-auto sm:h-[40vh] md:h-[45vh] lg:h-auto rounded-2xl p-3 sm:p-4 md:p-6 transition-all duration-300 md:col-span-2 lg:col-span-1 relative overflow-hidden motion-element"
               variants={fadeInUp}
             >
               <div className="absolute inset-0">
@@ -120,13 +120,13 @@ const Why = () => {
               </div>
               <div className="relative z-10 flex flex-col justify-between h-full overflow-hidden">
                 <motion.h3
-                  className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-text-secondary mb-2 sm:mb-3 md:mb-4"
+                  className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-xl xl:text-3xl font-semibold text-text-secondary mb-2 sm:mb-3 md:mb-4"
                   variants={fadeInUp}
                 >
                   Nationwide Delivery
                 </motion.h3>
                 <motion.p
-                  className="text-sm xs:text-base sm:text-lg md:text-xl font-poppins font-semibold text-text-secondary bg-black/30 p-3 sm:p-4 rounded-2xl backdrop-blur-sm"
+                  className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-base xl:text-lg font-poppins font-semibold text-text-secondary bg-black/30 p-3 sm:p-4 rounded-2xl backdrop-blur-sm"
                   variants={fadeInUp}
                 >
                   Fast and reliable shipping across Dubai, Abu Dhabi and other
@@ -138,14 +138,14 @@ const Why = () => {
 
             {/* ------------------------------ 3rd item start ------------------------------ */}
             <motion.div
-              className="h-auto sm:h-[40vh] md:h-[45vh] lg:h-[50vh] rounded-2xl md:col-span-2 lg:col-span-1 motion-element"
+              className="h-auto  rounded-2xl md:col-span-2 lg:col-span-1 motion-element"
               variants={fadeInUp}
             >
               <div className="flex flex-col h-full justify-between gap-2 sm:gap-3 md:gap-4">
                 <div className="rounded-2xl p-3 sm:p-4 transition-all duration-300 h-auto sm:h-[20vh] md:h-[22.5vh] lg:h-[25vh] relative overflow-hidden">
                   <div className="absolute inset-0">
                     <img
-                      
+
                       src={SustainableFocusImage}
                       alt="Expert Support background"
                       className="w-full h-full object-cover brightness-50"
@@ -153,13 +153,13 @@ const Why = () => {
                   </div>
                   <div className="relative z-10 flex flex-col justify-between h-full">
                     <motion.h3
-                      className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-text-secondary mb-2 sm:mb-3 md:mb-4"
+                      className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-xl xl:text-3xl font-semibold text-text-secondary mb-2 sm:mb-3 md:mb-4"
                       variants={fadeInUp}
                     >
                       Sustainability Focus
                     </motion.h3>
                     <motion.p
-                      className="text-sm xs:text-base sm:text-lg md:text-xl font-poppins font-semibold text-text-secondary bg-black/30 p-3 sm:p-4 rounded-2xl backdrop-blur-sm"
+                      className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-base xl:text-lg font-poppins font-semibold text-text-secondary bg-black/30 p-3 sm:p-4 rounded-2xl backdrop-blur-sm"
                       variants={fadeInUp}
                     >
                       Many eco-friendly choices to support your green
@@ -172,19 +172,19 @@ const Why = () => {
                   <div className="absolute inset-0">
                     <img
                       src={DedicatedSupportImage}
-                      alt="Global Reach background" 
+                      alt="Global Reach background"
                       className="w-full h-full object-cover brightness-50"
                     />
                   </div>
                   <div className="relative z-10 flex flex-col justify-between h-full">
                     <motion.h3
-                      className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-semibold text-text-secondary mb-2 sm:mb-3 md:mb-4"
+                      className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-xl xl:text-3xl font-semibold text-text-secondary mb-2 sm:mb-3 md:mb-4"
                       variants={fadeInUp}
                     >
                       Dedicated Support
                     </motion.h3>
                     <motion.p
-                      className="text-sm xs:text-base sm:text-lg md:text-xl font-poppins font-semibold text-text-secondary bg-black/30 p-3 sm:p-4 rounded-2xl backdrop-blur-sm"
+                      className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-base xl:text-lg font-poppins font-semibold text-text-secondary bg-black/30 p-3 sm:p-4 rounded-2xl backdrop-blur-sm"
                       variants={fadeInUp}
                     >
                       Our experienced team provides personalized assistance at
