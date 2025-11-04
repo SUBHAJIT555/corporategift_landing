@@ -59,7 +59,7 @@ const HeroSection = () => {
 
     try {
       const res = await fetch(
-        "https://corporategiftsdubaii.ae/wp-json/fluentform/v1/quote",
+        "https://staging.corporategiftsdubaii.ae/wp-json/fluentform/v1/quote",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -140,7 +140,7 @@ const HeroSection = () => {
               Dubai, Abu Dhabi, and the wider UAE.
             </motion.p>
 
-            <Link target="_blank" to="https://wa.me/971500000000">
+            <Link target="_blank" to={`https://wa.me/+971526240517?text=${encodeURIComponent("Hello! I'm interested in your corporate gifts services.")}`}>
               <motion.button
                 className="inline-flex items-center gap-2 sm:gap-3 bg-white text-gray-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base w-full sm:w-auto justify-center"
                 variants={fadeIn}

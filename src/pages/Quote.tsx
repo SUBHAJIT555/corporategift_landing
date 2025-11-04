@@ -67,7 +67,7 @@ const Quote = () => {
       };
 
       const res = await fetch(
-        "https://corporategiftsdubaii.ae/wp-json/custom/v1/quote",
+        "https://staging.corporategiftsdubaii.ae/wp-json/custom/v1/quote",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

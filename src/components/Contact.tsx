@@ -71,7 +71,7 @@ export default function ContactForm() {
 
     try {
       const response = await fetch(
-        "https://corporategiftsdubaii.ae/wp-json/fluentform/v1/contact",
+        "https://staging.corporategiftsdubaii.ae/wp-json/fluentform/v1/contact",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -113,13 +113,17 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-7xl mx-auto my-4 sm:my-6 md:my-8 lg:my-10 px-3 sm:px-4 md:px-6 lg:px-8"
+      className="max-w-5xl mx-auto my-4 sm:my-6 md:my-8 lg:my-10 px-3 sm:px-4 md:px-6 lg:px-8"
       id="contact"
       noValidate
     >
-      <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-light leading-tight text-text-primary mb-3 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10 border-b border-text-primary/30 pb-2 sm:pb-3 md:pb-4 border-dashed">
-        Tell us about your corporate gift needs:
-      </p>
+      {/* Header Section */}
+      <div className="mb-8 sm:mb-10 md:mb-12 text-center">
+        <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light leading-tight text-text-primary mb-3 sm:mb-4">
+          Tell us about your corporate gift needs
+        </h2>
+        <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
+      </div>
 
       <div
         style={{ minHeight: "450px" }}
@@ -127,9 +131,11 @@ export default function ContactForm() {
       >
         {/* ✅ Success */}
         {submitStatus === "success" && (
-          <div className="text-center py-8 sm:py-12 md:py-16 absolute inset-0 flex flex-col items-center justify-center px-4">
-            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 sm:mb-6">
-              😊
+          <div className="text-center py-8 sm:py-12 md:py-16 absolute inset-0 flex flex-col items-center justify-center px-4 bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 bg-green-100 rounded-full flex items-center justify-center mb-6 sm:mb-8">
+              <div className="text-4xl sm:text-5xl md:text-6xl">
+                😊
+              </div>
             </div>
             <p className="text-lg sm:text-xl md:text-2xl text-green-700 font-semibold text-center">
               {message}
@@ -139,14 +145,16 @@ export default function ContactForm() {
 
         {/* ❌ Error */}
         {submitStatus === "error" && (
-          <div className="text-center py-8 sm:py-12 md:py-16 absolute inset-0 flex flex-col items-center justify-center px-4">
-            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 sm:mb-6">
-              😞
+          <div className="text-center py-8 sm:py-12 md:py-16 absolute inset-0 flex flex-col items-center justify-center px-4 bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 bg-red-100 rounded-full flex items-center justify-center mb-6 sm:mb-8">
+              <div className="text-4xl sm:text-5xl md:text-6xl">
+                😞
+              </div>
             </div>
-            <p className="text-lg sm:text-xl md:text-2xl text-red-600 font-semibold mb-2 sm:mb-4 text-center">
+            <p className="text-lg sm:text-xl md:text-2xl text-red-600 font-semibold mb-1 sm:mb-4 text-center">
               Sorry, something went wrong.
             </p>
-            <p className="text-sm sm:text-base md:text-lg text-center">
+            <p className="text-sm sm:text-base md:text-lg text-center text-gray-600">
               {message}
             </p>
           </div>
@@ -154,22 +162,31 @@ export default function ContactForm() {
 
         {/* 🔹 Form fields */}
         {submitStatus === null && (
-          <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
+          <div className="bg-white/50 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-6 sm:p-8 md:p-10 lg:p-12 space-y-2.5">
             {/* Name */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
-              <span className="flex-shrink-0">My name is</span>
+            <div>
+              <label className="block text-sm sm:text-base md:text-lg font-medium text-gray-700 mb-1">
+                Name <span className="text-red-500">*</span>
+              </label>
               <input
                 type="text"
                 {...register("name", { required: "Name is required" })}
-                placeholder="Enter your name*"
-                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-64 md:w-72 lg:w-80 focus:outline-none placeholder-gray-400 ${errors.name ? "border-red-500" : "border-[#080f0f]"
-                  }`}
+                placeholder="Enter your full name"
+                className={`w-full px-4 py-2 sm:py-3 text-base sm:text-lg border-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${errors.name
+                  ? "border-red-500 focus:ring-red-300 focus:border-red-500"
+                  : "border-gray-300 focus:ring-primary/30 focus:border-primary"
+                  } bg-white placeholder:text-gray-400`}
               />
+              {errors.name && (
+                <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
+              )}
             </div>
 
             {/* Contact */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
-              <span className="flex-shrink-0">You can contact me at</span>
+            <div>
+              <label className="block text-sm sm:text-base md:text-lg font-medium text-gray-700">
+                Contact Number <span className="text-red-500">*</span>
+              </label>
               <input
                 type="tel"
                 inputMode="tel"
@@ -179,15 +196,22 @@ export default function ContactForm() {
                   validate: validateUaeNumber,
                   onChange: handleContactChange,
                 })}
-                placeholder="Phone number*"
-                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-56 md:w-64 lg:w-72 focus:outline-none placeholder-gray-400 ${errors.contact ? "border-red-500" : "border-[#080f0f]"
-                  }`}
+                placeholder="+971 XXXXXXXXX"
+                className={`w-full px-4 py-2 sm:py-3 text-base sm:text-lg border-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${errors.contact
+                  ? "border-red-500 focus:ring-red-300 focus:border-red-500"
+                  : "border-gray-300 focus:ring-primary/30 focus:border-primary"
+                  } bg-white placeholder:text-gray-400`}
               />
+              {errors.contact && (
+                <p className="text-sm text-red-500 mt-1">{errors.contact.message}</p>
+              )}
             </div>
 
             {/* Email */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
-              <span className="flex-shrink-0">Or email me at</span>
+            <div>
+              <label className="block text-sm sm:text-base md:text-lg font-medium text-gray-700 mb-1">
+                Email <span className="text-red-500">*</span>
+              </label>
               <input
                 type="email"
                 {...register("email", {
@@ -197,38 +221,54 @@ export default function ContactForm() {
                     message: "Invalid email address",
                   },
                 })}
-                placeholder="name@example.com*"
-                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-80 md:w-96 lg:w-[28rem] focus:outline-none placeholder-gray-400 ${errors.email ? "border-red-500" : "border-[#080f0f]"
-                  }`}
+                placeholder="name@example.com"
+                className={`w-full px-4 py-2 sm:py-3 text-base sm:text-lg border-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${errors.email
+                  ? "border-red-500 focus:ring-red-300 focus:border-red-500"
+                  : "border-gray-300 focus:ring-primary/30 focus:border-primary"
+                  } bg-white placeholder:text-gray-400`}
               />
+              {errors.email && (
+                <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
+              )}
             </div>
 
             {/* Requirements */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
-              <span className="flex-shrink-0">My requirements are</span>
+            <div>
+              <label className="block text-sm sm:text-base md:text-lg font-medium text-gray-700 mb-1">
+                Requirements <span className="text-red-500">*</span>
+              </label>
               <input
                 type="text"
                 {...register("requirements", {
                   required: "Requirements are required",
                 })}
-                placeholder="Describe your corporate gift needs*"
-                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-3/4 md:w-1/2 lg:w-2/3 focus:outline-none placeholder-gray-400 ${errors.requirements ? "border-red-500" : "border-[#080f0f]"
-                  }`}
+                placeholder="Describe your corporate gift needs"
+                className={`w-full px-4 py-2 sm:py-3 text-base sm:text-lg border-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${errors.requirements
+                  ? "border-red-500 focus:ring-red-300 focus:border-red-500"
+                  : "border-gray-300 focus:ring-primary/30 focus:border-primary"
+                  } bg-white placeholder:text-gray-400`}
               />
+              {errors.requirements && (
+                <p className="text-sm text-red-500 mt-1">{errors.requirements.message}</p>
+              )}
             </div>
 
             {/* Budget */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
-              <span className="flex-shrink-0">My budget range is</span>
+            <div>
+              <label className="block text-sm sm:text-base md:text-lg font-medium text-gray-700 mb-1">
+                Budget Range <span className="text-red-500">*</span>
+              </label>
               <select
                 {...register("budget", { required: "Budget is required" })}
-                className={`border-b text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-56 md:w-64 lg:w-72 focus:outline-none ${errors.budget ? "border-red-500" : "border-[#080f0f]"
-                  }`}
+                className={`w-full px-4 py-2 sm:py-3 text-base sm:text-lg border-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 appearance-none bg-white ${errors.budget
+                  ? "border-red-500 focus:ring-red-300 focus:border-red-500"
+                  : "border-gray-300 focus:ring-primary/30 focus:border-primary"
+                  } bg-[url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")] bg-[length:20px] bg-[right_12px_center] bg-no-repeat pr-10`}
                 defaultValue=""
                 onChange={(e) => console.log(e.target.value)}
               >
                 <option value="" disabled>
-                  Select budget*
+                  Select your budget range
                 </option>
                 {budgetOptions.map((opt) => (
                   <option key={opt.value as string} value={opt.value as string}>
@@ -236,51 +276,60 @@ export default function ContactForm() {
                   </option>
                 ))}
               </select>
+              {errors.budget && (
+                <p className="text-sm text-red-500 mt-1">{errors.budget.message}</p>
+              )}
             </div>
 
             {/* Additional Message */}
-            <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-normal tracking-tighter text-[#080f0f] flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-x-4 sm:gap-x-6 gap-y-2 sm:gap-y-4">
-              <span className="flex-shrink-0">Additional message</span>
-              <input
-                type="text"
+            <div>
+              <label className="block text-sm sm:text-base md:text-lg font-medium text-gray-700 mb-1">
+                Additional message
+              </label>
+              <textarea
                 {...register("additionalMessage")}
-                placeholder="Any additional details..."
-                className="border-b border-[#080f0f] text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal bg-transparent px-2 py-1 w-full sm:w-3/4 md:w-1/2 lg:w-2/3 focus:outline-none placeholder-gray-400"
+                placeholder="Any additional details or special requests..."
+                className="w-full px-4 py-2 sm:py-3 text-base sm:text-lg border-2 border-gray-300 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/30 focus:border-primary bg-white placeholder:text-gray-400 resize-none"
+                rows={4}
               />
             </div>
 
             {/* Privacy */}
-            <div className="flex items-start sm:items-center mt-6 sm:mt-8 md:mt-10 lg:mt-12">
+            <div className="flex items-start pt-2 sm:pt-4">
               <input
                 type="checkbox"
                 {...register("privacy", { required: true })}
-                className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 border-2 transition flex-shrink-0 mt-1 sm:mt-0 ${errors.privacy
+                className={`w-5 h-5 sm:w-6 sm:h-6 border-2 rounded transition-all duration-200 flex-shrink-0 mt-0.5 cursor-pointer ${errors.privacy
                   ? "border-red-500 accent-red-500"
-                  : "border-[#499f68] accent-[#499f68]"
+                  : "border-gray-300 accent-primary focus:ring-2 focus:ring-primary/30"
                   }`}
               />
-              <span
-                className={`text-sm sm:text-base md:text-lg lg:text-xl ml-2 sm:ml-3 leading-relaxed ${errors.privacy ? "text-red-600" : "text-[#080f0f]"
+              <label
+                className={`text-sm sm:text-base md:text-lg ml-3 leading-relaxed cursor-pointer ${errors.privacy ? "text-red-600" : "text-gray-700"
                   }`}
               >
                 I agree with the{" "}
                 <a
                   href="/privacy-policy"
-                  className="underline underline-offset-2 decoration-1 decoration-[#080f0f] hover:decoration-2 transition-all"
+                  className="underline underline-offset-2 decoration-1 decoration-primary hover:decoration-2 transition-all text-primary font-medium"
                 >
                   Privacy Policy
                 </a>
-              </span>
+                <span className="text-red-500"> *</span>
+              </label>
             </div>
+            {errors.privacy && (
+              <p className="text-sm text-red-500 mt-1 ml-8">Please accept the privacy policy</p>
+            )}
 
             {/* Submit */}
-            <div className="flex justify-center sm:justify-end mt-6 sm:mt-8 md:mt-10 lg:mt-12">
+            <div className="flex justify-center sm:justify-end pt-4 sm:pt-6">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="h-12 sm:h-14 md:h-[50px] px-6 sm:px-8 md:px-10 bg-primary text-white text-base sm:text-lg md:text-xl rounded-md hover:bg-primary/80 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer w-full sm:w-auto min-w-[200px] sm:min-w-[250px]"
+                className="h-12 sm:h-14 md:h-16 px-8 sm:px-12 md:px-16 bg-primary text-white text-base sm:text-lg md:text-xl font-semibold rounded-lg hover:bg-primary/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer w-full sm:w-auto min-w-[200px] sm:min-w-[280px] shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0"
               >
-                {isSubmitting ? "Sending..." : "GET MY QUOTE"}
+                {isSubmitting ? "Sending..." : "GET QUOTE"}
               </button>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import {  RiWhatsappFill } from "react-icons/ri";
+import { RiWhatsappFill } from "react-icons/ri";
 
 interface FAQItem {
   id: number;
@@ -83,8 +83,8 @@ const FAQ = () => {
                 Can't find what you are looking for?
               </p>
               <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 lg:space-x-6">
-                <a 
-                  href="https://wa.me/+971501231234"
+                <a
+                  href={`https://wa.me/+971526240517?text=${encodeURIComponent("Hello! I'm interested in your corporate gifts services.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 hover:opacity-80 transition-opacity"
@@ -144,9 +144,8 @@ const FAQ = () => {
                       {item.question}
                     </span>
                     <MdKeyboardArrowDown
-                      className={`w-5 h-5 sm:w-6 sm:h-6 text-gray-400 transition-all duration-300 ease-in-out flex-shrink-0 ${
-                        expandedItems.includes(item.id) ? "rotate-180" : ""
-                      }`}
+                      className={`w-5 h-5 sm:w-6 sm:h-6 text-gray-400 transition-all duration-300 ease-in-out flex-shrink-0 ${expandedItems.includes(item.id) ? "rotate-180" : ""
+                        }`}
                     />
                   </button>
 
