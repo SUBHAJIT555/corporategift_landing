@@ -79,8 +79,8 @@ const Header: React.FC = () => {
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? "bg-black/40 backdrop-blur-sm border-b border-white border-dashed"
-          : "bg-transparent"
+        ? "bg-black/40 backdrop-blur-sm border-b border-white border-dashed"
+        : "bg-transparent"
         }`}
       initial={{ y: -100 }}
       animate={{
@@ -120,7 +120,7 @@ const Header: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.path}
-                className="text-white text-sm md:text-base lg:text-lg font-bwgradual relative overflow-hidden h-5 md:h-6 flex items-center cursor-pointer"
+                className="text-white text-sm lg:text-base xl:text-lg font-bwgradual relative overflow-hidden h-5 md:h-6 flex items-center cursor-pointer"
               >
                 <motion.div
                   className="relative"
