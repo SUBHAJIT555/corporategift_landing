@@ -58,7 +58,7 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
 
     try {
       const res = await fetch(
-        "https://staging.corporategiftsdubaii.ae/wp-json/fluentform/v1/callback",
+        "https://corporategiftsdubaii.ae/wp-json/fluentform/v1/callback",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
