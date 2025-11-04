@@ -28,11 +28,6 @@ export const useCategories = () => {
     fetchCategoriesSWR
   );
 
-  console.log("categories", data);
-  console.log("isLoading", isLoading);
-  console.log("error", error);
-  console.log("mutate", mutate);
-
   return {
     categories: data ?? [],
     isLoading,
