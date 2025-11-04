@@ -22,6 +22,10 @@
       "tel:*",
       "https://*",
       "http://*"
+    ],
+    "include": [
+      "/thank-you",
+      "/quote"
     ]
   },
   "browserslist": [
