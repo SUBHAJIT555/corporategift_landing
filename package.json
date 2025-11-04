@@ -1,12 +1,12 @@
 {
-  "name": "corporategiftslandingpage",
+  "name": "staging.corporategiftslandingpage",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc -b && vite build",
-    "postbuild": "npx react-snap",
+    "build:staging": "tsc -b && vite build && npx react-snap",
     "lint": "eslint .",
     "preview": "vite preview"
   },
