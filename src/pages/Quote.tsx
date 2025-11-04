@@ -26,7 +26,7 @@ interface QuoteFormData {
 const Quote = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const product = location.state?.product as Product;
+  const product = location.state?.product as Product | undefined;
 
   const {
     register,
@@ -47,10 +47,15 @@ const Quote = () => {
   });
 
   useEffect(() => {
-    if (!product) navigate("/");
+    if (!product && typeof window !== "undefined") {
+      // Redirect only on client
+      navigate("/");
+    }
   }, [product, navigate]);
 
   const onSubmit = async (data: QuoteFormData) => {
+    if (!product) return;
+
     try {
       const payload = {
         billing: {
@@ -74,17 +79,28 @@ const Quote = () => {
           body: JSON.stringify(payload),
         }
       );
-      navigate("/thank-you");
 
       if (!res.ok) throw new Error("Failed to send quote");
+
+      navigate("/thank-you");
       reset();
     } catch (err) {
       console.error(err);
-      alert("Error submitting quote request. Please try again.");
+      if (typeof window !== "undefined") {
+        alert("Error submitting quote request. Please try again.");
+      }
     }
   };
 
-  if (!product) return null;
+  // 🧩 During React-Snap prerender, location.state is undefined
+  // Just render a placeholder to avoid hydration mismatch
+  if (!product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-600">
+        <p>Loading quote form…</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-background pt-24 pb-12">
