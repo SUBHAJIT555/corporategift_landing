@@ -71,7 +71,7 @@ export default function ContactForm() {
 
     try {
       const response = await fetch(
-        "https://staging.corporategiftsdubaii.ae/wp-json/fluentform/v1/contact",
+        "https://corporategiftsdubaii.ae/wp-json/fluentform/v1/contact",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

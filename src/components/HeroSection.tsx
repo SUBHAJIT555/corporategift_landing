@@ -59,7 +59,7 @@ const HeroSection = () => {
 
     try {
       const res = await fetch(
-        "https://staging.corporategiftsdubaii.ae/wp-json/fluentform/v1/quote",
+        "https://corporategiftsdubaii.ae/wp-json/fluentform/v1/quote",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
