@@ -11,4 +11,8 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
   },
+  ssr: { noExternal: true },
+  // define: {
+  //   __REACT_DEVTOOLS_GLOBAL_HOOK__: "({})",
+  // },
 });

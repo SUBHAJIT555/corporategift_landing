@@ -13,6 +13,7 @@
   "reactSnap": {
     "source": "dist",
     "inlineCss": false,
+    "skipThirdPartyRequests": true,
     "puppeteerArgs": [
       "--no-sandbox",
       "--disable-setuid-sandbox"
