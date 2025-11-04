@@ -31,7 +31,7 @@ export interface ApiCategory {
 // SWR fetcher functions for caching
 export const fetchRandomProductsSWR = async (): Promise<ApiProduct[]> => {
   const data = await fetcher(
-    "https://corporategiftsdubaii.ae/wp-json/custom/v1/random-products"
+    "https://staging.corporategiftsdubaii.ae/wp-json/custom/v1/random-products"
   );
   if (!Array.isArray(data)) return [];
   const getString = (v: unknown, fallback = ""): string =>
@@ -66,7 +66,7 @@ export const fetchRandomProductsSWR = async (): Promise<ApiProduct[]> => {
 
 export const fetchCategoriesSWR = async (): Promise<ApiCategory[]> => {
   const data = await fetcher(
-    "https://corporategiftsdubaii.ae/wp-json/custom/v1/product-categories"
+    "https://staging.corporategiftsdubaii.ae/wp-json/custom/v1/product-categories"
   );
 
   if (!Array.isArray(data)) return [];
@@ -84,7 +84,7 @@ export const fetchProductsByCategorySWR = async (
   categoryId: number
 ): Promise<ApiProduct[]> => {
   const data = await fetcher(
-    `https://corporategiftsdubaii.ae/wp-json/custom/v1/products-by-category?category_id=${categoryId}`
+    `https://staging.corporategiftsdubaii.ae/wp-json/custom/v1/products-by-category?category_id=${categoryId}`
   );
   if (!Array.isArray(data)) return [];
   const getString = (v: unknown, fallback = ""): string =>
@@ -118,7 +118,7 @@ export async function fetchRandomProducts(
   signal?: AbortSignal
 ): Promise<ApiProduct[]> {
   const url =
-    "https://corporategiftsdubaii.ae/wp-json/custom/v1/random-products";
+    "https://staging.corporategiftsdubaii.ae/wp-json/custom/v1/random-products";
   const response = await fetch(url, {
     signal,
     headers: { Accept: "application/json" },
@@ -159,7 +159,7 @@ export async function fetchCategories(
   signal?: AbortSignal
 ): Promise<ApiCategory[]> {
   const url =
-    "https://corporategiftsdubaii.ae/wp-json/custom/v1/product-categories";
+    "https://staging.corporategiftsdubaii.ae/wp-json/custom/v1/product-categories";
   const response = await fetch(url, {
     signal,
     headers: { Accept: "application/json" },
@@ -183,7 +183,7 @@ export async function fetchProductsByCategory(
   categoryId: number,
   signal?: AbortSignal
 ): Promise<ApiProduct[]> {
-  const url = `https://corporategiftsdubaii.ae/wp-json/custom/v1/products-by-category?category_id=${categoryId}`;
+  const url = `https://staging.corporategiftsdubaii.ae/wp-json/custom/v1/products-by-category?category_id=${categoryId}`;
   const response = await fetch(url, {
     signal,
     headers: { Accept: "application/json" },
