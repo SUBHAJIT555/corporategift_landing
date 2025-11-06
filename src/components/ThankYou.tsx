@@ -38,7 +38,7 @@ const ThankYou = () => {
         `,
                 }}
             />
-            <div className="max-w-3xl w-full text-center">
+            <div className="max-w-3xl w-full text-center z-50">
                 {/* Success Icon */}
                 <motion.div
                     variants={scaleIn}
@@ -58,10 +58,10 @@ const ThankYou = () => {
                     animate="animate"
                     className="mb-6 sm:mb-8"
                 >
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-tight text-text-primary mb-4">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-tight text-shadow-white text-white mb-4">
                         Thank You!
                     </h1>
-                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-text-primary mb-4">
+                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-shadow-white text-white mb-4">
                         We've received your inquiry
                     </p>
                     <p className="text-sm sm:text-base md:text-lg leading-relaxed text-gray-600 max-w-2xl mx-auto">

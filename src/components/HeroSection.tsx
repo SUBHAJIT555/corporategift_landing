@@ -57,6 +57,18 @@ const HeroSection = () => {
     setStatus("idle");
     setMessage("");
 
+    await fetch('/api/save-to-sheet.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        formType: 'quote',
+        company_name: data.company_name,
+        contact_person: data.contact_person,
+        phone: data.phone_number,
+        email: data.email,
+      }),
+    });
+
     try {
       const res = await fetch(
         "https://corporategiftsdubaii.ae/wp-json/fluentform/v1/quote",
