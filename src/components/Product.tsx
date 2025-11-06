@@ -14,7 +14,7 @@ const Product = () => {
 
   // 🔹 Fetch all categories once (cached for 5 min)
   const { categories, isLoading: isLoadingCategories, error: categoryError } = useCategories();
-  console.log("Categories", categories);
+
 
   // 🔹 Fetch products (either random or by category, SWR caches each key)
   const {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoClose, IoCalendar } from "react-icons/io5";
 import { createPortal } from "react-dom";
@@ -26,6 +26,7 @@ interface CallbackModalProps {
 
 const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -41,16 +42,20 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
     },
   });
 
-  const [_, setIsMobile] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 640);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  // // ✅ Guard window usage inside safe effect
+  // useEffect(() => {
+  //   if (typeof window === "undefined") return;
+
+  //   const checkMobile = () => setIsMobile(window.innerWidth < 640);
+  //   checkMobile();
+
+  //   window.addEventListener("resize", checkMobile);
+  //   return () => window.removeEventListener("resize", checkMobile);
+  // }, []);
 
   const onSubmit = async (data: CallbackFormData) => {
     setStatus("idle");
@@ -92,6 +97,12 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
       setMessage(`❌ ${err instanceof Error ? err.message : "Unknown error"}`);
     }
   };
+
+  // ✅ Guard document access for React Snap
+  const portalTarget =
+    typeof document !== "undefined" ? document.body : null;
+
+  if (!portalTarget) return null;
 
   return createPortal(
     <AnimatePresence>
@@ -156,12 +167,13 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
                     className="w-full px-3 py-2 bg-text-primary/20 border border-gray-600 rounded-lg text-text-primary focus:outline-none focus:border-primary"
                   />
                   {errors.name && (
-                    <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.name.message}
+                    </p>
                   )}
                 </div>
 
                 {/* Phone */}
-
                 <div>
                   <label className="block text-text-primary text-sm font-medium mb-2">
                     Phone
@@ -171,16 +183,13 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
                       onChange: (e) => {
                         let val = e.target.value;
 
-                        // Allow backspace down to empty string
                         if (val === "") {
                           e.target.value = "";
                           return;
                         }
 
-                        // Only digits and one leading +
                         val = val.replace(/[^\d+]/g, "");
 
-                        // Auto-add +971 if missing and user starts typing a digit
                         if (!val.startsWith("+971")) {
                           if (val.startsWith("+97")) {
                             val = "+971";
@@ -193,7 +202,6 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
                           }
                         }
 
-                        // Trim to +971 + 9 digits max
                         if (val.length > 13) val = val.slice(0, 13);
 
                         e.target.value = val;
@@ -205,12 +213,11 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
                     placeholder="+971XXXXXXXXX"
                   />
                   {errors.phone && (
-                    <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.phone.message}
+                    </p>
                   )}
                 </div>
-
-
-
 
                 {/* Callback Time */}
                 <div>
@@ -222,7 +229,9 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
                     type="datetime-local"
                     {...register("callbackTime")}
                     className="w-full px-3 py-2 bg-text-primary/20 border border-gray-600 rounded-lg text-text-primary focus:outline-none focus:border-primary"
-                    min={new Date().toISOString().slice(0, 16)}
+                    min={typeof window !== "undefined"
+                      ? new Date().toISOString().slice(0, 16)
+                      : undefined}
                   />
                   {errors.callbackTime && (
                     <p className="text-red-500 text-xs mt-1">
@@ -260,7 +269,9 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`text-center text-sm font-medium ${status === "success" ? "text-green-500" : "text-red-500"
+                    className={`text-center text-sm font-medium ${status === "success"
+                      ? "text-green-500"
+                      : "text-red-500"
                       }`}
                   >
                     {message}
@@ -281,7 +292,7 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
         </>
       )}
     </AnimatePresence>,
-    document.body
+    portalTarget
   );
 };
 

@@ -13,6 +13,7 @@
   "reactSnap": {
     "source": "dist",
     "inlineCss": false,
+    "skipThirdPartyRequests": true,
     "puppeteerArgs": [
       "--no-sandbox",
       "--disable-setuid-sandbox"
@@ -45,9 +46,9 @@
     "react-icon": "^1.0.0",
     "react-icons": "^5.5.0",
     "react-lazy-load-image-component": "^1.6.3",
+    "react-snap": "^1.23.0",
     "react-parallax": "^3.5.2",
     "react-router": "^7.9.4",
-    "react-snap": "^1.23.0",
     "swiper": "^12.0.2",
     "swr": "^2.3.6",
     "tailwind-merge": "^3.3.1",

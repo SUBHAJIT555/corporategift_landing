@@ -93,7 +93,7 @@ export default function ContactForm() {
 
       if (!response.ok) throw new Error(responseData.message);
 
-      setMessage("✅ Thank you! We’ll get in touch with you shortly.");
+      setMessage("✅ Thank you! We'll get in touch with you shortly.");
       setSubmitStatus("success");
       navigate("/thank-you");
       reset();
@@ -265,7 +265,7 @@ export default function ContactForm() {
                   : "border-gray-300 focus:ring-primary/30 focus:border-primary"
                   } bg-[url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")] bg-[length:20px] bg-[right_12px_center] bg-no-repeat pr-10`}
                 defaultValue=""
-                onChange={(e) => console.log(e.target.value)}
+
               >
                 <option value="" disabled>
                   Select your budget range

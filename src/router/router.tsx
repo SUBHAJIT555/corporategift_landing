@@ -6,7 +6,7 @@ const MainLayout = lazy(() => import("../layouts/Mainlayout"));
 const Home = lazy(() => import("../pages/Home"));
 const Quote = lazy(() => import("../pages/Quote"));
 const ThankYou = lazy(() => import("../components/ThankYou"));
-
+const PrivacyPolicy = lazy(() => import("../pages/PP"));
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "thank-you",
         element: <ThankYou />,
+      },
+      {
+        path: "privacy-policy",
+        element: <PrivacyPolicy />,
       },
     ],
   },
