@@ -65,11 +65,33 @@ export default function ContactForm() {
     return valid || "Please enter a valid number";
   };
 
+  // Helper function to remove space after +971
+  const formatPhoneNumber = (phone: string): string => {
+    return phone.replace(/^(\+971)\s+/, '$1');
+  };
+
   // 🔹 Updated submit to FluentForm API
   const onSubmit = async (data: FormData) => {
     setSubmitStatus(null);
 
     try {
+      // Remove space after +971 before submission
+      const formattedPhone = formatPhoneNumber(data.contact);
+
+      await fetch('/api/save-to-sheet.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'contact',
+          name: data.name,
+          contact_number: formattedPhone,
+          email: data.email,
+          requirements: data.requirements,
+          budget_range: data.budget,
+          message: data.additionalMessage,
+        }),
+      });
+
       const response = await fetch(
         "https://staging.corporategiftsdubaii.ae/wp-json/fluentform/v1/contact",
         {
@@ -79,7 +101,7 @@ export default function ContactForm() {
             form_id: 6,
             data: {
               name: data.name,
-              phone: data.contact,
+              phone: formattedPhone,
               email: data.email,
               requirements: data.requirements,
               budget: data.budget,

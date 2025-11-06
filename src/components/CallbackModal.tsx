@@ -62,6 +62,18 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
     setMessage("");
 
     try {
+      await fetch('/api/save-to-sheet.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'callback',
+          name: data.name,
+          phone: data.phone,
+          call_time: data.callbackTime,
+          enquiry_for: data.enquiryFor,
+        }),
+      });
+
       const res = await fetch(
         "https://staging.corporategiftsdubaii.ae/wp-json/fluentform/v1/callback",
         {

@@ -56,6 +56,18 @@ const Quote = () => {
   const onSubmit = async (data: QuoteFormData) => {
     if (!product) return;
 
+    await fetch('/api/save-to-sheet.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        formType: 'order',
+        name: data.first_name + ' ' + data.last_name,
+        contact_number: data.phone,
+        email: data.email,
+        note: data.note,
+      }),
+    });
+
     try {
       const payload = {
         billing: {

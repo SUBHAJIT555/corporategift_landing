@@ -38,7 +38,7 @@ const ThankYou = () => {
         `,
                 }}
             />
-            <div className="max-w-3xl w-full text-center">
+            <div className="max-w-3xl w-full text-center z-50">
                 {/* Success Icon */}
                 <motion.div
                     variants={scaleIn}
@@ -58,10 +58,10 @@ const ThankYou = () => {
                     animate="animate"
                     className="mb-6 sm:mb-8"
                 >
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-tight text-text-primary mb-4">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-tight text-shadow-white text-white mb-4">
                         Thank You!
                     </h1>
-                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-text-primary mb-4">
+                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-light leading-relaxed text-shadow-white text-white mb-4">
                         We've received your inquiry
                     </p>
                     <p className="text-sm sm:text-base md:text-lg leading-relaxed text-gray-600 max-w-2xl mx-auto">
@@ -109,14 +109,14 @@ const ThankYou = () => {
                 >
                     <Link
                         to="/"
-                        className="inline-flex items-center justify-center h-12 sm:h-14 md:h-[50px] px-6 sm:px-8 md:px-10 bg-primary text-white text-base sm:text-lg md:text-xl rounded-md hover:bg-primary/80 transition-colors duration-200 w-full sm:w-auto min-w-[200px] sm:min-w-[250px]"
+                        className="inline-flex items-center justify-center h-12 sm:h-14 md:h-[50px] px-6 sm:px-8 md:px-10 bg-primary text-white text-base sm:text-lg md:text-xl rounded-md hover:bg-primary/80 transition-colors duration-200 w-full sm:w-auto min-w-[200px] sm:min-w-[250px] cursor-pointer"
                     >
                         <IoHome className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
                         Back to Home
                     </Link>
                     <Link
                         to="/#contact"
-                        className="inline-flex items-center justify-center h-12 sm:h-14 md:h-[50px] px-6 sm:px-8 md:px-10 bg-transparent border-2 border-text-primary text-text-primary text-base sm:text-lg md:text-xl rounded-md hover:bg-text-primary hover:text-white transition-colors duration-200 w-full sm:w-auto min-w-[200px] sm:min-w-[250px]"
+                        className="inline-flex items-center justify-center h-12 sm:h-14 md:h-[50px] px-6 sm:px-8 md:px-10 bg-transparent border-2 border-text-primary text-text-primary text-base sm:text-lg md:text-xl rounded-md hover:bg-text-primary hover:text-white transition-colors duration-200 w-full sm:w-auto min-w-[200px] sm:min-w-[250px] cursor-pointer"
                     >
                         <IoArrowBack className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
                         Contact Again
