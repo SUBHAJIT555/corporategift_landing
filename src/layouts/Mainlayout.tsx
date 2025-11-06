@@ -19,7 +19,7 @@ const MainLayout = () => {
       const timer = setTimeout(() => {
         setIsAutoModalOpen(true);
         sessionStorage.setItem("callbackModalShown", "true");
-      }, 15000);
+      }, 30000);
 
       // Cleanup timer on unmount
       return () => clearTimeout(timer);
