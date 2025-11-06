@@ -93,7 +93,7 @@ export default function ContactForm() {
 
       if (!response.ok) throw new Error(responseData.message);
 
-      setMessage("✅ Thank you! We’ll get in touch with you shortly.");
+      setMessage("✅ Thank you! We'll get in touch with you shortly.");
       setSubmitStatus("success");
       navigate("/thank-you");
       reset();
