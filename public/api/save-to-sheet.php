@@ -24,7 +24,7 @@ try {
     $sheets = new Sheets($client);
 
     // --- Config ---
-    $spreadsheetId = '11Wt7xxqYmH_j1l1z-kcCQsSe4_5zwz4ggp90-2UohpU';
+    $spreadsheetId = '1TWDGSSG4UPTmdWeTj0WGvlV6NiZCDXa8D9QTX899lvw';
     $range = 'New Landing Page';
     $formType = strtolower($input['formType'] ?? 'contact');
     $serverIp = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
