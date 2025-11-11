@@ -25,7 +25,7 @@ try {
 
     // --- Config ---
     $spreadsheetId = '11Wt7xxqYmH_j1l1z-kcCQsSe4_5zwz4ggp90-2UohpU';
-    $range = 'New Landing Page';
+    $sheetName = 'New Landing Page';
     $formType = strtolower($input['formType'] ?? 'contact');
     $serverIp = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
     $columnsRange = "'{$sheetName}'!A:L"; // scan only A→L
@@ -106,14 +106,15 @@ try {
     // --- Append row ---
     $body = new Sheets\ValueRange(['values' => [$row]]);
     $params = ['valueInputOption' => 'USER_ENTERED'];
-    $rangeToWrite = "A{$targetRow}:L{$targetRow}";
+    $rangeToWrite = "'{$sheetName}'!A{$targetRow}:L{$targetRow}";
     $result = $sheets->spreadsheets_values->update($spreadsheetId, $rangeToWrite, $body, $params);
 
 
     echo json_encode([
         'success' => true,
         'insertedRow' => $row,
-        'updatedRange' => $result->getUpdates()->getUpdatedRange() ?? null
+        'updatedRange' => $result->getUpdatedRange() ?? null,
+        'updatedRows' => $result->getUpdatedRows() ?? null
     ]);
 } catch (Throwable $e) {
     error_log('❌ Google Sheets sync failed: ' . $e->getMessage());
