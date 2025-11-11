@@ -24,19 +24,33 @@ try {
     $sheets = new Sheets($client);
 
     // --- Config ---
-    // $spreadsheetId = '11Wt7xxqYmH_j1l1z-kcCQsSe4_5zwz4ggp90-2UohpU';
-    $spreadsheetId = '1TWDGSSG4UPTmdWeTj0WGvlV6NiZCDXa8D9QTX899lvw';
+    $spreadsheetId = '11Wt7xxqYmH_j1l1z-kcCQsSe4_5zwz4ggp90-2UohpU';
     $range = 'New Landing Page';
     $formType = strtolower($input['formType'] ?? 'contact');
-    $serverIp = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? ($_SERVER['HTTP_CLIENT_IP'] ?? ($_SERVER['REMOTE_ADDR'] ?? ''));
+    $serverIp = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    $columnsRange = "'{$sheetName}'!A:L"; // scan only A→L
 
     // --- Get current row count to calculate Sr No ---
-    $existingRows = $sheets->spreadsheets_values->get($spreadsheetId, $range)->getValues();
-    $srNo = is_array($existingRows) ? count($existingRows) - 1 : 0;
+    $existingRows = $sheets->spreadsheets_values->get($spreadsheetId, $columnsRange)->getValues() ?? [];
+
+    // --- Find first empty row in A→L (skip header row 1) ---
+    $targetRow = count($existingRows) + 1; // default append after last seen row
+    for ($i = 1; $i < count($existingRows); $i++) { // start at row 2 (index 1)
+        $rowData = array_pad($existingRows[$i], 12, '');
+        $isEmpty = count(array_filter($rowData, fn($c) => trim((string) $c) !== '')) === 0;
+        if ($isEmpty) {
+            $targetRow = $i + 1; // 1-based row index
+            break;
+        }
+    }
+
+
+    // --- Sr No = target row - 1 (because row 1 is header) ---
+    $srNo = $targetRow - 1;
 
     // --- Default blank row matching columns (A→L) ---
     $row = [
-        $srNo + 1,        // Sr No
+        $srNo,        // Sr No
         date('Y-m-d H:i:s'), // Date
         '',
         '',
@@ -92,7 +106,9 @@ try {
     // --- Append row ---
     $body = new Sheets\ValueRange(['values' => [$row]]);
     $params = ['valueInputOption' => 'USER_ENTERED'];
-    $result = $sheets->spreadsheets_values->append($spreadsheetId, $range, $body, $params);
+    $rangeToWrite = "A{$targetRow}:L{$targetRow}";
+    $result = $sheets->spreadsheets_values->update($spreadsheetId, $rangeToWrite, $body, $params);
+
 
     echo json_encode([
         'success' => true,
@@ -103,4 +119,3 @@ try {
     error_log('❌ Google Sheets sync failed: ' . $e->getMessage());
     echo json_encode(['error' => $e->getMessage()]);
 }
-
