@@ -4,6 +4,7 @@ use Google\Service\Sheets;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
@@ -14,6 +15,7 @@ if (!$input) {
 }
 
 try {
+    date_default_timezone_set('Asia/Kolkata');
     // --- Setup Google Sheets client ---
     $client = new Client();
     $client->setApplicationName('Google Sheets API');
@@ -27,8 +29,13 @@ try {
     $spreadsheetId = '1TWDGSSG4UPTmdWeTj0WGvlV6NiZCDXa8D9QTX899lvw';
     $sheetName = 'New Landing Page';
     $formType = strtolower($input['formType'] ?? 'contact');
-    $serverIp = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-    $columnsRange = "'{$sheetName}'!A:L"; // scan only A→L
+    $serverIp = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? ($_SERVER['HTTP_CLIENT_IP'] ?? ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+    $columnsRange = "'{$sheetName}'!A:Q"; // scan only A→L
+    $utm_source = trim((string) ($input['utm_source'] ?? ''));
+    $utm_medium = trim((string) ($input['utm_medium'] ?? ''));
+    $utm_campaign = trim((string) ($input['utm_campaign'] ?? ''));
+    $utm_term = trim((string) ($input['utm_term'] ?? ''));
+    $utm_content = trim((string) ($input['utm_content'] ?? ''));
 
     // --- Get current row count to calculate Sr No ---
     $existingRows = $sheets->spreadsheets_values->get($spreadsheetId, $columnsRange)->getValues() ?? [];
@@ -36,7 +43,7 @@ try {
     // --- Find first empty row in A→L (skip header row 1) ---
     $targetRow = count($existingRows) + 1; // default append after last seen row
     for ($i = 1; $i < count($existingRows); $i++) { // start at row 2 (index 1)
-        $rowData = array_pad($existingRows[$i], 12, '');
+        $rowData = array_pad($existingRows[$i], 17, '');
         $isEmpty = count(array_filter($rowData, fn($c) => trim((string) $c) !== '')) === 0;
         if ($isEmpty) {
             $targetRow = $i + 1; // 1-based row index
@@ -48,7 +55,7 @@ try {
     // --- Sr No = target row - 1 (because row 1 is header) ---
     $srNo = $targetRow - 1;
 
-    // --- Default blank row matching columns (A→L) ---
+    // --- Default blank row matching columns (A→Q) ---
     $row = [
         $srNo,        // Sr No
         date('Y-m-d H:i:s'), // Date
@@ -61,7 +68,12 @@ try {
         '',
         '',
         '', // C→K placeholders
-        $serverIp         // L → Server IP
+        $serverIp,         // L → Server IP
+        $utm_source, // M → UTM Source
+        $utm_medium, // N → UTM Medium
+        $utm_campaign, // O → UTM Campaign
+        $utm_term, // P → UTM Term
+        $utm_content, // Q → UTM Content
     ];
 
     // --- Map based on form type ---
@@ -106,7 +118,7 @@ try {
     // --- Append row ---
     $body = new Sheets\ValueRange(['values' => [$row]]);
     $params = ['valueInputOption' => 'USER_ENTERED'];
-    $rangeToWrite = "'{$sheetName}'!A{$targetRow}:L{$targetRow}";
+    $rangeToWrite = "'{$sheetName}'!A{$targetRow}:Q{$targetRow}";
     $result = $sheets->spreadsheets_values->update($spreadsheetId, $rangeToWrite, $body, $params);
 
 
