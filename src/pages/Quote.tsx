@@ -21,6 +21,11 @@ interface QuoteFormData {
   city: string;
   quantity: number;
   note?: string;
+  utm_source: string;
+  utm_medium: string;
+  utm_campaign: string;
+  utm_term: string;
+  utm_content: string;
 }
 
 const Quote = () => {
@@ -43,6 +48,11 @@ const Quote = () => {
       city: "",
       quantity: 1,
       note: "",
+      utm_source: "",
+      utm_medium: '',
+      utm_campaign: '',
+      utm_term: '',
+      utm_content: '',
     },
   });
 
@@ -64,6 +74,11 @@ const Quote = () => {
         contact_number: data.phone,
         email: data.email,
         note: data.note,
+        utm_source: data.utm_source,
+        utm_medium: data.utm_medium,
+        utm_campaign: data.utm_campaign,
+        utm_term: data.utm_term,
+        utm_content: data.utm_content,
       }),
     });
     try {
@@ -178,6 +193,16 @@ const Quote = () => {
                 )}
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                  {/* UTM Source */}
+                  <input type="hidden" {...register("utm_source")} />
+                  {/* UTM Medium */}
+                  <input type="hidden" {...register("utm_medium")} />
+                  {/* UTM Campaign */}
+                  <input type="hidden" {...register("utm_campaign")} />
+                  {/* UTM Term */}
+                  <input type="hidden" {...register("utm_term")} />
+                  {/* UTM Content */}
+                  <input type="hidden" {...register("utm_content")} />
                   {/* Name */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>

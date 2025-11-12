@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { useUTMTracking } from "../hooks/useUTMTracking";
 
 const budgetOptions = [
   { label: "<AED 1,000", value: "<AED 1,000" },
@@ -20,6 +21,11 @@ type FormData = {
   additionalMessage: string;
   privacy: boolean;
   formType: string;
+  utm_source: string;
+  utm_medium: string;
+  utm_campaign: string;
+  utm_term: string;
+  utm_content: string;
 };
 
 export default function ContactForm() {
@@ -40,12 +46,20 @@ export default function ContactForm() {
       additionalMessage: "",
       privacy: false,
       formType: "CONTACT",
+      utm_source: "",
+      utm_medium: '',
+      utm_campaign: '',
+      utm_term: '',
+      utm_content: '',
     },
   });
 
 
   const [submitStatus, setSubmitStatus] = useState<null | "success" | "error">(null);
   const [message, setMessage] = useState<string>("");
+
+  // UTM Parameter Tracking
+  useUTMTracking<FormData>(setValue);
 
   // Keep +971 formatting logic
   const handleContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,6 +101,11 @@ export default function ContactForm() {
         requirements: data.requirements,
         budget_range: data.budget,
         message: data.additionalMessage,
+        utm_source: data.utm_source,
+        utm_medium: data.utm_medium,
+        utm_campaign: data.utm_campaign,
+        utm_term: data.utm_term,
+        utm_content: data.utm_content,
       }),
     });
 
@@ -138,6 +157,16 @@ export default function ContactForm() {
       id="contact"
       noValidate
     >
+      {/* UTM Source */}
+      <input type="hidden" {...register("utm_source")} />
+      {/* UTM Medium */}
+      <input type="hidden" {...register("utm_medium")} />
+      {/* UTM Campaign */}
+      <input type="hidden" {...register("utm_campaign")} />
+      {/* UTM Term */}
+      <input type="hidden" {...register("utm_term")} />
+      {/* UTM Content */}
+      <input type="hidden" {...register("utm_content")} />
       {/* Header Section */}
       <div className="mb-8 sm:mb-10 md:mb-12 text-center">
         <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light leading-tight text-text-primary mb-3 sm:mb-4">
