@@ -170,13 +170,13 @@ const MobileMenu: React.FC = () => {
                   </motion.a>
 
                   <motion.a
-                    href="mailto:amit@baharnani.com"
+                    href="mailto:vivek@baharnani.com"
                     className="flex items-center gap-3 text-white hover:text-primary transition-colors duration-200"
                     whileTap={{ scale: 0.98 }}
                   >
                     <FaEnvelope className="w-5 h-5" />
                     <span className="font-helvetica text-lg">
-                      amit@baharnani.com
+                      vivek@baharnani.com
                     </span>
                   </motion.a>
 
