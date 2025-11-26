@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { useUTMTracking } from "../hooks/useUTMTracking";
 
 import HeroImage from "../assets/images/HeroImages/Hero-sec.webp";
 
@@ -16,6 +17,11 @@ const quoteSchema = z.object({
     .string()
     .regex(/^\+971\s?\d{9}$/, "Please enter a valid UAE number"),
   email: z.string().email("Please enter a valid email address"),
+  utm_source: z.string().optional(),
+  utm_medium: z.string().optional(),
+  utm_campaign: z.string().optional(),
+  utm_term: z.string().optional(),
+  utm_content: z.string().optional(),
 });
 
 type QuoteFormData = z.infer<typeof quoteSchema>;
@@ -25,11 +31,26 @@ const HeroSection = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<QuoteFormData>({
     resolver: zodResolver(quoteSchema),
+    defaultValues: {
+      company_name: "",
+      contact_person: "",
+      phone_number: "",
+      email: "",
+      utm_source: "",
+      utm_medium: '',
+      utm_campaign: '',
+      utm_term: '',
+      utm_content: '',
+    },
   });
+
+  // UTM Parameter Tracking
+  useUTMTracking<QuoteFormData>(setValue);
 
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState<string>("");
@@ -56,6 +77,23 @@ const HeroSection = () => {
   const onSubmit = async (data: QuoteFormData) => {
     setStatus("idle");
     setMessage("");
+
+    await fetch('/api/save-to-sheet.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        formType: 'quote',
+        company_name: data.company_name,
+        contact_person: data.contact_person,
+        phone: data.phone_number,
+        email: data.email,
+        utm_source: data.utm_source,
+        utm_medium: data.utm_medium,
+        utm_campaign: data.utm_campaign,
+        utm_term: data.utm_term,
+        utm_content: data.utm_content,
+      }),
+    });
 
     try {
 
@@ -157,7 +195,7 @@ const HeroSection = () => {
             <motion.button
               variants={fadeIn}
             >
-              <Link target="_blank" to={`https://wa.me/+971526240517?text=${encodeURIComponent("Hello! I'm interested in your corporate gifts services.")}`} className="inline-flex items-center gap-2 sm:gap-3 bg-white text-gray-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base w-full sm:w-auto justify-center">
+              <Link target="_blank" to={`https://wa.me/+971551061045?text=${encodeURIComponent("Hello! I'm interested in your corporate gifts services.")}`} className="inline-flex items-center gap-2 sm:gap-3 bg-white text-gray-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base w-full sm:w-auto justify-center">
                 <IoLogoWhatsapp className="text-lg sm:text-xl text-green-500" />
                 <span>Get instant quote on WhatsApp</span>
               </Link>
@@ -183,6 +221,16 @@ const HeroSection = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 className="space-y-3 sm:space-y-4"
               >
+                {/* UTM Source */}
+                <input type="hidden" {...register("utm_source")} />
+                {/* UTM Medium */}
+                <input type="hidden" {...register("utm_medium")} />
+                {/* UTM Campaign */}
+                <input type="hidden" {...register("utm_campaign")} />
+                {/* UTM Term */}
+                <input type="hidden" {...register("utm_term")} />
+                {/* UTM Content */}
+                <input type="hidden" {...register("utm_content")} />
                 <div>
                   <label className="block text-white text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                     Company Name*

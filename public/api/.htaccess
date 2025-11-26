@@ -1,0 +1,8 @@
+# Allow PHP files to execute
+<Files "save-to-sheet.php">
+    Require all granted
+</Files>
+
+# Prevent directory listing
+Options -Indexes
+

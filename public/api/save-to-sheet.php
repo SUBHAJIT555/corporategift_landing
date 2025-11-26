@@ -14,6 +14,7 @@ if (!$input) {
 }
 
 try {
+    date_default_timezone_set('Asia/Kolkata');
     // --- Setup Google Sheets client ---
     $client = new Client();
     $client->setApplicationName('Google Sheets API');
@@ -36,7 +37,7 @@ try {
     // --- Find first empty row in A→L (skip header row 1) ---
     $targetRow = count($existingRows) + 1; // default append after last seen row
     for ($i = 1; $i < count($existingRows); $i++) { // start at row 2 (index 1)
-        $rowData = array_pad($existingRows[$i], 12, '');
+        $rowData = array_pad($existingRows[$i], 17, '');
         $isEmpty = count(array_filter($rowData, fn($c) => trim((string) $c) !== '')) === 0;
         if ($isEmpty) {
             $targetRow = $i + 1; // 1-based row index
@@ -48,7 +49,7 @@ try {
     // --- Sr No = target row - 1 (because row 1 is header) ---
     $srNo = $targetRow - 1;
 
-    // --- Default blank row matching columns (A→L) ---
+    // --- Default blank row matching columns (A→Q) ---
     $row = [
         $srNo,        // Sr No
         date('Y-m-d H:i:s'), // Date
@@ -61,7 +62,12 @@ try {
         '',
         '',
         '', // C→K placeholders
-        $serverIp         // L → Server IP
+        $serverIp,         // L → Server IP
+        $utm_source, // M → UTM Source
+        $utm_medium, // N → UTM Medium
+        $utm_campaign, // O → UTM Campaign
+        $utm_term, // P → UTM Term
+        $utm_content, // Q → UTM Content
     ];
 
     // --- Map based on form type ---
@@ -106,7 +112,7 @@ try {
     // --- Append row ---
     $body = new Sheets\ValueRange(['values' => [$row]]);
     $params = ['valueInputOption' => 'USER_ENTERED'];
-    $rangeToWrite = "'{$sheetName}'!A{$targetRow}:L{$targetRow}";
+    $rangeToWrite = "'{$sheetName}'!A{$targetRow}:Q{$targetRow}";
     $result = $sheets->spreadsheets_values->update($spreadsheetId, $rangeToWrite, $body, $params);
 
 

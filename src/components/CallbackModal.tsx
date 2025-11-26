@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router";
+import { useUTMTracking } from "../hooks/useUTMTracking";
 
 // 🔹 Validation schema
 const callbackSchema = z.object({
@@ -15,6 +16,11 @@ const callbackSchema = z.object({
     .regex(/^\+971\s?\d{9}$/, "Please enter a valid UAE number"),
   callbackTime: z.string().nonempty("Please select a callback time"),
   enquiryFor: z.string().nonempty("Please select an enquiry type"),
+  utm_source: z.string().optional(),
+  utm_medium: z.string().optional(),
+  utm_campaign: z.string().optional(),
+  utm_term: z.string().optional(),
+  utm_content: z.string().optional(),
 });
 
 type CallbackFormData = z.infer<typeof callbackSchema>;
@@ -30,6 +36,7 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<CallbackFormData>({
@@ -39,8 +46,16 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
       phone: "",
       callbackTime: "",
       enquiryFor: "",
+      utm_source: "",
+      utm_medium: '',
+      utm_campaign: '',
+      utm_term: '',
+      utm_content: '',
     },
   });
+
+  // UTM Parameter Tracking
+  useUTMTracking<CallbackFormData>(setValue);
 
   // const [isMobile, setIsMobile] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -60,6 +75,23 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
   const onSubmit = async (data: CallbackFormData) => {
     setStatus("idle");
     setMessage("");
+
+    await fetch('/api/save-to-sheet.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        formType: 'callback',
+        name: data.name,
+        phone: data.phone,
+        call_time: data.callbackTime,
+        enquiry_for: data.enquiryFor,
+        utm_source: data.utm_source,
+        utm_medium: data.utm_medium,
+        utm_campaign: data.utm_campaign,
+        utm_term: data.utm_term,
+        utm_content: data.utm_content,
+      }),
+    });
 
     try {
       await fetch('/api/save-to-sheet.php', {
@@ -86,6 +118,7 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
               phone: data.phone,
               call_back_time: data.callbackTime,
               enquiry_for: data.enquiryFor,
+
             },
           }),
         }
@@ -169,6 +202,16 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
                 onSubmit={handleSubmit(onSubmit)}
                 className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-4"
               >
+                {/* UTM Source */}
+                <input type="hidden" {...register("utm_source")} />
+                {/* UTM Medium */}
+                <input type="hidden" {...register("utm_medium")} />
+                {/* UTM Campaign */}
+                <input type="hidden" {...register("utm_campaign")} />
+                {/* UTM Term */}
+                <input type="hidden" {...register("utm_term")} />
+                {/* UTM Content */}
+                <input type="hidden" {...register("utm_content")} />
                 {/* Name */}
                 <div>
                   <label className="block text-text-primary text-sm font-medium mb-2">
