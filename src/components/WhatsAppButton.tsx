@@ -25,7 +25,7 @@ const WhatsAppButton = () => {
 
   return (
     <Link
-      to={`https://wa.me/+971526240517?text=${encodeURIComponent(
+      to={`https://wa.me/+971551061045?text=${encodeURIComponent(
         "Hello! I'm interested in your corporate gifts services."
       )}`}
       target="_blank"
