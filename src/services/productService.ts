@@ -81,20 +81,38 @@ export const fetchCategoriesSWR = async (): Promise<ApiCategory[]> => {
 };
 
 export const fetchProductsByCategorySWR = async (
-  categoryId: number
+  categorySlug: string
 ): Promise<ApiProduct[]> => {
-  const data = await fetcher(
-    `https://staging.corporategiftsdubaii.ae/wp-json/custom/v1/products-by-category?category_id=${categoryId}`
+  const response = await fetcher(
+    `https://staging.corporategiftsdubaii.ae/wp-json/custom/v1/products-by-category?category_slug=${categorySlug}`
   );
-  if (!Array.isArray(data)) return [];
+
+  // Handle the new response structure: { products: [...], total, total_pages, page, per_page }
+  const responseObj = response as Record<string, unknown>;
+  const data = Array.isArray(responseObj["products"])
+    ? responseObj["products"]
+    : Array.isArray(response)
+    ? response
+    : [];
+
+  if (!Array.isArray(data) || data.length === 0) return [];
+
   const getString = (v: unknown, fallback = ""): string =>
     typeof v === "string" && v.length > 0 ? v : fallback;
   const getNumber = (v: unknown, fallback = 0): number => {
     const n = typeof v === "number" ? v : Number(v);
     return Number.isFinite(n) ? n : fallback;
   };
+
   return data.map((p: unknown) => {
     const obj = (p ?? {}) as Record<string, unknown>;
+    // Handle categories array - it can be an array of strings or numbers
+    const categoriesArray = Array.isArray(obj["categories"])
+      ? obj["categories"]
+      : Array.isArray(obj["category_slug"])
+      ? obj["category_slug"]
+      : undefined;
+
     return {
       id: (obj["id"] as number | string | undefined) ?? Math.random(),
       name: getString(obj["name"] ?? obj["title"], "Product"),
@@ -102,14 +120,20 @@ export const fetchProductsByCategorySWR = async (
         obj["image"] ?? obj["thumbnail"] ?? obj["img"],
         "/api/placeholder/300/300"
       ),
-      category: getString(obj["category"] ?? obj["cat"], "Other"),
-      categories: Array.isArray(obj["categories"])
-        ? (obj["categories"] as number[])
+      category:
+        Array.isArray(obj["categories"]) && obj["categories"].length > 0
+          ? String(obj["categories"][0])
+          : getString(obj["category"] ?? obj["cat"], "Other"),
+      categories: categoriesArray
+        ? (categoriesArray as (number | string)[]).map((c) =>
+            typeof c === "number" ? c : 0
+          )
         : undefined,
       rating: getNumber(obj["rating"], 5),
       reviewCount: getNumber(obj["reviewCount"] ?? obj["reviews"], 0),
       description:
-        getString(obj["description"] ?? obj["desc"], "") || undefined,
+        getString(obj["description"] ?? obj["desc"] ?? obj["short_desc"], "") ||
+        undefined,
     } satisfies ApiProduct;
   });
 };
@@ -180,29 +204,47 @@ export async function fetchCategories(
 }
 
 export async function fetchProductsByCategory(
-  categoryId: number,
+  categorySlug: string,
   signal?: AbortSignal
 ): Promise<ApiProduct[]> {
-  const url = `https://staging.corporategiftsdubaii.ae/wp-json/custom/v1/products-by-category?category_id=${categoryId}`;
+  const url = `https://staging.corporategiftsdubaii.ae/wp-json/custom/v1/products-by-category?category_slug=${categorySlug}`;
   const response = await fetch(url, {
     signal,
     headers: { Accept: "application/json" },
   });
   if (!response.ok) {
     throw new Error(
-      `Failed to fetch products for category ${categoryId}: ${response.status}`
+      `Failed to fetch products for category ${categorySlug}: ${response.status}`
     );
   }
-  const data = await response.json();
-  if (!Array.isArray(data)) return [];
+  const responseData = await response.json();
+
+  // Handle the new response structure: { products: [...], total, total_pages, page, per_page }
+  const responseObj = responseData as Record<string, unknown>;
+  const data = Array.isArray(responseObj["products"])
+    ? responseObj["products"]
+    : Array.isArray(responseData)
+    ? responseData
+    : [];
+
+  if (!Array.isArray(data) || data.length === 0) return [];
+
   const getString = (v: unknown, fallback = ""): string =>
     typeof v === "string" && v.length > 0 ? v : fallback;
   const getNumber = (v: unknown, fallback = 0): number => {
     const n = typeof v === "number" ? v : Number(v);
     return Number.isFinite(n) ? n : fallback;
   };
+
   return data.map((p: unknown) => {
     const obj = (p ?? {}) as Record<string, unknown>;
+    // Handle categories array - it can be an array of strings or numbers
+    const categoriesArray = Array.isArray(obj["categories"])
+      ? obj["categories"]
+      : Array.isArray(obj["category_slug"])
+      ? obj["category_slug"]
+      : undefined;
+
     return {
       id: (obj["id"] as number | string | undefined) ?? Math.random(),
       name: getString(obj["name"] ?? obj["title"], "Product"),
@@ -210,14 +252,20 @@ export async function fetchProductsByCategory(
         obj["image"] ?? obj["thumbnail"] ?? obj["img"],
         "/api/placeholder/300/300"
       ),
-      category: getString(obj["category"] ?? obj["cat"], "Other"),
-      categories: Array.isArray(obj["categories"])
-        ? (obj["categories"] as number[])
+      category:
+        Array.isArray(obj["categories"]) && obj["categories"].length > 0
+          ? String(obj["categories"][0])
+          : getString(obj["category"] ?? obj["cat"], "Other"),
+      categories: categoriesArray
+        ? (categoriesArray as (number | string)[]).map((c) =>
+            typeof c === "number" ? c : 0
+          )
         : undefined,
       rating: getNumber(obj["rating"], 5),
       reviewCount: getNumber(obj["reviewCount"] ?? obj["reviews"], 0),
       description:
-        getString(obj["description"] ?? obj["desc"], "") || undefined,
+        getString(obj["description"] ?? obj["desc"] ?? obj["short_desc"], "") ||
+        undefined,
     } satisfies ApiProduct;
   });
 }
