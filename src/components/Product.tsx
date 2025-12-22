@@ -8,7 +8,7 @@ import type { ApiProduct } from "../services/productService";
 
 const Product = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
+  const [selectedCategorySlug, setSelectedCategorySlug] = useState<string | null>(null);
   const navigate = useNavigate();
 
 
@@ -29,7 +29,7 @@ const Product = () => {
     isLoading: isLoadingCategory,
     error: categoryProductsError,
     // isFromCache,
-  } = useProductsByCategory(selectedCategoryId);
+  } = useProductsByCategory(selectedCategorySlug);
 
   // 🔹 Determine active product list
   const apiProducts: ApiProduct[] =
@@ -50,10 +50,10 @@ const Product = () => {
   const handleCategorySelect = (categoryName: string) => {
     setSelectedCategory(categoryName);
     if (categoryName === "All") {
-      setSelectedCategoryId(null);
+      setSelectedCategorySlug(null);
     } else {
       const category = categories?.find((cat) => cat.name === categoryName);
-      setSelectedCategoryId(category?.id ?? null);
+      setSelectedCategorySlug(category?.slug ?? null);
     }
   };
 
@@ -90,7 +90,7 @@ const Product = () => {
               Loading categories...
             </div>
           ) : categoryError ? (
-            <div className="text-sm text-red-600">{categoryError}</div>
+            <div className="text-sm text-red-600">{categoryError instanceof Error ? categoryError.message : String(categoryError)}</div>
           ) : (
             availableCategories.map((category: string) => (
               <button
@@ -144,7 +144,7 @@ const Product = () => {
             <Loader />
           </div>
         ) : error ? (
-          <div className="mt-6 text-center text-sm text-red-600">{error}</div>
+          <div className="mt-6 text-center text-sm text-red-600">{error instanceof Error ? error.message : String(error)}</div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6 mt-6 sm:mt-8">
             {apiProducts.map((product) => (

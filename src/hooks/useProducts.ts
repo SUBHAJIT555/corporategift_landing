@@ -36,10 +36,10 @@ export const useCategories = () => {
   };
 };
 
-export const useProductsByCategory = (categoryId: number | null) => {
+export const useProductsByCategory = (categorySlug: string | null) => {
   const { data, error, isLoading, mutate, isValidating } = useSWR<ApiProduct[]>(
-    categoryId ? `products-category-${categoryId}` : null,
-    categoryId ? () => fetchProductsByCategorySWR(categoryId) : null
+    categorySlug ? `products-category-${categorySlug}` : null,
+    categorySlug ? () => fetchProductsByCategorySWR(categorySlug) : null
   );
 
   return {
