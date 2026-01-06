@@ -159,7 +159,7 @@ const MobileMenu: React.FC = () => {
                   transition={{ duration: 0.4, delay: 0.7 }}
                 >
                   <motion.a
-                    href="tel:+971551061045"
+                    href="tel:+971526240517"
                     className="mb-4 flex items-center gap-3 text-white hover:text-primary transition-colors duration-200"
                     whileTap={{ scale: 0.98 }}
                   >

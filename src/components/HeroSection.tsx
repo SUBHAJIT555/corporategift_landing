@@ -182,7 +182,7 @@ const HeroSection = () => {
             <motion.button
               variants={fadeIn}
             >
-              <Link target="_blank" to={`https://wa.me/+971551061045?text=${encodeURIComponent("Hello! I'm interested in your corporate gifts services.")}`} className="inline-flex items-center gap-2 sm:gap-3 bg-white text-gray-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base w-full sm:w-auto justify-center">
+              <Link target="_blank" to={`https://wa.me/+971526240517?text=${encodeURIComponent("Hello! I'm interested in your corporate gifts services.")}`} className="inline-flex items-center gap-2 sm:gap-3 bg-white text-gray-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base w-full sm:w-auto justify-center">
                 <IoLogoWhatsapp className="text-lg sm:text-xl text-green-500" />
                 <span>Get instant quote on WhatsApp</span>
               </Link>
