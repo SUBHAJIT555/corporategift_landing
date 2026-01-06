@@ -170,7 +170,7 @@ const MobileMenu: React.FC = () => {
                   </motion.a>
 
                   <motion.a
-                    href="mailto:vivek@baharnani.com"
+                    href="mailto:amit@baharnani.com"
                     className="flex items-center gap-3 text-white hover:text-primary transition-colors duration-200"
                     whileTap={{ scale: 0.98 }}
                   >

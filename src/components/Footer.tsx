@@ -116,7 +116,7 @@ const Footer = () => {
                     path: privacyPolicy,
                     target: "_blank",
                   },
-                  { name: "Support", path: "mailto:vivek@baharnani.com" },
+                  { name: "Support", path: "mailto:amit@baharnani.com" },
                 ].map((item) => (
                   <motion.li key={item.name}>
                     <a
@@ -166,10 +166,10 @@ const Footer = () => {
                     </span>
                   </div>
                   <a
-                    href="mailto:vivek@baharnani.com"
+                    href="mailto:amit@baharnani.com"
                     className="text-text-primary hover:text-primary transition-all duration-300 font-helvetica text-lg sm:text-xl block py-1 touch-manipulation hover:translate-x-2"
                   >
-                    vivek@baharnani.com
+                    amit@baharnani.com
                   </a>
                 </motion.li>
 
