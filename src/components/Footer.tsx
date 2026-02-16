@@ -116,7 +116,7 @@ const Footer = () => {
                     path: privacyPolicy,
                     target: "_blank",
                   },
-                  { name: "Support", path: "mailto:amit@baharnani.com" },
+                  { name: "Support", path: "mailto:hemant@baharnani.com" },
                 ].map((item) => (
                   <motion.li key={item.name}>
                     <a
@@ -151,10 +151,10 @@ const Footer = () => {
                     </span>
                   </div>
                   <a
-                    href="tel:+971526240517"
+                    href="tel:+971556545950"
                     className="text-text-primary hover:text-primary transition-all duration-300 font-helvetica text-lg sm:text-xl block py-1 touch-manipulation hover:translate-x-2"
                   >
-                    +971 52 624 0517
+                    +971 55 654 5950
                   </a>
                 </motion.li>
 
@@ -166,10 +166,10 @@ const Footer = () => {
                     </span>
                   </div>
                   <a
-                    href="mailto:amit@baharnani.com"
+                    href="mailto:hemant@baharnani.com"
                     className="text-text-primary hover:text-primary transition-all duration-300 font-helvetica text-lg sm:text-xl block py-1 touch-manipulation hover:translate-x-2"
                   >
-                    amit@baharnani.com
+                    hemant@baharnani.com
                   </a>
                 </motion.li>
 

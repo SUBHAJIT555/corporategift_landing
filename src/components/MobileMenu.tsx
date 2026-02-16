@@ -159,24 +159,24 @@ const MobileMenu: React.FC = () => {
                   transition={{ duration: 0.4, delay: 0.7 }}
                 >
                   <motion.a
-                    href="tel:+971526240517"
+                    href="tel:+971556545950"
                     className="mb-4 flex items-center gap-3 text-white hover:text-primary transition-colors duration-200"
                     whileTap={{ scale: 0.98 }}
                   >
                     <FaPhone className="w-5 h-5" />
                     <span className="font-helvetica text-lg">
-                      +971 55 106 1045
+                      +971 55 654 5950
                     </span>
                   </motion.a>
 
                   <motion.a
-                    href="mailto:amit@baharnani.com"
+                    href="mailto:hemant@baharnani.com"
                     className="flex items-center gap-3 text-white hover:text-primary transition-colors duration-200"
                     whileTap={{ scale: 0.98 }}
                   >
                     <FaEnvelope className="w-5 h-5" />
                     <span className="font-helvetica text-lg">
-                      vivek@baharnani.com
+                      hemant@baharnani.com
                     </span>
                   </motion.a>
 

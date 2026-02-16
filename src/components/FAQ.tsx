@@ -84,7 +84,7 @@ const FAQ = () => {
               </p>
               <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 lg:space-x-6">
                 <a
-                  href={`https://wa.me/+971551061045?text=${encodeURIComponent("Hello! I'm interested in your corporate gifts services.")}`}
+                  href={`https://wa.me/+971556545950?text=${encodeURIComponent("Hello! I'm interested in your corporate gifts services.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 hover:opacity-80 transition-opacity"
