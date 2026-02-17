@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useUTMTracking } from "../hooks/useUTMTracking";
-import { validateUAEPhone, handlePhoneChange, handlePhoneKeyDown, PHONE_PREFIX } from "../utils/phoneValidation";
+import { validateUAEPhone, formatPhoneNumber, getPhoneMaxLength, normalizePhoneForSubmission, PHONE_PREFIX } from "../utils/phoneValidation";
 
 import HeroImage from "../assets/images/HeroImages/Hero-sec.webp";
 
@@ -85,6 +85,9 @@ const HeroSection = () => {
     setStatus("idle");
     setMessage("");
 
+    // Normalize phone number with +971 prefix
+    const normalizedPhone = normalizePhoneForSubmission(data.phone_number);
+
     await fetch('/api/save-to-sheet.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -92,7 +95,7 @@ const HeroSection = () => {
         formType: 'quote',
         company_name: data.company_name,
         contact_person: data.contact_person,
-        phone: data.phone_number,
+        phone: normalizedPhone,
         email: data.email,
         utm_source: data.utm_source,
         utm_medium: data.utm_medium,
@@ -113,7 +116,7 @@ const HeroSection = () => {
             data: {
               contact_person: data.contact_person,
               company_name: data.company_name,
-              phone_number: data.phone_number,
+              phone_number: normalizedPhone,
               email: data.email,
             },
           }),
@@ -264,20 +267,29 @@ const HeroSection = () => {
                   <Controller
                     name="phone_number"
                     control={control}
-                    render={({ field }) => (
-                      <input
-                        {...field}
-                        onChange={(e) => {
-                          handlePhoneChange(e);
-                          field.onChange(e.target.value);
-                        }}
-                        onKeyDown={(e) => handlePhoneKeyDown(e, field.value)}
-                        type="tel"
-                        inputMode="numeric"
-                        className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
-                        placeholder={`${PHONE_PREFIX} 5XX XXX XXX`}
-                      />
-                    )}
+                    render={({ field }) => {
+                      const maxLength = getPhoneMaxLength(field.value || "");
+                      return (
+                        <div className="flex items-center w-full">
+                          <span className="px-2 sm:px-3 md:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-700 border border-r-0 border-gray-300 rounded-l-lg bg-gray-50 whitespace-nowrap flex-shrink-0">
+                            {PHONE_PREFIX}
+                          </span>
+                          <input
+                            type="tel"
+                            inputMode="numeric"
+                            value={field.value || ""}
+                            onChange={(e) => {
+                              const formatted = formatPhoneNumber(e.target.value);
+                              field.onChange(formatted);
+                            }}
+                            onBlur={field.onBlur}
+                            placeholder="501234567 or 41234567"
+                            maxLength={maxLength}
+                            className="flex-1 min-w-0 bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 text-xs sm:text-sm py-2 sm:py-2.5 md:py-3 px-2 sm:px-3 md:px-4 rounded-r-lg"
+                          />
+                        </div>
+                      );
+                    }}
                   />
                   {errors.phone_number && (
                     <p className="text-red-400 text-xs mt-1">

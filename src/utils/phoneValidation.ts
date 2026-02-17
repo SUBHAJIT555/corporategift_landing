@@ -1,159 +1,175 @@
+import { z } from "zod";
+
 /**
- * Dubai/UAE Phone Number Validation Utilities
+ * UAE Phone Number Validation System
  * 
- * Validates and formats UAE mobile numbers for Dubai/UAE.
- * Used across all forms that require phone number input.
+ * Validates UAE phone numbers in international format only (no local format with 0).
+ * Mobile: 9 digits starting with 5[02345678] (e.g., 501234567)
+ * Landline: 8 digits starting with 2, 3, 4, 6, 7, or 9 (e.g., 41234567)
+ * 
+ * UI shows +971 prefix; user enters only the number part.
  */
 
-export const PHONE_PREFIX = "+971"; // UAE country code
-export const PHONE_DIGITS_LENGTH = 9; // Number of digits after country code
+// UAE phone regex pattern - International format only (no local format with 0)
+// Matches: 5[02345678]\d{7} (mobile) OR [234679]\d{7} (landline)
+// Since +971 is already displayed, user only enters the number part
+const uaePhoneRegex = /^(?:5[02345678]\d{7}|[234679]\d{7})$/;
 
-// UAE phone validation regex: allows +971, 00971, 0 prefix or no prefix
-// Valid prefixes: 50, 51, 52, 55, 56, 2, 3, 4, 6, 7, 9 followed by 7 digits
-export const UAE_PHONE_REGEX = /^(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/;
-
-/**
- * Normalizes phone number to +971 format
- * @param value - Raw input value from user
- * @returns Normalized phone number string (e.g., "+971501234567")
- */
-export const normalizePhoneNumber = (value: string): string => {
-  if (!value) return "";
-  
-  // Remove all non-digit characters except +
-  let cleaned = value.replace(/[^\d+]/g, "");
-
-  // Handle different prefix formats and convert to +971
-  if (cleaned.startsWith("00971")) {
-    cleaned = "+971" + cleaned.slice(5);
-  } else if (cleaned.startsWith("971")) {
-    cleaned = "+" + cleaned;
-  } else if (cleaned.startsWith("0") && cleaned.length > 1) {
-    // Remove leading 0 and add +971
-    cleaned = "+971" + cleaned.slice(1);
-  } else if (!cleaned.startsWith("+971") && cleaned.length > 0) {
-    // If no prefix, add +971
-    cleaned = "+971" + cleaned;
-  }
-
-  // Extract only digits after +971 and limit to 9 digits
-  if (cleaned.startsWith("+971")) {
-    const digits = cleaned.slice(4).replace(/\D/g, "").slice(0, PHONE_DIGITS_LENGTH);
-    return digits ? "+971" + digits : "+971";
-  }
-
-  return cleaned;
-};
+// Zod schema for UAE phone validation - International format only
+export const uaePhoneSchema = z
+  .string()
+  .min(1, "Phone is required")
+  .max(9, "Phone number must be 8-9 digits")
+  .refine(
+    (phone) => {
+      const normalized = phone.replace(/\s/g, "");
+      return uaePhoneRegex.test(normalized);
+    },
+    {
+      message: "Please enter a valid UAE phone number (8-9 digits)",
+    }
+  );
 
 /**
- * Formats phone number input to ensure +971 prefix and proper formatting
- * @param value - Raw input value from user
- * @returns Formatted phone number string (e.g., "+971501234567")
- */
-export const formatPhoneNumber = (value: string): string => {
-  return normalizePhoneNumber(value);
-};
-
-/**
- * Validates UAE phone number format using the new regex
- * @param phone - Phone number string to validate
+ * Validation function for react-hook-form
+ * @param phone - Phone number string to validate (without +971 prefix)
  * @returns true if valid, error message string if invalid
  */
 export const validateUAEPhone = (phone: string): boolean | string => {
-  if (!phone) return "Phone is required";
-
-  // Normalize the phone number first (converts to +971 format)
-  const normalized = normalizePhoneNumber(phone);
-  
-  // The regex expects: optional prefix (+971|00971|0) + (50|51|52|55|56|2|3|4|6|7|9) + 7 digits
-  // Since normalized format is +971XXXXXXXXX, test it directly
-  // The regex should match +971501234567 format
-  if (!UAE_PHONE_REGEX.test(normalized)) {
-    return "Please enter a valid UAE phone number";
+  const result = uaePhoneSchema.safeParse(phone);
+  if (!result.success) {
+    return result.error.issues[0]?.message || "Please enter a valid UAE phone number";
   }
-
   return true;
 };
 
 /**
+ * Normalize phone number on form submission - add +971 prefix
+ * Since user only enters international format (no 0 prefix), just add +971
+ * @param phone - Phone number string (without +971 prefix)
+ * @returns Normalized phone number with +971 prefix (e.g., "+971501234567")
+ */
+export const normalizePhoneForSubmission = (phone: string): string => {
+  if (!phone) return phone;
+  
+  // Remove spaces
+  const cleaned = phone.replace(/\s/g, "");
+  
+  // Add +971 prefix (user already entered international format)
+  return "+971" + cleaned;
+};
+
+/**
+ * Simple formatter - only allow digits (no 0 prefix, no + since +971 is already shown)
+ * @param value - Raw input value from user
+ * @returns Formatted phone number string (digits only, no leading 0)
+ */
+export const formatPhoneNumber = (value: string): string => {
+  // Remove all non-digit characters
+  const digits = value.replace(/\D/g, "");
+  
+  // Prevent leading 0 (only international format allowed)
+  if (digits.startsWith("0")) {
+    return digits.slice(1);
+  }
+  
+  return digits;
+};
+
+/**
+ * Get maximum length for phone input based on whether it's mobile or landline
+ * Mobile: 9 digits (starts with 5[02345678])
+ * Landline: 8 digits (starts with 2, 3, 4, 6, 7, or 9)
+ * @param phone - Current phone value
+ * @returns Maximum length (8 or 9)
+ */
+export const getPhoneMaxLength = (phone: string): number => {
+  const cleaned = phone.replace(/\D/g, "");
+  // Mobile: 9 digits starting with 5[02345678]
+  if (cleaned.startsWith("5") && /^5[02345678]/.test(cleaned)) {
+    return 9;
+  }
+  // Landline: 8 digits starting with 2, 3, 4, 6, 7, or 9
+  return 8;
+};
+
+/**
  * Handler for React Hook Form onChange events
- * Formats phone number as user types with auto +971 formatting
+ * Formats phone number as user types (digits only, no leading 0)
+ * Handles both patterns:
+ * - New pattern: User enters only digits (no +971 prefix)
+ * - Old pattern: Strips +971 prefix if present for backward compatibility
+ * 
+ * Usage with separate +971 prefix display (recommended):
+ * ```tsx
+ * <div className="flex">
+ *   <span>+971</span>
+ *   <input
+ *     value={field.value}
+ *     onChange={(e) => {
+ *       const formatted = formatPhoneNumber(e.target.value);
+ *       field.onChange(formatted);
+ *     }}
+ *   />
+ * </div>
+ * ```
+ * 
+ * Or use this helper for backward compatibility:
+ * ```tsx
+ * onChange={(e) => {
+ *   handlePhoneChange(e);
+ *   field.onChange(e.target.value);
+ * }}
+ * ```
+ * 
+ * @param e - React change event
  */
 export const handlePhoneChange = (
   e: React.ChangeEvent<HTMLInputElement>
 ): void => {
   const input = e.target;
-  const cursorPos = input.selectionStart || 0;
-  const originalLength = input.value.length;
-
-  let val = input.value;
-
-  // Allow backspace down to empty string
-  if (val === "") {
-    input.value = "";
-    return;
+  let value = input.value;
+  
+  // Remove +971 prefix if present (for backward compatibility with old pattern)
+  if (value.startsWith("+971")) {
+    value = value.slice(4);
+  } else if (value.startsWith("971")) {
+    value = value.slice(3);
+  } else if (value.startsWith("00971")) {
+    value = value.slice(5);
   }
-
-  // Remove all non-digit characters except +
-  val = val.replace(/[^\d+]/g, "");
-
-  // Handle different prefix formats and convert to +971
-  if (val.startsWith("00971")) {
-    val = "+971" + val.slice(5);
-  } else if (val.startsWith("971")) {
-    val = "+" + val;
-  } else if (val.startsWith("+971")) {
-    // Already has +971, keep it
-    val = "+971" + val.slice(4).replace(/\D/g, "");
-  } else if (val.startsWith("+97")) {
-    val = "+971";
-  } else if (val.startsWith("+9") || val.startsWith("9")) {
-    val = "+971";
-  } else if (val.startsWith("0") && val.length > 1) {
-    // Remove leading 0 and add +971
-    val = "+971" + val.slice(1);
-  } else if (!val.startsWith("+") && val.length > 0) {
-    // Auto-add +971 if user starts typing digits
-    val = "+971" + val;
-  }
-
-  // Extract only digits after +971 and limit to 9 digits
-  if (val.startsWith("+971")) {
-    const digits = val.slice(4).replace(/\D/g, "").slice(0, PHONE_DIGITS_LENGTH);
-    val = digits ? "+971" + digits : "+971";
-  }
-
-  // Limit total length to +971 + 9 digits = 13 characters
-  if (val.length > 13) val = val.slice(0, 13);
-
-  input.value = val;
-
-  // Adjust cursor position based on length change
-  const newLength = val.length;
-  const lengthDiff = newLength - originalLength;
-  const newCursorPos = Math.max(0, Math.min(cursorPos + lengthDiff, val.length));
-
-  // Restore cursor position
-  setTimeout(() => {
-    input.setSelectionRange(newCursorPos, newCursorPos);
-  }, 0);
+  
+  // Format: digits only, no leading 0
+  const formatted = formatPhoneNumber(value);
+  input.value = formatted;
 };
 
 /**
+ * UAE country code prefix (for display purposes)
+ */
+export const PHONE_PREFIX = "+971";
+
+/**
  * Handler for React Hook Form onKeyDown events
- * Prevents deletion of "+971" prefix
+ * Prevents deletion of "+971" prefix (if using old pattern)
+ * For new pattern with separate prefix display, this is not needed
+ * @param e - React keyboard event
+ * @param fieldValue - Current field value
  */
 export const handlePhoneKeyDown = (
   e: React.KeyboardEvent<HTMLInputElement>,
   fieldValue: string
 ): void => {
+  // For new implementation with separate +971 prefix, this is not needed
+  // Kept for backward compatibility with old pattern
   const input = e.currentTarget;
   const cursorPos = input.selectionStart || 0;
   const hasSelection = input.selectionStart !== input.selectionEnd;
 
+  // Only prevent deletion if using old pattern where +971 is in the input
   if (
     (e.key === "Backspace" || e.key === "Delete") &&
-    fieldValue.startsWith(PHONE_PREFIX) &&
+    fieldValue?.startsWith(PHONE_PREFIX) &&
     cursorPos <= PHONE_PREFIX.length &&
     !hasSelection
   ) {

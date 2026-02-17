@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useUTMTracking } from "../hooks/useUTMTracking";
-import { validateUAEPhone, handlePhoneChange, handlePhoneKeyDown, PHONE_PREFIX } from "../utils/phoneValidation";
+import { validateUAEPhone, formatPhoneNumber, getPhoneMaxLength, normalizePhoneForSubmission, PHONE_PREFIX } from "../utils/phoneValidation";
 
 const budgetOptions = [
   { label: "<AED 1,000", value: "<AED 1,000" },
@@ -41,7 +41,7 @@ export default function ContactForm() {
   } = useForm<FormData>({
     defaultValues: {
       name: "",
-      contact: PHONE_PREFIX,
+      contact: "",
       email: "",
       requirements: "",
       budget: "",
@@ -63,17 +63,12 @@ export default function ContactForm() {
   // UTM Parameter Tracking
   useUTMTracking<FormData>(setValue);
 
-  // Helper function to remove space after +971 (for submission)
-  const formatPhoneNumber = (phone: string): string => {
-    return phone.replace(/^(\+971)\s+/, '$1');
-  };
-
   // 🔹 Updated submit to FluentForm API
   const onSubmit = async (data: FormData) => {
     setSubmitStatus(null);
 
-    // Remove space after +971 before submission
-    const formattedPhone = formatPhoneNumber(data.contact);
+    // Normalize phone number with +971 prefix
+    const formattedPhone = normalizePhoneForSubmission(data.contact);
     await fetch('/api/save-to-sheet.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -103,7 +98,7 @@ export default function ContactForm() {
             form_id: 6,
             data: {
               name: data.name,
-              phone: data.contact,
+              phone: formattedPhone,
               email: data.email,
               requirements: data.requirements,
               budget: data.budget,
@@ -225,23 +220,32 @@ export default function ContactForm() {
                 name="contact"
                 control={control}
                 rules={{ required: "Contact number is required", validate: validateUAEPhone }}
-                render={({ field }) => (
-                  <input
-                    type="tel"
-                    inputMode="tel"
-                    value={field.value}
-                    onChange={(e) => {
-                      handlePhoneChange(e);
-                      field.onChange(e.target.value);
-                    }}
-                    onKeyDown={(e) => handlePhoneKeyDown(e, field.value)}
-                    placeholder={`${PHONE_PREFIX} 5XX XXX XXX`}
-                    className={`w-full px-4 py-2 sm:py-3 text-base sm:text-lg border-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${errors.contact
-                      ? "border-red-500 focus:ring-red-300 focus:border-red-500"
-                      : "border-gray-300 focus:ring-primary/30 focus:border-primary"
-                      } bg-white placeholder:text-gray-400`}
-                  />
-                )}
+                render={({ field }) => {
+                  const maxLength = getPhoneMaxLength(field.value || "");
+                  return (
+                    <div className="flex items-center w-full">
+                      <span className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-base text-gray-700 border-2 border-r-0 border-gray-300 rounded-l-lg bg-gray-50 whitespace-nowrap flex-shrink-0">
+                        {PHONE_PREFIX}
+                      </span>
+                      <input
+                        type="tel"
+                        inputMode="tel"
+                        value={field.value || ""}
+                        onChange={(e) => {
+                          const formatted = formatPhoneNumber(e.target.value);
+                          field.onChange(formatted);
+                        }}
+                        onBlur={field.onBlur}
+                        placeholder="501234567 or 41234567"
+                        maxLength={maxLength}
+                        className={`flex-1 min-w-0 px-2 sm:px-4 py-2 sm:py-3 text-sm sm:text-base lg:text-lg border-2 rounded-r-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${errors.contact
+                          ? "border-red-500 focus:ring-red-300 focus:border-red-500"
+                          : "border-gray-300 focus:ring-primary/30 focus:border-primary"
+                          } bg-white placeholder:text-gray-400`}
+                      />
+                    </div>
+                  );
+                }}
               />
               {errors.contact && (
                 <p className="text-sm text-red-500 mt-1">{errors.contact.message}</p>

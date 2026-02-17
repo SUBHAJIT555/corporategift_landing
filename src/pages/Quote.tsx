@@ -3,7 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdArrowBack, MdSend } from "react-icons/md";
-import { validateUAEPhone, handlePhoneChange, handlePhoneKeyDown, PHONE_PREFIX } from "../utils/phoneValidation";
+import { validateUAEPhone, formatPhoneNumber, getPhoneMaxLength, normalizePhoneForSubmission, PHONE_PREFIX } from "../utils/phoneValidation";
 
 interface Product {
   id: number | string;
@@ -67,13 +67,17 @@ const Quote = () => {
 
   const onSubmit = async (data: QuoteFormData) => {
     if (!product) return;
+    
+    // Normalize phone number with +971 prefix
+    const normalizedPhone = normalizePhoneForSubmission(data.phone);
+    
     await fetch('/api/save-to-sheet.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         formType: 'order',
         name: data.first_name + ' ' + data.last_name,
-        contact_number: data.phone,
+        contact_number: normalizedPhone,
         email: data.email,
         note: data.note,
         utm_source: data.utm_source,
@@ -89,7 +93,7 @@ const Quote = () => {
           first_name: data.first_name,
           last_name: data.last_name,
           email: data.email,
-          phone: data.phone,
+          phone: normalizedPhone,
           address_1: data.address_1,
           city: data.city,
           country: "AE",
@@ -257,19 +261,28 @@ const Quote = () => {
                         name="phone"
                         control={control}
                         rules={{ validate: validateUAEPhone }}
-                        render={({ field }) => (
-                          <input
-                            type="tel"
-                            value={field.value}
-                            onChange={(e) => {
-                              handlePhoneChange(e);
-                              field.onChange(e.target.value);
-                            }}
-                            onKeyDown={(e) => handlePhoneKeyDown(e, field.value)}
-                            placeholder={`${PHONE_PREFIX} 5XX XXX XXX`}
-                            className="w-full mt-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary/30 focus:border-primary bg-gray-50"
-                          />
-                        )}
+                        render={({ field }) => {
+                          const maxLength = getPhoneMaxLength(field.value || "");
+                          return (
+                            <div className="flex items-center w-full mt-1">
+                              <span className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-gray-700 border border-r-0 border-gray-300 rounded-l-lg bg-gray-50 whitespace-nowrap flex-shrink-0">
+                                {PHONE_PREFIX}
+                              </span>
+                              <input
+                                type="tel"
+                                value={field.value || ""}
+                                onChange={(e) => {
+                                  const formatted = formatPhoneNumber(e.target.value);
+                                  field.onChange(formatted);
+                                }}
+                                onBlur={field.onBlur}
+                                placeholder="501234567 or 41234567"
+                                maxLength={maxLength}
+                                className="flex-1 min-w-0 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm border border-gray-300 rounded-r-lg focus:ring-primary/30 focus:border-primary bg-gray-50"
+                              />
+                            </div>
+                          );
+                        }}
                       />
                       {errors.phone && (
                         <p className="text-red-600 text-xs mt-1">
