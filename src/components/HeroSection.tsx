@@ -1,11 +1,12 @@
 import { motion, type Variants } from "framer-motion";
 import { IoLogoWhatsapp } from "react-icons/io5";
 import { Link, useNavigate } from "react-router";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useUTMTracking } from "../hooks/useUTMTracking";
+import { validateUAEPhone, handlePhoneChange, handlePhoneKeyDown, PHONE_PREFIX } from "../utils/phoneValidation";
 
 import HeroImage from "../assets/images/HeroImages/Hero-sec.webp";
 
@@ -15,7 +16,12 @@ const quoteSchema = z.object({
   contact_person: z.string().min(2, "Contact person is required"),
   phone_number: z
     .string()
-    .regex(/^\+971\s?\d{9}$/, "Please enter a valid UAE number"),
+    .refine((val) => {
+      const result = validateUAEPhone(val);
+      return result === true;
+    }, {
+      message: "Please enter a valid UAE phone number",
+    }),
   email: z.string().email("Please enter a valid email address"),
   utm_source: z.string().optional(),
   utm_medium: z.string().optional(),
@@ -31,6 +37,7 @@ const HeroSection = () => {
   const {
     register,
     handleSubmit,
+    control,
     setValue,
     reset,
     formState: { errors, isSubmitting },
@@ -254,46 +261,23 @@ const HeroSection = () => {
                   <label className="block text-white text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                     Phone Number*
                   </label>
-                  <input
-                    {...register("phone_number", {
-                      onChange: (e) => {
-                        let val = e.target.value;
-
-                        // Allow backspace down to empty string
-                        if (val === "") {
-                          e.target.value = "";
-                          return;
-                        }
-
-                        // Only digits and one leading +
-                        val = val.replace(/[^\d+]/g, "");
-
-                        // Auto-add +971 if missing and user starts typing a digit
-                        if (!val.startsWith("+971")) {
-                          if (val.startsWith("+97")) {
-                            val = "+971";
-                          } else if (
-                            val.startsWith("+9") ||
-                            val.startsWith("9")
-                          ) {
-                            val = "+971";
-                          } else if (val.startsWith("0")) {
-                            val = "+971" + val.slice(1);
-                          } else if (!val.startsWith("+")) {
-                            val = "+971" + val;
-                          }
-                        }
-
-                        // Trim to +971 + 9 digits max
-                        if (val.length > 13) val = val.slice(0, 13);
-
-                        e.target.value = val;
-                      },
-                    })}
-                    type="tel"
-                    inputMode="numeric"
-                    className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
-                    placeholder="+971XXXXXXXXX"
+                  <Controller
+                    name="phone_number"
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        onChange={(e) => {
+                          handlePhoneChange(e);
+                          field.onChange(e.target.value);
+                        }}
+                        onKeyDown={(e) => handlePhoneKeyDown(e, field.value)}
+                        type="tel"
+                        inputMode="numeric"
+                        className="w-full bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg"
+                        placeholder={`${PHONE_PREFIX} 5XX XXX XXX`}
+                      />
+                    )}
                   />
                   {errors.phone_number && (
                     <p className="text-red-400 text-xs mt-1">

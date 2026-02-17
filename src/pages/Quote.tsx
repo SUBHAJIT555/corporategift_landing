@@ -1,8 +1,9 @@
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdArrowBack, MdSend } from "react-icons/md";
+import { validateUAEPhone, handlePhoneChange, handlePhoneKeyDown, PHONE_PREFIX } from "../utils/phoneValidation";
 
 interface Product {
   id: number | string;
@@ -37,6 +38,7 @@ const Quote = () => {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<QuoteFormData>({
     defaultValues: {
@@ -251,18 +253,27 @@ const Quote = () => {
                       <label className="text-sm font-medium text-gray-700">
                         Phone *
                       </label>
-                      <input
-                        type="tel"
-                        {...register("phone", {
-                          required: true,
-                          pattern: /^[0-9]{9}$/,
-                        })}
-                        placeholder="50XXXXXXX"
-                        className="w-full mt-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary/30 focus:border-primary bg-gray-50"
+                      <Controller
+                        name="phone"
+                        control={control}
+                        rules={{ validate: validateUAEPhone }}
+                        render={({ field }) => (
+                          <input
+                            type="tel"
+                            value={field.value}
+                            onChange={(e) => {
+                              handlePhoneChange(e);
+                              field.onChange(e.target.value);
+                            }}
+                            onKeyDown={(e) => handlePhoneKeyDown(e, field.value)}
+                            placeholder={`${PHONE_PREFIX} 5XX XXX XXX`}
+                            className="w-full mt-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary/30 focus:border-primary bg-gray-50"
+                          />
+                        )}
                       />
                       {errors.phone && (
                         <p className="text-red-600 text-xs mt-1">
-                          Enter 9-digit UAE number
+                          {typeof errors.phone.message === "string" ? errors.phone.message : "Please enter a valid UAE mobile number"}
                         </p>
                       )}
                     </div>

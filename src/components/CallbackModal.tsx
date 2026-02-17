@@ -2,18 +2,24 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoClose, IoCalendar } from "react-icons/io5";
 import { createPortal } from "react-dom";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router";
 import { useUTMTracking } from "../hooks/useUTMTracking";
+import { validateUAEPhone, handlePhoneChange, handlePhoneKeyDown, PHONE_PREFIX } from "../utils/phoneValidation";
 
 // 🔹 Validation schema
 const callbackSchema = z.object({
   name: z.string().min(2, "Name is required"),
   phone: z
     .string()
-    .regex(/^\+971\s?\d{9}$/, "Please enter a valid UAE number"),
+    .refine((val) => {
+      const result = validateUAEPhone(val);
+      return result === true;
+    }, {
+      message: "Please enter a valid UAE phone number",
+    }),
   callbackTime: z.string().nonempty("Please select a callback time"),
   enquiryFor: z.string().nonempty("Please select an enquiry type"),
   utm_source: z.string().optional(),
@@ -36,6 +42,7 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
   const {
     register,
     handleSubmit,
+    control,
     setValue,
     formState: { errors, isSubmitting },
     reset,
@@ -221,39 +228,23 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
                   <label className="block text-text-primary text-sm font-medium mb-2">
                     Phone
                   </label>
-                  <input
-                    {...register("phone", {
-                      onChange: (e) => {
-                        let val = e.target.value;
-
-                        if (val === "") {
-                          e.target.value = "";
-                          return;
-                        }
-
-                        val = val.replace(/[^\d+]/g, "");
-
-                        if (!val.startsWith("+971")) {
-                          if (val.startsWith("+97")) {
-                            val = "+971";
-                          } else if (val.startsWith("+9") || val.startsWith("9")) {
-                            val = "+971";
-                          } else if (val.startsWith("0")) {
-                            val = "+971" + val.slice(1);
-                          } else if (!val.startsWith("+")) {
-                            val = "+971" + val;
-                          }
-                        }
-
-                        if (val.length > 13) val = val.slice(0, 13);
-
-                        e.target.value = val;
-                      },
-                    })}
-                    type="tel"
-                    inputMode="numeric"
-                    className="w-full px-3 py-2 bg-text-primary/20 border border-gray-600 rounded-lg text-text-primary focus:outline-none focus:border-primary"
-                    placeholder="+971XXXXXXXXX"
+                  <Controller
+                    name="phone"
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        onChange={(e) => {
+                          handlePhoneChange(e);
+                          field.onChange(e.target.value);
+                        }}
+                        onKeyDown={(e) => handlePhoneKeyDown(e, field.value)}
+                        type="tel"
+                        inputMode="numeric"
+                        className="w-full px-3 py-2 bg-text-primary/20 border border-gray-600 rounded-lg text-text-primary focus:outline-none focus:border-primary"
+                        placeholder={`${PHONE_PREFIX} 5XX XXX XXX`}
+                      />
+                    )}
                   />
                   {errors.phone && (
                     <p className="text-red-500 text-xs mt-1">

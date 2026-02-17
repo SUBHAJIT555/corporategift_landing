@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useUTMTracking } from "../hooks/useUTMTracking";
+import { validateUAEPhone, handlePhoneChange, handlePhoneKeyDown, PHONE_PREFIX } from "../utils/phoneValidation";
 
 const budgetOptions = [
   { label: "<AED 1,000", value: "<AED 1,000" },
@@ -34,12 +35,13 @@ export default function ContactForm() {
     register,
     handleSubmit,
     setValue,
+    control,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<FormData>({
     defaultValues: {
       name: "",
-      contact: "+971 ",
+      contact: PHONE_PREFIX,
       email: "",
       requirements: "",
       budget: "",
@@ -61,25 +63,7 @@ export default function ContactForm() {
   // UTM Parameter Tracking
   useUTMTracking<FormData>(setValue);
 
-  // Keep +971 formatting logic
-  const handleContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value;
-    let digitsOnly = raw.replace(/\D/g, "");
-    if (digitsOnly.startsWith("971")) {
-      digitsOnly = digitsOnly.slice(3);
-    }
-    const localNineDigits = digitsOnly.slice(0, 9);
-    const formatted =
-      localNineDigits.length > 0 ? `+971 ${localNineDigits}` : "+971 ";
-    setValue("contact", formatted, { shouldDirty: true, shouldValidate: true });
-  };
-
-  const validateUaeNumber = (value: string) => {
-    const valid = /^\+971\s?\d{9}$/.test(value.trim());
-    return valid || "Please enter a valid number";
-  };
-
-  // Helper function to remove space after +971
+  // Helper function to remove space after +971 (for submission)
   const formatPhoneNumber = (phone: string): string => {
     return phone.replace(/^(\+971)\s+/, '$1');
   };
@@ -237,20 +221,27 @@ export default function ContactForm() {
               <label className="block text-sm sm:text-base md:text-lg font-medium text-gray-700">
                 Contact Number <span className="text-red-500">*</span>
               </label>
-              <input
-                type="tel"
-                inputMode="tel"
-                maxLength={14}
-                {...register("contact", {
-                  required: "Contact number is required",
-                  validate: validateUaeNumber,
-                  onChange: handleContactChange,
-                })}
-                placeholder="+971 XXXXXXXXX"
-                className={`w-full px-4 py-2 sm:py-3 text-base sm:text-lg border-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${errors.contact
-                  ? "border-red-500 focus:ring-red-300 focus:border-red-500"
-                  : "border-gray-300 focus:ring-primary/30 focus:border-primary"
-                  } bg-white placeholder:text-gray-400`}
+              <Controller
+                name="contact"
+                control={control}
+                rules={{ required: "Contact number is required", validate: validateUAEPhone }}
+                render={({ field }) => (
+                  <input
+                    type="tel"
+                    inputMode="tel"
+                    value={field.value}
+                    onChange={(e) => {
+                      handlePhoneChange(e);
+                      field.onChange(e.target.value);
+                    }}
+                    onKeyDown={(e) => handlePhoneKeyDown(e, field.value)}
+                    placeholder={`${PHONE_PREFIX} 5XX XXX XXX`}
+                    className={`w-full px-4 py-2 sm:py-3 text-base sm:text-lg border-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${errors.contact
+                      ? "border-red-500 focus:ring-red-300 focus:border-red-500"
+                      : "border-gray-300 focus:ring-primary/30 focus:border-primary"
+                      } bg-white placeholder:text-gray-400`}
+                  />
+                )}
               />
               {errors.contact && (
                 <p className="text-sm text-red-500 mt-1">{errors.contact.message}</p>
